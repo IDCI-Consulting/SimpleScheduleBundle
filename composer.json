@@ -16,27 +16,8 @@
         "symfony/framework-bundle":       ">=2.1,<2.3-dev",
         "twig/twig":                      "*",
         "doctrine/doctrine-bundle":       "*",
-        "mopa/bootstrap-bundle":          "dev-master",
-        "twitter/bootstrap":              "master"
+        "mopa/bootstrap-bundle":          "dev-master"
     },
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "version": "master",
-                "name": "twitter/bootstrap",
-                "source": {
-                    "url": "https://github.com/twitter/bootstrap.git",
-                    "type": "git",
-                    "reference": "master"
-                },
-                "dist": {
-                    "url": "https://github.com/twitter/bootstrap/zipball/master",
-                    "type": "zip"
-                 }
-            }
-        }
-    ],
     "scripts": {
        "post-install-cmd": [
            "Mopa\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrap"

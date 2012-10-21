@@ -35,12 +35,10 @@ Enable the bundle in your application kernel:
 
 Now the Bundle is installed.
 
-You can add a demo route in your 'routing_dev' to get an exemple on how
-this bundle work for exemple:
+Add the following lines in you routing.yml to use the default admin interfaces
+provide with this bundle.
 
-    _idci_simpleschedule:
-        resource: "@IDCISimpleScheduleBundle/Controller/DemoController.php"
-        type:     annotation
-        prefix:   /demo
+    idci_simple_schedule:
+        resource: "@IDCISimpleScheduleBundle/Controller"
+        type:     annotations
 
-Get a lookup at /demo/simpleschedule

@@ -18,8 +18,7 @@
         "doctrine/doctrine-bundle": "*"
     },
     "autoload": {
-        "psr-0": { "IDCI\\Bundle\\SimpleScheduleBundle": "" }
+        "psr-0": { "": "src/" }
     },
-    "target-dir": "IDCI/Bundle/SimpleScheduleBundle",
     "minimum-stability": "dev"
 }

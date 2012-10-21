@@ -16,7 +16,7 @@
         "symfony/framework-bundle":       ">=2.1,<2.3-dev",
         "twig/twig":                      "*",
         "doctrine/doctrine-bundle":       "*",
-        "mopa/bootstrap-bundle":          "dev-v2.x_sf2.0",
+        "mopa/bootstrap-bundle":          "dev-master",
         "twitter/bootstrap":              "dev-master",
         "knplabs/knp-paginator-bundle":   "v2.0",
         "knplabs/knp-menu-bundle":        "dev-master",

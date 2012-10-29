@@ -35,10 +35,15 @@ Enable the bundle in your application kernel:
 
 Now the Bundle is installed.
 
+Configure your database parameters in the `app/config/parameters.yml` then run
+
+    php app/console doctrine:schema:update --force
+
 Add the following lines in you routing.yml to use the default admin interfaces
 provide with this bundle.
 
     idci_simple_schedule:
-        resource: "@IDCISimpleScheduleBundle/Controller"
+        resource: "@IDCISimpleScheduleBundle/Controller/QueryController.php"
         type:     annotations
+        prefix:   /query
 

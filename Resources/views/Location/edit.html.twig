@@ -1,0 +1,40 @@
+{% extends "IDCISimpleScheduleBundle::adminbase.html.twig" %}
+
+{% block nav %}
+  {% include "IDCISimpleScheduleBundle::entity_nav.html.twig" with {'entities' : {
+    'Task':         { 'basepath': 'task' },
+    'Location':     { 'basepath': 'location', 'active': true },
+    'Activity':     { 'basepath': 'activity'},
+    'ActivityType': { 'basepath': 'activitytype' }
+  }} %}
+{% endblock %}
+
+{% block body %}
+
+{{ parent() }}
+
+<div class="page-header">
+  <h1>{% trans %}Edit{% endtrans %}</h1>
+</div>
+
+<form action="{{ path('location_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    {{ form_widget(edit_form) }}
+    <p>
+        <button type="submit" class="btn btn-primary">{% trans %}Edit{% endtrans %}</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a class="btn" href="{{ path('location') }}">
+            {% trans %}Back to the list{% endtrans %}
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('location_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit" class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
+        </form>
+    </li>
+</ul>
+{% endblock body %}

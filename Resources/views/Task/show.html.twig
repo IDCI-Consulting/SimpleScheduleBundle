@@ -1,0 +1,55 @@
+{% extends "IDCISimpleScheduleBundle::adminbase.html.twig" %}
+
+{% block nav %}
+  {% include "IDCISimpleScheduleBundle::entity_nav.html.twig" with {'entities' : {
+    'Task':         { 'basepath': 'task', 'active': true },
+    'Location':     { 'basepath': 'location' },
+    'Activity':     { 'basepath': 'activity'},
+    'ActivityType': { 'basepath': 'activitytype' }
+  }} %}
+{% endblock %}
+
+{% block body %}
+
+{{ parent() }}
+
+<div class="page-header">
+  <h1>Task</h1>
+</div>
+
+<table class="table table-bordered table-striped record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Starts_on</th>
+            <td>{{ entity.startson }}</td>
+        </tr>
+        <tr>
+            <th>Ends_on</th>
+            <td>{{ entity.endson }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a class="btn" href="{{ path('task') }}">
+            {% trans %}Back to the list{% endtrans %}
+        </a>
+    </li>
+    <li>
+        <a class="btn btn-primary" href="{{ path('task_edit', { 'id': entity.id }) }}">
+            {% trans %}Edit{% endtrans %}
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('task_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit" class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
+        </form>
+    </li>
+</ul>
+{% endblock body %}

@@ -1,0 +1,15 @@
+table.records_list form {
+  margin: 0;
+}
+
+ul.record_actions,
+ul.list_actions {
+  list-style-type: none;
+  margin: 0;
+}
+
+ul.record_actions > li,
+ul.list_actions > li {
+  float: left;
+  margin-right: 10px;
+}

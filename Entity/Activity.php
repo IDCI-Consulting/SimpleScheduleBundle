@@ -11,6 +11,7 @@ namespace IDCI\Bundle\SimpleScheduleBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use IDCI\Bundle\SimpleScheduleBundle\Util\StringTools;
 
 /**
  * @ORM\Table(name="idci_schedule_activity")
@@ -48,6 +49,16 @@ class Activity
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * Slugify
+     *
+     * @return string
+     */
+    public function slugify()
+    {
+        return StringTools::slugify($this->getName());
     }
 
     /**
@@ -112,7 +123,7 @@ class Activity
      * @param IDCI\Bundle\SimpleScheduleBundle\Entity\ActivityType $activityType
      * @return Activity
      */
-    public function setActivityType(\W4H\Bundle\EventTaskBundle\Entity\ActivityType $activityType = null)
+    public function setActivityType(\IDCI\Bundle\SimpleScheduleBundle\Entity\ActivityType $activityType = null)
     {
         $this->activity_type = $activityType;
     

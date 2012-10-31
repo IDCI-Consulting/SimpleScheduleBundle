@@ -13,7 +13,7 @@ use IDCI\Bundle\SimpleScheduleBundle\Form\TaskType;
 /**
  * Task controller.
  *
- * @Route("/task")
+ * @Route("/admin/task")
  */
 class TaskController extends Controller
 {

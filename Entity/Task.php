@@ -27,6 +27,11 @@ class Task
     protected $id;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected $day;
+
+    /**
      * @ORM\Column(type="time")
      * @Assert\Time()
      */
@@ -85,6 +90,29 @@ class Task
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set day
+     *
+     * @param integer $day
+     * @return Task
+     */
+    public function setDay($day)
+    {
+        $this->day = $day;
+    
+        return $this;
+    }
+
+    /**
+     * Get day
+     *
+     * @return integer 
+     */
+    public function getDay()
+    {
+        return $this->day;
     }
 
     /**

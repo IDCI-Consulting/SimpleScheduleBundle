@@ -13,7 +13,7 @@ use IDCI\Bundle\SimpleScheduleBundle\Form\ActivityType;
 /**
  * Activity controller.
  *
- * @Route("/activity")
+ * @Route("/admin/activity")
  */
 class ActivityController extends Controller
 {

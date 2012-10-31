@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tasks>
+    {% for task in tasks %}
+
+        {% include 'IDCISimpleScheduleBundle:Query:task.xml.twig' with {'task': task} %}
+
+    {% endfor %}
+</tasks>

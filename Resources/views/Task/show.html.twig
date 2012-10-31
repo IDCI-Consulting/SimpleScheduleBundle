@@ -25,11 +25,11 @@
         </tr>
         <tr>
             <th>Starts_on</th>
-            <td>{{ entity.startson }}</td>
+            <td>{{ entity.startson | date('h:i') }}</td>
         </tr>
         <tr>
             <th>Ends_on</th>
-            <td>{{ entity.endson }}</td>
+            <td>{{ entity.endson | date('h:i') }}</td>
         </tr>
     </tbody>
 </table>

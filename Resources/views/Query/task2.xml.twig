@@ -1,0 +1,5 @@
+<task id="{{ task.id }}" activity="{{ task.activity.slugify() }}" activity_type="{{ task.activity.activityType.slugify() }}">
+    <name>{{ task.activity.name }}</name>
+    <start>{{ task.startsOn | date('h:i') }}</start>
+    <end>{{ task.endsOn | date('h:i') }}</end>
+</task>

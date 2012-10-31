@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<planning>
+    {% for key, dayTimeTasks in allTasks %}
+    <{{ key }}> 
+        {% for key, dayTasks in dayTimeTasks %}
+            <{{ key }}>
+            {% for task in dayTasks %}
+                <tasks>
+                    {% include 'IDCISimpleScheduleBundle:Query:task2.xml.twig' with {'task': task} %}
+                </tasks>
+            {% endfor %}
+            </{{ key }}>
+        {% endfor %}
+    </{{ key }}>
+    {% endfor %}
+</planning>

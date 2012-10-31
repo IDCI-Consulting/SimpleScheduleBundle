@@ -12,4 +12,48 @@ use Doctrine\ORM\EntityRepository;
  */
 class TaskRepository extends EntityRepository
 {
+    /**
+     * Sort tasks
+     * 
+     * @param Task array
+     * 
+     * @return Task array
+     */
+    public function sortTasks($tasks)
+    {
+        $day = array(
+            1 => 'monday',
+            2 => 'tuesday',
+            3 => 'wednesday',
+            4 => 'thursday',
+            5 => 'friday',
+            6 => 'saturday',
+            7 => 'sunday'
+        );
+        
+        for ($j = 0; $j < 7; $j++) {
+            foreach($tasks as $task) {
+                if($task->getDay() == $j+1 && $task->getStartsOn()->format('H:i') < '12:00') {
+                    $sortedTasks["morning"][$day[$j+1]][] = $task;
+                }
+            }
+        }
+        for ($j = 0; $j < 7; $j++) {
+            foreach($tasks as $task) {
+                if($task->getDay() == $j+1 && $task->getStartsOn()->format('H:i') > '12:00' && $task->getStartsOn()->format('H:i') < '16:00') {
+                    $sortedTasks["afternoon"][$day[$j+1]][] = $task;
+                }
+            }
+        }
+        for ($j = 0; $j < 7; $j++) {
+            foreach($tasks as $task) {
+                if($task->getDay() == $j+1 && $task->getStartsOn()->format('H:i') > '16:00') {
+                    $sortedTasks["evenning"][$day[$j+1]][] = $task;
+                }
+            }
+        }
+        
+        return $sortedTasks;
+    }
+    
 }

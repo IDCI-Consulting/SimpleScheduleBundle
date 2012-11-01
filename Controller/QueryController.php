@@ -5,7 +5,6 @@ namespace IDCI\Bundle\SimpleScheduleBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use IDCI\Bundle\SimpleScheduleBundle\Repository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -33,8 +32,7 @@ class QueryController extends Controller
             $this->createNotFoundException("No results found");
 
         $response = $this->render(
-            //sprintf('IDCISimpleScheduleBundle:Query:tasks.%s.twig', $format),
-            sprintf('IDCISimpleScheduleBundle:Query:planning.%s.twig', $format),
+            sprintf('IDCISimpleScheduleBundle:Query:tasks.%s.twig', $format),   
             array('tasks' => $tasks)
         );
 
@@ -44,7 +42,7 @@ class QueryController extends Controller
     }
     
     /**
-     * @Route("/planning.{_format}", requirements={"_format" = "xml|json"}, name="simple_schedule_query")
+     * @Route("/planning.{_format}", requirements={"_format" = "xml|json"}, name="simple_schedule_planning")
      * @Template()
      */
     public function planningAction(Request $request)

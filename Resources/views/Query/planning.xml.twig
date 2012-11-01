@@ -4,11 +4,13 @@
     <{{ key }}> 
         {% for key, dayTasks in dayTimeTasks %}
             <{{ key }}>
+            <tasks>
             {% for task in dayTasks %}
-                <tasks>
+                
                     {% include 'IDCISimpleScheduleBundle:Query:task2.xml.twig' with {'task': task} %}
-                </tasks>
+            
             {% endfor %}
+            </tasks>
             </{{ key }}>
         {% endfor %}
     </{{ key }}>

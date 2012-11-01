@@ -25,11 +25,12 @@ class QueryController extends Controller
         $tasks = $this->getDoctrine()
             ->getEntityManager()
             ->getRepository('IDCISimpleScheduleBundle:Task')
-            ->findAll()
+            ->findTasksBasedOnRequest($request->query->all())
         ;
 
-        if(!$tasks)
-            $this->createNotFoundException("No results found");
+        if(!$tasks) {
+            throw $this->createNotFoundException("No results found");
+        }
 
         $response = $this->render(
             sprintf('IDCISimpleScheduleBundle:Query:tasks.%s.twig', $format),   
@@ -56,16 +57,17 @@ class QueryController extends Controller
         $tasks = $this->getDoctrine()
             ->getEntityManager()
             ->getRepository('IDCISimpleScheduleBundle:Task')
-            ->findAll()
+            ->findTasksBasedOnRequest($request->query->all())
         ;
         
-        if(!$tasks)
-            $this->createNotFoundException("No results found");
+        if(!$tasks) {
+            throw $this->createNotFoundException("No results found");
+        }
 
         $sortedTasks = $this->getDoctrine()
             ->getEntityManager()
             ->getRepository('IDCISimpleScheduleBundle:Task')
-            ->sortTasks($tasks);
+            ->sortTasksForPlanning($tasks);
         
         $response = $this->render(
             sprintf('IDCISimpleScheduleBundle:Query:planning.%s.twig', $format),

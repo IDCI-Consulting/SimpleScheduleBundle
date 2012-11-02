@@ -1,0 +1,8 @@
+BEGIN:VEVENT
+DTSTART:2001010{{ task.day }}{{ task.getStartTimeFormattedForIcal }}
+DTEND:2001010{{ task.day }}{{ task.getEndTimeFormattedForIcal }}
+SUMMARY:{{ task.activity.name }}
+LOCATION:Bodysculpt
+CATEGORIES:{{ task.activity.activityType.name}}
+RRULE:FREQ=WEEKLY;COUNT={{ count }}
+END:VEVENT

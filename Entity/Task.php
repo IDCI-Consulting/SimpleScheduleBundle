@@ -154,7 +154,7 @@ class Task
     /**
      * Get ends_on
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getEndsOn()
     {
@@ -205,5 +205,49 @@ class Task
     public function getLocation()
     {
         return $this->location;
+    }
+    
+    /**
+     * Get start time formated for ical
+     *
+     * @return string
+     */
+    public function getStartTimeFormattedForIcal()
+    {
+        $startTime = $this->getStartsOn();
+        $date = $startTime->format('Y-m-d H:i:s');
+        $unixTime = strtotime($date);
+        
+        $formattedDate =
+            'T'.
+            date('H', $unixTime).
+            date('i', $unixTime).
+            date('s', $unixTime).
+            'Z'
+        ;
+        
+        return $formattedDate;
+    }
+    
+    /**
+     * Get end time formated for ical
+     *
+     * @return string
+     */
+    public function getEndTimeFormattedForIcal()
+    {
+        $endTime = $this->getEndsOn();      
+        $date = $endTime->format('Y-m-d H:i:s');
+        $unixTime = strtotime($date);
+        
+        $formattedDate =
+            'T'.
+            date('H', $unixTime).
+            date('i', $unixTime).
+            date('s', $unixTime).
+            'Z'
+        ;
+        
+        return $formattedDate;
     }
 }

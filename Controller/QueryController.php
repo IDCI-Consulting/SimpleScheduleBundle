@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 class QueryController extends Controller
 {
     /**
-     * @Route("/query.{_format}", requirements={"_format" = "xml|json"}, name="simple_schedule_query")
+     * @Route("/query.{_format}", requirements={"_format" = "xml|json|ical"}, name="simple_schedule_query")
      * @Template()
      */
     public function queryAction(Request $request)
@@ -19,7 +19,8 @@ class QueryController extends Controller
         $format = $request->getRequestFormat();
         $contentTypes = array(
             'json'  => 'application/json; charset=UTF-8',
-            'xml'   => 'text/xml; charset=UTF-8'
+            'xml'   => 'text/xml; charset=UTF-8',
+            'ical'  => 'text/calendar; charset=UTF-8'
         );
 
         $tasks = $this->getDoctrine()
@@ -32,11 +33,22 @@ class QueryController extends Controller
             throw $this->createNotFoundException("No results found");
         }
 
-        $response = $this->render(
-            sprintf('IDCISimpleScheduleBundle:Query:tasks.%s.twig', $format),   
-            array('tasks' => $tasks)
-        );
-
+        if($format == 'ical') {
+            $count = $this->container->getParameter('count');
+            $response = $this->render(
+                sprintf('IDCISimpleScheduleBundle:Query:tasks.%s.twig', $format),   
+                array(
+                    'tasks' => $tasks,
+                    'count' => $count
+                )
+            );
+        }
+        else {
+            $response = $this->render(
+                sprintf('IDCISimpleScheduleBundle:Query:tasks.%s.twig', $format),   
+                array('tasks' => $tasks)
+            );
+        }
         $response->headers->set('Content-Type', $contentTypes[$format]);
 
         return $response;

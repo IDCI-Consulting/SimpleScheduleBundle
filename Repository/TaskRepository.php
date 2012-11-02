@@ -38,7 +38,7 @@ class TaskRepository extends EntityRepository
                 if(
                     $task->getDay() == $key
                     && $task->getStartsOn()->format('H:i') < '12:00'
-                  ) {
+                ) {
                         $sortedTasks["morning"][$day][] = $task;
                 }
               }
@@ -49,7 +49,7 @@ class TaskRepository extends EntityRepository
                     $task->getDay() == $key
                     && $task->getStartsOn()->format('H:i') > '12:00' 
                     && $task->getStartsOn()->format('H:i') < '16:00'
-                  ) {
+                ) {
                         $sortedTasks["afternoon"][$day][] = $task;
                 }
             }
@@ -59,7 +59,7 @@ class TaskRepository extends EntityRepository
                 if(
                     $task->getDay() == $key
                     && $task->getStartsOn()->format('H:i') > '16:00'
-                  ) {
+                ) {
                         $sortedTasks["evenning"][$day][] = $task;
                 }
             }

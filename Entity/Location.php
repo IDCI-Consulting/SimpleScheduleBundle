@@ -36,6 +36,16 @@ class Location
     protected $description;
 
     /**
+     * @ORM\Column(type="decimal", precision=10, scale=6)
+     */
+    protected $latitude;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=6)
+     */
+    protected $longitude;
+
+    /**
      * toString
      *
      * @return string

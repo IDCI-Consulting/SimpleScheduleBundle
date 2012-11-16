@@ -52,9 +52,9 @@ class Category
     protected $childs;
 
     /**
-     * @ORM\ManyToMany(targetEntity="event", mappedBy="categories", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="SchedulableElement", mappedBy="categories", cascade={"persist"})
      */
-    private $events;
+    private $elements;
 
     /**
      * toString

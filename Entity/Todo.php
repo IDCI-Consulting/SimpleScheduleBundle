@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="idci_schedule_event")
  * @ORM\Entity(repositoryClass="IDCI\Bundle\SimpleScheduleBundle\Repository\EventRepository")
  */
-class Event extends LocalizableSchedulableElement
+class Todo extends LocalizableSchedulableElement
 {
     /**
      * @ORM\Id
@@ -31,15 +31,20 @@ class Event extends LocalizableSchedulableElement
     protected $id;
 
     /**
-     * transp
+     * completed
      */
-    protected $transp;
+    protected $completed;
 
     /**
-     * dtend
+     * percent
+     */
+    protected $percent;
+
+    /**
+     * due
      *
      * @ORM\Column(type="datetime")
      * @Assert\Time()
      */
-    protected $dtend;
+    protected $due;
 }

@@ -42,19 +42,20 @@ class Category
     protected $color;
 
     /**
-     * @ORM\ManyToOne(targetEntity="IDCI\Bundle\SimpleScheduleBundle\Entity\Category", inversedBy="childs")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="childs")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     protected $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="IDCI\Bundle\SimpleScheduleBundle\Entity\Category", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
      */
     protected $childs;
 
     /**
-     * @ORM\ManyToMany(targetEntity="SchedulableElement", mappedBy="categories", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="CalendarEntity", mappedBy="categories", cascade={"persist"})
      */
-    private $elements;
+    private $calendarEntities;
 
     /**
      * toString

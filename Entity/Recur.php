@@ -47,13 +47,9 @@ class Recur
      * freq       = "SECONDLY" / "MINUTELY" / "HOURLY" / "DAILY" / "WEEKLY" / "MONTHLY" / "YEARLY"
      *
      * @ORM\Column(type="string", length=32)
-     * @Assert\Choice(choices = "SECONDLY", "MINUTELY", "HOURLY", "DAILY", "WEEKLY", "MONTHLY", "YEARLY"}, message = "Choose a valid frequency.")
+     * @Assert\Choice(choices = {"SECONDLY","MINUTELY","HOURLY","DAILY","WEEKLY","MONTHLY","YEARLY"}, message = "Choose a valid frequency.")
      */
     protected $freq;
-
-    /**
-     * UNTIL and COUNT MUST NOT occur in the same 'recur'
-     */
 
     /**
      * until (enddate)
@@ -250,7 +246,7 @@ class Recur
      * bysplist   = setposday / ( setposday *("," setposday) )
      * setposday  = yeardaynum
      *
-     * @ORM\Column(type="")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $bysetpos;
 
@@ -266,17 +262,17 @@ class Recur
      * weekday    = "SU" / "MO" / "TU" / "WE" / "TH" / "FR" / "SA"
      *
      * @ORM\Column(type="string", length=2, nullable=true)
-     * @Assert\Choice(choices = "SU", "MO", "TU", "WE", "TH", "FR", "SA"}, message = "Choose a valid weekday.")
+     * @Assert\Choice(choices = {"SU","MO","TU","WE","TH","FR","SA"}, message = "Choose a valid weekday.")
      */
     protected $wkst;
 
     /**
-     * @ORM\ManyToMany(targetEntity="SchedulableElement", mappedBy="rrules", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="CalendarEntity", mappedBy="rrules", cascade={"persist"})
      */
     private $included_elements;
 
     /**
-     * @ORM\ManyToMany(targetEntity="SchedulableElement", mappedBy="exrules", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="CalendarEntity", mappedBy="exrules", cascade={"persist"})
      */
     private $excluded_elements;
 }

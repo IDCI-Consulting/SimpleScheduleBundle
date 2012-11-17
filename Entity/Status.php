@@ -26,7 +26,7 @@ class Status
     // Status values for a "EVENT"
     const EVENT_TENTATIVE    = "TENTATIVE";      // Indicates event is tentative.
     const EVENT_CONFIRMED    = "CONFIRMED";      // Indicates event is definite.
-    const EVENT_TENTATIVE    = "CANCELLED";      // Indicates event was cancelled.
+    const EVENT_CANCELLED    = "CANCELLED";      // Indicates event was cancelled.
 
     // Status values for a "TODO"
     const TODO_NEEDS_ACTION  = "NEEDS-ACTION";   // Indicates to-do needs action.
@@ -47,12 +47,12 @@ class Status
     protected $id;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=64, nullable=true)
      */
     protected $value;
 
     /**
-     * @ORM\OneToMany(targetEntity="SchedulableElement", mappedBy="status")
+     * @ORM\OneToMany(targetEntity="CalendarEntity", mappedBy="status")
      */
-    protected $elements;
+    protected $calendarEntities;
 }

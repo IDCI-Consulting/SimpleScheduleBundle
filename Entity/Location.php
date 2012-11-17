@@ -46,6 +46,11 @@ class Location
     protected $longitude;
 
     /**
+     * @ORM\OneToMany(targetEntity="CalendarEntity", mappedBy="location")
+     */
+    protected $calendarEntities;
+
+    /**
      * toString
      *
      * @return string
@@ -56,58 +61,12 @@ class Location
     }
 
     /**
-     * Get id
+     * getGeo
      *
-     * @return integer 
+     * @return string
      */
-    public function getId()
+    public function getGeo()
     {
-        return $this->id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return Location
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return Location
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
+        return sprintf('%.6f;%.6f', $this->getLatitude(), $this->getLongitude());
     }
 }

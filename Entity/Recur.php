@@ -101,9 +101,9 @@ class Recur
      * byseclist  = seconds / ( seconds *("," seconds) )
      * seconds    = 1DIGIT / 2DIGIT       ;0 to 59
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=true, name="by_second")
      */
-    protected $bysecond;
+    protected $bySecond;
 
     /**
      * byminute (byminlist)
@@ -115,9 +115,9 @@ class Recur
      * byminlist  = minutes / ( minutes *("," minutes) )
      * minutes    = 1DIGIT / 2DIGIT       ;0 to 59
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=true, name="by_minute")
      */
-    protected $byminute;
+    protected $byMinute;
 
     /**
      * byhour (byhrlist)
@@ -129,9 +129,9 @@ class Recur
      * byhrlist   = hour / ( hour *("," hour) )
      * hour       = 1DIGIT / 2DIGIT       ;0 to 23
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=true, name="by_hour")
      */
-    protected $byhour;
+    protected $byHour;
 
     /**
      * byday (bywdaylist)
@@ -157,9 +157,9 @@ class Recur
      * ordwk      = 1DIGIT / 2DIGIT       ;1 to 53
      * weekday    = "SU" / "MO" / "TU" / "WE" / "TH" / "FR" / "SA"
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=true, name="by_day")
      */
-    protected $byday;
+    protected $byDay;
 
     /**
      * bymonthday (bymodaylist)
@@ -173,9 +173,9 @@ class Recur
      * monthdaynum = ([plus] ordmoday) / (minus ordmoday)
      * ordmoday    = 1DIGIT / 2DIGIT       ;1 to 31
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=true, name="by_monthday")
      */
-    protected $bymonthday;
+    protected $byMonthday;
 
     /**
      * byyearday (byyrdaylist)
@@ -190,9 +190,9 @@ class Recur
      * yeardaynum = ([plus] ordyrday) / (minus ordyrday)
      * ordyrday   = 1DIGIT / 2DIGIT / 3DIGIT      ;1 to 366
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=true, name="by_yearday")
      */
-    protected $byyearday;
+    protected $byYearday;
 
     /**
      * byweekno (bywknolist)
@@ -210,9 +210,9 @@ class Recur
      * bywknolist = weeknum / ( weeknum *("," weeknum) )
      * weeknum    = ([plus] ordwk) / (minus ordwk)
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=true, name="by_weekno")
      */
-    protected $byweekno;
+    protected $byWeekno;
 
     /**
      * bymonth (bymolist)
@@ -223,9 +223,9 @@ class Recur
      * bymolist   = monthnum / ( monthnum *("," monthnum) )
      * monthnum   = 1DIGIT / 2DIGIT       ;1 to 12
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=true, name="by_month")
      */
-    protected $bymonth;
+    protected $byMonth;
 
     /**
      * bysetpos (bysplist)
@@ -246,9 +246,9 @@ class Recur
      * bysplist   = setposday / ( setposday *("," setposday) )
      * setposday  = yeardaynum
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=true, name="by_setpos")
      */
-    protected $bysetpos;
+    protected $bySetpos;
 
     /**
      * wkst (weekday)
@@ -267,12 +267,12 @@ class Recur
     protected $wkst;
 
     /**
-     * @ORM\ManyToMany(targetEntity="CalendarEntity", mappedBy="rrules", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="CalendarEntity", mappedBy="includedRules", cascade={"persist"})
      */
-    private $included_elements;
+    private $includedEntities;
 
     /**
-     * @ORM\ManyToMany(targetEntity="CalendarEntity", mappedBy="exrules", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="CalendarEntity", mappedBy="excludedRules", cascade={"persist"})
      */
-    private $excluded_elements;
+    private $excludedEntities;
 }

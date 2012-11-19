@@ -14,13 +14,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * This entity is based on the "VEVENT", "VTODO", "VJOURNAL" Component from the RFC2445
+ * This entity is based on the "VEVENT", "VTODO", "VJOURNAL" Component 
+ * describe in the RFC2445
  *
  * Purpose: Provide a grouping of component properties that describe an 
  * localizable calendar entity.
  *
+ * @ORM\Entity
  */
-class LocalizableCalendarEntity extends CalendarEntity
+abstract class LocationAwareCalendarEntity extends CalendarEntity
 {
     /**
      * priority
@@ -82,7 +84,7 @@ class LocalizableCalendarEntity extends CalendarEntity
     /**
      * location
      *
-     * @ORM\ManyToOne(targetEntity="IDCI\Bundle\SimpleScheduleBundle\Entity\Location")
+     * @ORM\ManyToOne(targetEntity="IDCI\Bundle\SimpleScheduleBundle\Entity\Location", inversedBy="locationAwareCalendarEntities")
      * @ORM\JoinColumn(name="location_id", referencedColumnName="id")
      */
     protected $location;

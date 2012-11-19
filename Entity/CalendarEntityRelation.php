@@ -54,8 +54,8 @@ class CalendarEntityRelation
      *                    iana-token    ; Some other IANA registered iCalendar relationship type
      *                    x-name)       ; A non-standard, experimental relationship type
      *
-     * @ORM\Column(type="string", length=64, nullable=true)
+     * @ORM\Column(type="string", length=64, nullable=true, name="relation_type")
      * @Assert\Choice(choices = {"PARENT","CHILD","SIBLING"}, message = "Choose a valid relation type.")
      */
-    protected $reltype;
+    protected $relationType;
 }

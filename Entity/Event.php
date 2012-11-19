@@ -14,13 +14,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * This entity is based on the VEVENT Component from the RFC2445
+ * This entity is based on the VEVENT Component describe in the RFC2445
  *
  * Purpose: Provide a grouping of component properties that describe an event.
  *
  * @ORM\Entity
  */
-class Event extends LocalizableCalendarEntity
+class Event extends LocationAwareCalendarEntity
 {
     public static $TRANSP_OPAQUE = "OPAQUE";
     public static $TRANSP_TRANSPARENT = "TRANSPARENT";
@@ -44,10 +44,9 @@ class Event extends LocalizableCalendarEntity
      *              "TRANSPARENT" ;Transparent on busy time searches.
      *                            ;Default value is OPAQUE
      *
-     * @ORM\Column(type="string", length=32, nullable=true)
-     * @Assert\Choice(choices = {"OPAQUE","TRANSPARENT"}, message = "Choose a valid mode")
+     * @ORM\Column(type="boolean", name="is_transparent")
      */
-    protected $transp;
+    protected $isTransparent = false;
 
     /**
      * dtend
@@ -55,9 +54,9 @@ class Event extends LocalizableCalendarEntity
      * This property specifies the date and time that a calendar
      * component ends.
      *
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true, name="end_at")
      */
-    protected $dtend;
+    protected $endAT;
 
     /**
      * Constructor

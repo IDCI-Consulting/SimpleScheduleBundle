@@ -14,13 +14,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * This entity is based on the VEVENT Component from the RFC2445
+ * This entity is based on the VTODO Component describe in the RFC2445
  *
  * Purpose: Provide a grouping of component properties that describe a todo.
  *
  * @ORM\Entity
  */
-class Todo extends LocalizableCalendarEntity
+class Todo extends LocationAwareCalendarEntity
 {
     /**
      * @ORM\Id
@@ -35,9 +35,9 @@ class Todo extends LocalizableCalendarEntity
      * This property defines the date and time that a to-do was
      * actually completed.
      *
-     * * @ORM\Column(type="datetime", nullable=true)
+     * * @ORM\Column(type="datetime", nullable=true, name="completed_at")
      */
-    protected $completed;
+    protected $completedAt;
 
     /**
      * percent

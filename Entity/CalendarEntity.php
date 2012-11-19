@@ -14,15 +14,17 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * This entity is based on the "VEVENT", "VTODO", "VJOURNAL" Component from the RFC2445
+ * This entity is based on the "VEVENT", "VTODO", "VJOURNAL" components
+ * describe in the RFC2445
  *
- * Purpose: Provide a grouping of component properties that describe an schedulable element.
+ * Purpose: Provide a grouping of component properties that describe 
+ * a schedulable element.
  *
  * @ORM\Entity(repositoryClass="IDCI\Bundle\SimpleScheduleBundle\Repository\CalendarEntityRepository")
  * @ORM\Table(name="idci_schedule_entity")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"event" = "Event", "todo" = "Todo", "journal" = "Journal"})
+ * @ORM\DiscriminatorMap({"event"="Event", "todo"="Todo", "journal"="Journal"})
  */
 class CalendarEntity
 {
@@ -75,18 +77,18 @@ class CalendarEntity
      * information was created by the calendar user agent in the calendar
      * store.
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", name="created_at")
      */
-    protected $created;
+    protected $createdAt;
 
     /**
      * dtstart
      *
      * This property specifies when the calendar component begins.
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", name="start_at")
      */
-    protected $dtstart;
+    protected $startAt;
 
     /**
      * last-mod
@@ -95,9 +97,9 @@ class CalendarEntity
      * information associated with the calendar component was last revised
      * in the calendar store.
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", name="last_modified_at")
      */
-    protected $lastModified;
+    protected $lastModifiedAt;
 
     /**
      * organizer
@@ -132,14 +134,14 @@ class CalendarEntity
      * .  "EXRULE"
      * .  "STATUS"
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", name="revision_sequence")
      */
-    protected $seq;
+    protected $revisionSequence;
 
     /**
      * status
      *
-     * @ORM\ManyToOne(targetEntity="Status", inversedBy="elements")
+     * @ORM\ManyToOne(targetEntity="Status", inversedBy="calendarEntities")
      * @ORM\JoinColumn(name="status_id", referencedColumnName="id")
      */
     protected $status;
@@ -243,9 +245,9 @@ class CalendarEntity
      *
      * This property defines the categories for a calendar component.
      *
-     * @ORM\ManyToMany(targetEntity="Category", inversedBy="elements", cascade={"persist"})
-     * @ORM\JoinTable(name="idci_schedule_element_category",
-     *    joinColumns={@ORM\JoinColumn(name="schedule_element_id", referencedColumnName="id")},
+     * @ORM\ManyToMany(targetEntity="Category", inversedBy="calendarEntities", cascade={"persist"})
+     * @ORM\JoinTable(name="idci_schedule_entity_category",
+     *    joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
      *    inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")}
      * )
      */
@@ -268,9 +270,9 @@ class CalendarEntity
      * This property defines the list of date/time exceptions for a
      * recurring calendar component.
      *
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, name="excluded_dates")
      */
-     protected $exdates;
+     protected $excludedDates;
 
     /**
      * rdate
@@ -278,30 +280,31 @@ class CalendarEntity
      * This property defines the list of date/times for a
      * recurrence set.
      *
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, name="included_dates")
      */
-     protected $rdates;
+     protected $includedDates;
 
     /**
      * rrule
      *
-     * @ORM\ManyToMany(targetEntity="Recur", inversedBy="included_elements", cascade={"persist"})
-     * @ORM\JoinTable(name="idci_schedule_element_include_rule",
-     *    joinColumns={@ORM\JoinColumn(name="schedule_element_id", referencedColumnName="id")},
+     * @ORM\ManyToMany(targetEntity="Recur", inversedBy="includedEntities", cascade={"persist"})
+     * @ORM\JoinTable(name="idci_schedule_entity_include_rule",
+     *    joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
      *    inverseJoinColumns={@ORM\JoinColumn(name="recur_id", referencedColumnName="id")}
      * )
      */
-     protected $rrules;
+     protected $includedRules;
 
     /**
      * exrule
-     * @ORM\ManyToMany(targetEntity="Recur", inversedBy="excluded_elements", cascade={"persist"})
-     * @ORM\JoinTable(name="idci_schedule_element_exclude_rule",
-     *    joinColumns={@ORM\JoinColumn(name="schedule_element_id", referencedColumnName="id")},
+     *
+     * @ORM\ManyToMany(targetEntity="Recur", inversedBy="excludedEntities", cascade={"persist"})
+     * @ORM\JoinTable(name="idci_schedule_entity_exclude_rule",
+     *    joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
      *    inverseJoinColumns={@ORM\JoinColumn(name="recur_id", referencedColumnName="id")}
      * )
      */
-     protected $exrules;
+     protected $excludedRules;
 
     /**
      * @ORM\OneToMany(targetEntity="CalendarEntityRelation", mappedBy="entity")
@@ -325,8 +328,10 @@ class CalendarEntity
      *
      * This class of property provides a framework for defining
      * non-standard properties.
+     *
+     * @ORM\Column(type="text", nullable=true, name="x_prop")
      */
-     protected $xprops;
+     protected $xProp;
 
     /**
      * toString

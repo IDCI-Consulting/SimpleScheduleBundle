@@ -46,9 +46,9 @@ class Location
     protected $longitude;
 
     /**
-     * @ORM\OneToMany(targetEntity="CalendarEntity", mappedBy="location")
+     * @ORM\OneToMany(targetEntity="LocationAwareCalendarEntity", mappedBy="location")
      */
-    protected $calendarEntities;
+    protected $locationAwareCalendarEntities;
 
     /**
      * toString

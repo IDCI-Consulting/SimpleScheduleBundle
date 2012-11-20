@@ -56,7 +56,7 @@ class Event extends LocationAwareCalendarEntity
      *
      * @ORM\Column(type="datetime", nullable=true, name="end_at")
      */
-    protected $endAT;
+    protected $endAt;
 
     /**
      * Constructor

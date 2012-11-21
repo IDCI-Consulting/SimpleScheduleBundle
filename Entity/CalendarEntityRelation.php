@@ -32,7 +32,7 @@ class CalendarEntityRelation
      * entity
      *
      * @ORM\ManyToOne(targetEntity="CalendarEntity", inversedBy="entities")
-     * @ORM\JoinColumn(name="entity_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="entity_id", referencedColumnName="id", onDelete="Cascade")
      */
     protected $entity;
 
@@ -40,7 +40,7 @@ class CalendarEntityRelation
      * relatedTo
      *
      * @ORM\ManyToOne(targetEntity="CalendarEntity", inversedBy="relateds")
-     * @ORM\JoinColumn(name="related_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="related_id", referencedColumnName="id", onDelete="Cascade")
      */
     protected $relatedTo;
 

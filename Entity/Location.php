@@ -51,6 +51,13 @@ class Location
     protected $locationAwareCalendarEntities;
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+    }
+
+    /**
      * toString
      *
      * @return string

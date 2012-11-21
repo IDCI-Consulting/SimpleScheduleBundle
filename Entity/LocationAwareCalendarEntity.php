@@ -32,10 +32,10 @@ abstract class LocationAwareCalendarEntity extends CalendarEntity
      *
      * @ORM\Column(type="integer", nullable=true)
      * @Assert\Range(
-     *      min = "0",
-     *      max = "9",
-     *      minMessage = "priority must be at least 0",
-     *      maxMessage = "priority must be at max 9"
+     *     min = "0",
+     *     max = "9",
+     *     minMessage = "priority must be at least 0",
+     *     maxMessage = "priority must be at max 9"
      * )
      */
     protected $priority;
@@ -85,7 +85,7 @@ abstract class LocationAwareCalendarEntity extends CalendarEntity
      * location
      *
      * @ORM\ManyToOne(targetEntity="IDCI\Bundle\SimpleScheduleBundle\Entity\Location", inversedBy="locationAwareCalendarEntities")
-     * @ORM\JoinColumn(name="location_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="location_id", referencedColumnName="id", onDelete="Set Null")
      */
     protected $location;
 }

@@ -36,41 +36,6 @@ class CalendarEntity
     protected $id;
 
     /**
-     * class
-     *
-     * This property defines the access classification for a calendar component.
-     *
-     * class      = "CLASS" classparam ":" classvalue CRLF
-     * classparam = *(";" xparam)
-     * classvalue = "PUBLIC" / "PRIVATE" / "CONFIDENTIAL" / iana-token / x-name
-     * Default is PUBLIC
-     *
-     * @ORM\Column(type="string", length=32)
-     * @Assert\Choice(choices = {"PUBLIC","PRIVATE","CONFIDENTIAL"}, message = "Choose a valid access classification.")
-     */
-    protected $classification;
-
-    /**
-     * comment
-     *
-     * This property specifies non-processing information intended
-     * to provide a comment to the calendar user.
-     *
-     * @ORM\Column(type="string", length=255)
-     */
-     protected $comments;
-
-    /**
-     * description
-     *
-     * This property provides a more complete description of the
-     * calendar component, than that provided by the "SUMMARY" property.
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    protected $description;
-
-    /**
      * created
      *
      * This property specifies the date and time that the calendar
@@ -100,6 +65,46 @@ class CalendarEntity
      * @ORM\Column(type="datetime", name="last_modified_at")
      */
     protected $lastModifiedAt;
+
+    /**
+     * summary
+     *
+     * This property defines a short summary or subject for the
+     * calendar component.
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $summary;
+
+    /**
+     * description
+     *
+     * This property provides a more complete description of the
+     * calendar component, than that provided by the "SUMMARY" property.
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $description;
+
+    /**
+     * comment
+     *
+     * This property specifies non-processing information intended
+     * to provide a comment to the calendar user.
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+     protected $comment;
+
+    /**
+     * url
+     *
+     * This property defines a Uniform Resource Locator (URL)
+     * associated with the iCalendar object.
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+     protected $url;
 
     /**
      * organizer
@@ -137,68 +142,6 @@ class CalendarEntity
      * @ORM\Column(type="integer", name="revision_sequence")
      */
     protected $revisionSequence;
-
-    /**
-     * status
-     *
-     * @ORM\ManyToOne(targetEntity="Status", inversedBy="calendarEntities")
-     * @ORM\JoinColumn(name="status_id", referencedColumnName="id")
-     */
-    protected $status;
-
-    /**
-     * summary
-     *
-     * This property defines a short summary or subject for the
-     * calendar component.
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    protected $summary;
-
-    /**
-     * uid
-     *
-     * This property defines the persistent, globally unique
-     * identifier for the calendar component.
-     *
-     * @ORM\Column(type="string", length=255, unique=true)
-     */
-    protected $uid;
-
-    /**
-     * recurid
-     *
-     * The "RECURRENCE-ID" property is used in conjunction with the "UID"
-     * and "SEQUENCE" property to identify a particular instance of a
-     * recurring event, to-do or journal. For a given pair of "UID" and
-     * "SEQUENCE" property values, the "RECURRENCE-ID" value for a
-     * recurrence instance is fixed. When the definition of the recurrence
-     * set for a calendar component changes, and hence the "SEQUENCE"
-     * property value changes, the "RECURRENCE-ID" for a given recurrence
-     * instance might also change.The "RANGE" parameter is used to specify
-     * the effective range of recurrence instances from the instance
-     * specified by the "RECURRENCE-ID" property value. The default value
-     * for the range parameter is the single recurrence instance only. The
-     * value can also be "THISANDPRIOR" to indicate a range defined by the
-     * given recurrence instance and all prior instances or the value can be
-     * "THISANDFUTURE" to indicate a range defined by the given recurrence
-     * instance and all subsequent instances.
-     *
-     * The following are examples of this property:
-     *  RECURRENCE-ID;VALUE=DATE:19960401
-     *  RECURRENCE-ID;RANGE=THISANDFUTURE:19960120T120000Z
-     *
-     */
-    protected $recurid;
-
-    /**
-     * attach
-     *
-     * The property provides the capability to associate a document
-     * object with a calendar component.
-     */
-    protected $attachs;
 
     /**
      * attendee
@@ -241,19 +184,6 @@ class CalendarEntity
      protected $attendees;
 
     /**
-     * categories
-     *
-     * This property defines the categories for a calendar component.
-     *
-     * @ORM\ManyToMany(targetEntity="Category", inversedBy="calendarEntities", cascade={"persist"})
-     * @ORM\JoinTable(name="idci_schedule_entity_category",
-     *    joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
-     *    inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")}
-     * )
-     */
-     protected $categories;
-
-    /**
      * contact
      *
      * The property is used to represent contact information or
@@ -285,26 +215,31 @@ class CalendarEntity
      protected $includedDates;
 
     /**
-     * rrule
+     * x-prop
      *
-     * @ORM\ManyToMany(targetEntity="Recur", inversedBy="includedEntities", cascade={"persist"})
-     * @ORM\JoinTable(name="idci_schedule_entity_include_rule",
-     *    joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
-     *    inverseJoinColumns={@ORM\JoinColumn(name="recur_id", referencedColumnName="id")}
-     * )
+     * Any property name with a "X-" prefix
+     *
+     * This class of property provides a framework for defining
+     * non-standard properties.
+     *
+     * @ORM\Column(type="text", nullable=true, name="x_prop")
      */
-     protected $includedRules;
+     protected $xProp;
 
     /**
-     * exrule
+     * class
      *
-     * @ORM\ManyToMany(targetEntity="Recur", inversedBy="excludedEntities", cascade={"persist"})
-     * @ORM\JoinTable(name="idci_schedule_entity_exclude_rule",
-     *    joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
-     *    inverseJoinColumns={@ORM\JoinColumn(name="recur_id", referencedColumnName="id")}
-     * )
+     * This property defines the access classification for a calendar component.
+     *
+     * class      = "CLASS" classparam ":" classvalue CRLF
+     * classparam = *(";" xparam)
+     * classvalue = "PUBLIC" / "PRIVATE" / "CONFIDENTIAL" / iana-token / x-name
+     * Default is PUBLIC
+     *
+     * @ORM\Column(type="string", length=32)
+     * @Assert\Choice(choices = {"PUBLIC","PRIVATE","CONFIDENTIAL"}, message = "Choose a valid access classification.")
      */
-     protected $excludedRules;
+    protected $classification;
 
     /**
      * @ORM\OneToMany(targetEntity="CalendarEntityRelation", mappedBy="entity")
@@ -322,16 +257,90 @@ class CalendarEntity
     protected $relateds;
 
     /**
-     * x-prop
+     * status
      *
-     * Any property name with a "X-" prefix
-     *
-     * This class of property provides a framework for defining
-     * non-standard properties.
-     *
-     * @ORM\Column(type="text", nullable=true, name="x_prop")
+     * @ORM\ManyToOne(targetEntity="Status", inversedBy="calendarEntities")
+     * @ORM\JoinColumn(name="status_id", referencedColumnName="id", onDelete="Set null")
      */
-     protected $xProp;
+    protected $status;
+
+    /**
+     * categories
+     *
+     * This property defines the categories for a calendar component.
+     *
+     * @ORM\ManyToMany(targetEntity="Category", inversedBy="calendarEntities", cascade={"persist"})
+     * @ORM\JoinTable(name="idci_schedule_entity_category",
+     *     joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id", onDelete="Cascade")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id", onDelete="Cascade")}
+     * )
+     */
+     protected $categories;
+
+    /**
+     * rrule
+     *
+     * @ORM\ManyToMany(targetEntity="Recur", inversedBy="includedEntities", cascade={"persist"})
+     * @ORM\JoinTable(name="idci_schedule_entity_include_rule",
+     *     joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id", onDelete="Cascade")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="recur_id", referencedColumnName="id", onDelete="Cascade")}
+     * )
+     */
+     protected $includedRules;
+
+    /**
+     * exrule
+     *
+     * @ORM\ManyToMany(targetEntity="Recur", inversedBy="excludedEntities", cascade={"persist"})
+     * @ORM\JoinTable(name="idci_schedule_entity_exclude_rule",
+     *     joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id", onDelete="Cascade")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="recur_id", referencedColumnName="id", onDelete="Cascade")}
+     * )
+     */
+     protected $excludedRules;
+
+// To keep recurid attachs ?
+
+    /**
+     * recurid
+     *
+     * The "RECURRENCE-ID" property is used in conjunction with the "UID"
+     * and "SEQUENCE" property to identify a particular instance of a
+     * recurring event, to-do or journal. For a given pair of "UID" and
+     * "SEQUENCE" property values, the "RECURRENCE-ID" value for a
+     * recurrence instance is fixed. When the definition of the recurrence
+     * set for a calendar component changes, and hence the "SEQUENCE"
+     * property value changes, the "RECURRENCE-ID" for a given recurrence
+     * instance might also change.The "RANGE" parameter is used to specify
+     * the effective range of recurrence instances from the instance
+     * specified by the "RECURRENCE-ID" property value. The default value
+     * for the range parameter is the single recurrence instance only. The
+     * value can also be "THISANDPRIOR" to indicate a range defined by the
+     * given recurrence instance and all prior instances or the value can be
+     * "THISANDFUTURE" to indicate a range defined by the given recurrence
+     * instance and all subsequent instances.
+     *
+     * The following are examples of this property:
+     *  RECURRENCE-ID;VALUE=DATE:19960401
+     *  RECURRENCE-ID;RANGE=THISANDFUTURE:19960120T120000Z
+     *
+     */
+    protected $recurid;
+
+    /**
+     * attach
+     *
+     * The property provides the capability to associate a document
+     * object with a calendar component.
+     */
+    protected $attachs;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+    }
 
     /**
      * toString
@@ -348,28 +357,54 @@ class CalendarEntity
     }
 
     /**
-     * Get start time formated for ical
+     * uid
      *
-     * @return string
+     * This property defines the persistent, globally unique
+     * identifier for the calendar component.
+     * Description: The UID itself MUST be a globally unique identifier. The
+     * generator of the identifier MUST guarantee that the identifier is
+     * unique. There are several algorithms that can be used to accomplish
+     * this. The identifier is RECOMMENDED to be the identical syntax to the
+     * [RFC 822] addr-spec. A good method to assure uniqueness is to put the
+     * domain name or a domain literal IP address of the host on which the
+     * identifier was created on the right hand side of the "@", and on the
+     * left hand side, put a combination of the current calendar date and
+     * time of day (i.e., formatted in as a DATE-TIME value) along with some
+     * other currently unique (perhaps sequential) identifier available on
+     * the system (for example, a process id number). Using a date/time
+     * value on the left hand side and a domain name or domain literal on
+     * the right hand side makes it possible to guarantee uniqueness since
+     * no two hosts should be using the same domain name or IP address at
+     * the same time. Though other algorithms will work, it is RECOMMENDED
+     * that the right hand side contain some domain identifier (either of
+     * the host itself or otherwise) such that the generator of the message
+     * identifier can guarantee the uniqueness of the left hand side within
+     * the scope of that domain.
+     *
+     * @param string The server domain name or ip address
+     * @return string A unique UID
      */
-    public function getStartTimeFormattedForIcal()
+    public function getUID($domain = 'default')
     {
-        $dt = $this->getStartsAt();
-        $dt->setTimeZone(new \DateTimezone('Europe/Paris'));
-
-        return $dt->format(\DateTime::RFC1123);
+        return sprintf('%s-%d@%s',
+            $this->getFormatedStartAt(),
+            $this->getId(),
+            $domain
+        );
     }
 
     /**
-     * Get end time formated for ical
+     * getFormatedStartAt
      *
-     * @return string
+     * @param string The datetime format
+     * @param string The timezone name
+     * @return string The formated datetime
      */
-    public function getEndTimeFormattedForIcal()
+    public function getFormatedStartAt($format = \DateTime::RFC1123, $timezone = 'Europe/Paris')
     {
-        $dt = $this->getEndsAt();
-        $dt->setTimeZone(new \DateTimezone('Europe/Paris'));
+        $dt = $this->getStartAt();
+        $dt->setTimeZone(new \DateTimezone($timezone));
 
-        return $dt->format(\DateTime::RFC1123);
+        return $dt->format($format);
     }
 }

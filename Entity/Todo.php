@@ -35,7 +35,7 @@ class Todo extends LocationAwareCalendarEntity
      * This property defines the date and time that a to-do was
      * actually completed.
      *
-     * * @ORM\Column(type="datetime", nullable=true, name="completed_at")
+     * @ORM\Column(type="datetime", nullable=true, name="completed_at")
      */
     protected $completedAt;
 
@@ -47,10 +47,10 @@ class Todo extends LocationAwareCalendarEntity
      *
      * @ORM\Column(type="integer", nullable=true)
      * @Assert\Range(
-     *      min = "0",
-     *      max = "100",
-     *      minMessage = "percent must be at least 0%",
-     *      maxMessage = "percent must be at max 100%"
+     *     min = "0",
+     *     max = "100",
+     *     minMessage = "percent must be at least 0%",
+     *     maxMessage = "percent must be at max 100%"
      * )
      */
     protected $percent;

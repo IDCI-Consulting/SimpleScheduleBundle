@@ -22,8 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Event extends LocationAwareCalendarEntity
 {
-    public static $TRANSP_OPAQUE = "OPAQUE";
-    public static $TRANSP_TRANSPARENT = "TRANSPARENT";
+    public static $TRANSP = array("OPAQUE", "TRANSPARENT");
 
     /**
      * @ORM\Id
@@ -63,6 +62,5 @@ class Event extends LocationAwareCalendarEntity
      */
     public function __construct()
     {
-        $this->transp = self::$TRANSP_OPAQUE;
     }
 }

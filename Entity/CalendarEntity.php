@@ -28,6 +28,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class CalendarEntity
 {
+    const CLASSIFICATION_PUBLIC        = "PUBLIC";
+    const CLASSIFICATION_PRIVATE       = "PRIVATE";
+    const CLASSIFICATION_CONFIDENTIAL  = "CONFIDENTIAL";
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -141,7 +145,7 @@ class CalendarEntity
      *
      * @ORM\Column(type="integer", name="revision_sequence")
      */
-    protected $revisionSequence;
+    protected $revisionSequence = 0;
 
     /**
      * attendee
@@ -239,7 +243,7 @@ class CalendarEntity
      * @ORM\Column(type="string", length=32)
      * @Assert\Choice(choices = {"PUBLIC","PRIVATE","CONFIDENTIAL"}, message = "Choose a valid access classification.")
      */
-    protected $classification;
+    protected $classification = self::CLASSIFICATION_PUBLIC;
 
     /**
      * @ORM\OneToMany(targetEntity="CalendarEntityRelation", mappedBy="entity")

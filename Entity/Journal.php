@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * Purpose: Provide a grouping of component properties that describe a journal.
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="IDCI\Bundle\SimpleScheduleBundle\Repository\JournalRepository")
  */
 class Journal extends CalendarEntity
 {

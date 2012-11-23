@@ -76,4 +76,180 @@ class Category
     {
         return StringTools::slugify($this->getName());
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->childs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->calendarEntities = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Category
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Category
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set color
+     *
+     * @param string $color
+     * @return Category
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+    
+        return $this;
+    }
+
+    /**
+     * Get color
+     *
+     * @return string 
+     */
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\Category $parent
+     * @return Category
+     */
+    public function setParent(\IDCI\Bundle\SimpleScheduleBundle\Entity\Category $parent = null)
+    {
+        $this->parent = $parent;
+    
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \IDCI\Bundle\SimpleScheduleBundle\Entity\Category 
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add childs
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\Category $childs
+     * @return Category
+     */
+    public function addChild(\IDCI\Bundle\SimpleScheduleBundle\Entity\Category $childs)
+    {
+        $this->childs[] = $childs;
+    
+        return $this;
+    }
+
+    /**
+     * Remove childs
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\Category $childs
+     */
+    public function removeChild(\IDCI\Bundle\SimpleScheduleBundle\Entity\Category $childs)
+    {
+        $this->childs->removeElement($childs);
+    }
+
+    /**
+     * Get childs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChilds()
+    {
+        return $this->childs;
+    }
+
+    /**
+     * Add calendarEntities
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $calendarEntities
+     * @return Category
+     */
+    public function addCalendarEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $calendarEntities)
+    {
+        $this->calendarEntities[] = $calendarEntities;
+    
+        return $this;
+    }
+
+    /**
+     * Remove calendarEntities
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $calendarEntities
+     */
+    public function removeCalendarEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $calendarEntities)
+    {
+        $this->calendarEntities->removeElement($calendarEntities);
+    }
+
+    /**
+     * Get calendarEntities
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCalendarEntities()
+    {
+        return $this->calendarEntities;
+    }
 }

@@ -47,8 +47,7 @@ For the query interfaces:
         resource: "@IDCISimpleScheduleBundle/Controller/QueryController.php"
         type:     annotation
 
-To use the admin provided with the bundle:
+TODO:
 
-#    idci_simple_schedule:
-#        resource: "@IDCISimpleScheduleBundle/Controller/QueryController.php"
-#        type:     annotation
+ * How to use the admin provided with the bundle:
+ * How to override this bundle

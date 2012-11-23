@@ -1,0 +1,15 @@
+Create a new entry: Créer une nouvelle entrée
+Edit: Editer
+edit: editer
+show: afficher
+Delete: Supprimer
+delete: supprimer
+Actions: Actions
+Create: Créer
+Back to the list: Retourner à la liste
+List: Liste
+%entity% creation: création de %entity%
+%entity% edit: editer un %entity%
+%entity%[%id%] has been created: %entity%[%id%] a bien été créé
+%entity%[%id%] has been deleted: %entity%[%id%] a bien été supprimé
+%entity%[%id%] has been updated: %entity%[%id%] a bien été mis à jour

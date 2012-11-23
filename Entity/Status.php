@@ -23,12 +23,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Status
 {
-    // Status values for a "EVENT"
+    // Status values for "EVENT"
     const EVENT_TENTATIVE    = "TENTATIVE";      // Indicates event is tentative.
     const EVENT_CONFIRMED    = "CONFIRMED";      // Indicates event is definite.
     const EVENT_CANCELLED    = "CANCELLED";      // Indicates event was cancelled.
 
-    // Status values for a "TODO"
+    // Status values for "TODO"
     const TODO_NEEDS_ACTION  = "NEEDS-ACTION";   // Indicates to-do needs action.
     const TODO_COMPLETED     = "COMPLETED";      // Indicates to-do completed.
     const TODO_IN_PROCESS    = "IN-PROCESS";     // Indicates to-do in process of
@@ -38,6 +38,11 @@ class Status
     const JOURNAL_DRAFT      = "DRAFT";          // Indicates journal is draft.
     const JOURNAL_FINAL      = "FINAL";          // Indicates journal is final.
     const JOURNAL_CANCELLED  = "CANCELLED";      // Indicates journal is removed.
+
+    //CalendarEntity.
+    const EVENT   = "Event";
+    const TODO    = "Todo";
+    const JOURNAL = "Journal";
 
     /**
      * @ORM\Id
@@ -52,7 +57,120 @@ class Status
     protected $value;
 
     /**
+     * @ORM\Column(type="string", length=64, nullable=true)
+     * @Assert\Choice(choices = {"Event","Todo","Journal"}, message = "Choose a valid CalendarEntity.")
+     */
+    protected $discr;
+
+    /**
      * @ORM\OneToMany(targetEntity="CalendarEntity", mappedBy="status")
      */
     protected $calendarEntities;
+
+
+    public static function getDiscrs()
+    {
+        return array(
+            self::EVENT   => self::EVENT,
+            self::TODO    => self::TODO,
+            self::JOURNAL => self::JOURNAL
+        );
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->calendarEntities = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set value
+     *
+     * @param string $value
+     * @return Status
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+    
+        return $this;
+    }
+
+    /**
+     * Get value
+     *
+     * @return string 
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Set discr
+     *
+     * @param string $discr
+     * @return Status
+     */
+    public function setDiscr($discr)
+    {
+        $this->discr = $discr;
+    
+        return $this;
+    }
+
+    /**
+     * Get discr
+     *
+     * @return string 
+     */
+    public function getDiscr()
+    {
+        return $this->discr;
+    }
+
+    /**
+     * Add calendarEntities
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $calendarEntities
+     * @return Status
+     */
+    public function addCalendarEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $calendarEntities)
+    {
+        $this->calendarEntities[] = $calendarEntities;
+    
+        return $this;
+    }
+
+    /**
+     * Remove calendarEntities
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $calendarEntities
+     */
+    public function removeCalendarEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $calendarEntities)
+    {
+        $this->calendarEntities->removeElement($calendarEntities);
+    }
+
+    /**
+     * Get calendarEntities
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCalendarEntities()
+    {
+        return $this->calendarEntities;
+    }
 }

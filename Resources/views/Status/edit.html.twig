@@ -1,0 +1,31 @@
+{% extends "IDCISimpleScheduleBundle::adminbase.html.twig" %}
+
+{% block body %}
+
+{{ parent() }}
+
+<div class="page-header">
+  <h1>{% trans %}Edit{% endtrans %}</h1>
+</div>
+
+<form action="{{ path('admin_status_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    {{ form_widget(edit_form) }}
+    <p>
+        <button type="submit" class="btn btn-primary">{% trans %}Edit{% endtrans %}</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a class="btn" href="{{ path('admin_status') }}">
+            {% trans %}Back to the list{% endtrans %}
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('admin_status_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit" class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
+        </form>
+    </li>
+</ul>
+{% endblock body %}

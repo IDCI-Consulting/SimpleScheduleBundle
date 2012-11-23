@@ -1,0 +1,40 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+{{ parent() }}
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap-responsive.css" />
+{% endblock %}
+
+{% block body %}
+
+    {% for flashMessage in app.session.flashbag.get('info') %}
+        <div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="alert alert-error">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+{% endblock %}

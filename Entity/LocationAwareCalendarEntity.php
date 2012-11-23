@@ -88,4 +88,49 @@ abstract class LocationAwareCalendarEntity extends CalendarEntity
      * @ORM\JoinColumn(name="location_id", referencedColumnName="id", onDelete="Set Null")
      */
     protected $location;
+
+    /**
+     * durationTo
+     * Convert a duration into a countable given time unit
+     *
+     * @param string duration
+     * @param string time unit [week, day, hour, minute, second]
+     * @return float
+     */
+    static public function durationTo($duration, $time_unit)
+    {
+        $time_units = array(
+            'week'    => 604800,
+            'day'     => 86400,
+            'hour'    => 3600,
+            'minute'  => 60,
+            'second'  => 1,
+        );
+
+        if(!in_array($time_unit, array_keys($time_units))) {
+            throw new Exception(sprintf('Wrong given time unit: %s', $time_unit));
+        }
+
+        $matches = array();
+
+        $pattern = "#^P(?:([0-9]+)W)?(?:([0-9]+)D)?T?(?:([0-9]+)H)?(?:([0-9]+)M)?(?:([0-9]+)S)?$#";
+        if(!preg_match($pattern, $duration, $matches)) {
+            throw new Exception(sprintf('Invalid duration: %s', $duration));
+        }
+
+        $result = array(
+            'week'   => isset($matches[1]) ? $matches[1] : 0,
+            'day'    => isset($matches[2]) ? $matches[2] : 0,
+            'hour'   => isset($matches[3]) ? $matches[3] : 0,
+            'minute' => isset($matches[4]) ? $matches[4] : 0,
+            'second' => isset($matches[5]) ? $matches[5] : 0
+        );
+
+        $duration_seconds = 0;
+        foreach($result as $unit => $value) {
+            $duration_seconds += $value * $time_units[$unit];
+        }
+
+        return $duration_seconds / $time_units[$time_unit];
+    }
 }

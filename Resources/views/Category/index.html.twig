@@ -26,7 +26,7 @@
     {% for entity in pager.currentPageResults %}
         <tr>
             <td><a href="{{ path('admin_category_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.name }}</td>
+            <td>{{ entity }}</td>
             <td>{{ entity.description }}</td>
             <td>{{ entity.color }}</td>    <td>
                     <a class="btn btn-block" href="{{ path('admin_category_show', { 'id': entity.id }) }}">{% trans %}show{% endtrans %}</a>

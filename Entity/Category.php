@@ -64,6 +64,13 @@ class Category
      */
     public function __toString()
     {
+        if($this->getParent()) {
+            return sprintf('%s > %s',
+                $this->getParent(),
+                $this->getName()
+            );
+        }
+
         return $this->getName();
     }
 

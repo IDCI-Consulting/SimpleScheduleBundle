@@ -76,4 +76,139 @@ class Location
     {
         return sprintf('%.6f;%.6f', $this->getLatitude(), $this->getLongitude());
     }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Location
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Location
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set latitude
+     *
+     * @param float $latitude
+     * @return Location
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+    
+        return $this;
+    }
+
+    /**
+     * Get latitude
+     *
+     * @return float 
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set longitude
+     *
+     * @param float $longitude
+     * @return Location
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+    
+        return $this;
+    }
+
+    /**
+     * Get longitude
+     *
+     * @return float 
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * Add locationAwareCalendarEntities
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\LocationAwareCalendarEntity $locationAwareCalendarEntities
+     * @return Location
+     */
+    public function addLocationAwareCalendarEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\LocationAwareCalendarEntity $locationAwareCalendarEntities)
+    {
+        $this->locationAwareCalendarEntities[] = $locationAwareCalendarEntities;
+    
+        return $this;
+    }
+
+    /**
+     * Remove locationAwareCalendarEntities
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\LocationAwareCalendarEntity $locationAwareCalendarEntities
+     */
+    public function removeLocationAwareCalendarEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\LocationAwareCalendarEntity $locationAwareCalendarEntities)
+    {
+        $this->locationAwareCalendarEntities->removeElement($locationAwareCalendarEntities);
+    }
+
+    /**
+     * Get locationAwareCalendarEntities
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLocationAwareCalendarEntities()
+    {
+        return $this->locationAwareCalendarEntities;
+    }
 }

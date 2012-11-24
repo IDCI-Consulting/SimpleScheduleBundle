@@ -36,12 +36,12 @@ class Location
     protected $description;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=6)
+     * @ORM\Column(type="decimal", precision=10, scale=6, nullable=true)
      */
     protected $latitude;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=6)
+     * @ORM\Column(type="decimal", precision=10, scale=6, nullable=true)
      */
     protected $longitude;
 

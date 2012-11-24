@@ -24,20 +24,20 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Status
 {
     // Status values for "EVENT"
-    const EVENT_TENTATIVE    = "TENTATIVE";      // Indicates event is tentative.
-    const EVENT_CONFIRMED    = "CONFIRMED";      // Indicates event is definite.
     const EVENT_CANCELLED    = "CANCELLED";      // Indicates event was cancelled.
+    const EVENT_CONFIRMED    = "CONFIRMED";      // Indicates event is definite.
+    const EVENT_TENTATIVE    = "TENTATIVE";      // Indicates event is tentative.
 
     // Status values for "TODO"
-    const TODO_NEEDS_ACTION  = "NEEDS-ACTION";   // Indicates to-do needs action.
+    const TODO_CANCELLED     = "CANCELLED";      // Indicates to-do was cancelled.
     const TODO_COMPLETED     = "COMPLETED";      // Indicates to-do completed.
     const TODO_IN_PROCESS    = "IN-PROCESS";     // Indicates to-do in process of
-    const TODO_CANCELLED     = "CANCELLED";      // Indicates to-do was cancelled.
+    const TODO_NEEDS_ACTION  = "NEEDS-ACTION";   // Indicates to-do needs action.
 
     //Status values for "JOURNAL".
+    const JOURNAL_CANCELLED  = "CANCELLED";      // Indicates journal is removed.
     const JOURNAL_DRAFT      = "DRAFT";          // Indicates journal is draft.
     const JOURNAL_FINAL      = "FINAL";          // Indicates journal is final.
-    const JOURNAL_CANCELLED  = "CANCELLED";      // Indicates journal is removed.
 
     //CalendarEntity.
     const EVENT   = "Event";

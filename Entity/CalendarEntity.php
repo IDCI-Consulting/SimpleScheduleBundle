@@ -22,6 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity(repositoryClass="IDCI\Bundle\SimpleScheduleBundle\Repository\CalendarEntityRepository")
  * @ORM\Table(name="idci_schedule_entity")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({
@@ -91,7 +92,7 @@ class CalendarEntity
      * This property provides a more complete description of the
      * calendar component, than that provided by the "SUMMARY" property.
      *
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     protected $description;
 
@@ -111,7 +112,7 @@ class CalendarEntity
      * This property defines a Uniform Resource Locator (URL)
      * associated with the iCalendar object.
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
      protected $url;
 
@@ -368,6 +369,40 @@ class CalendarEntity
             $this->getLocation(),
             $this->getActivity()
         );
+    }
+
+    /**
+     * upRevisionSequence
+     */
+    public function upRevisionSequence()
+    {
+        $this->setRevisionSequence($this->getRevisionSequence() + 1);
+    }
+
+    /**
+     * onCreation
+     *
+     * @ORM\PrePersist()
+     */
+    public function onCreation()
+    {
+        $now = new \DateTime('now');
+
+        $this->setCreatedAt($now);
+        $this->setLastModifiedAt($now);
+    }
+
+    /**
+     * onUpdate
+     *
+     * @ORM\PreUpdate()
+     */
+    public function onUpdate()
+    {
+        $now = new \DateTime('now');
+
+        $this->setLastModifiedAt($now);
+        $this->upRevisionSequence();
     }
 
     /**

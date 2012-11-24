@@ -16,9 +16,8 @@
     <thead>
         <tr>
             <th>Id</th>
-            <th>Name</th>
-            <th>Description</th>
             <th>Color</th>
+            <th>Name</th>
             <th colspan="3">{% trans %}Actions{% endtrans %}</th>
         </tr>
     </thead>
@@ -26,14 +25,19 @@
     {% for entity in pager.currentPageResults %}
         <tr>
             <td><a href="{{ path('admin_category_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>
+                <div style="width:28px;height:28px;border:1px solid #222;background:{{ entity.color }}" title="{{ entity.color }}">
+                </div>
+            </td>
             <td>{{ entity }}</td>
-            <td>{{ entity.description }}</td>
-            <td>{{ entity.color }}</td>    <td>
-                    <a class="btn btn-block" href="{{ path('admin_category_show', { 'id': entity.id }) }}">{% trans %}show{% endtrans %}</a>
-            </td>    <td>
-                    <a class="btn btn-block btn-primary" href="{{ path('admin_category_edit', { 'id': entity.id }) }}">{% trans %}edit{% endtrans %}</a>
-            </td>    <td>
-                    {% render 'IDCISimpleScheduleBundle:Category:deleteForm' with { 'id': entity.id } %}
+            <td>
+                <a class="btn btn-block" href="{{ path('admin_category_show', { 'id': entity.id }) }}">{% trans %}show{% endtrans %}</a>
+            </td>
+            <td>
+                <a class="btn btn-block btn-primary" href="{{ path('admin_category_edit', { 'id': entity.id }) }}">{% trans %}edit{% endtrans %}</a>
+            </td>
+            <td>
+                {% render 'IDCISimpleScheduleBundle:Category:deleteForm' with { 'id': entity.id } %}
             </td>
         </tr>
     {% endfor %}

@@ -6,28 +6,27 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-use IDCI\Bundle\SimpleScheduleBundle\Entity\Status;
-
-class EventType extends LocationAwareCalendarEntityType
+abstract class LocationAwareCalendarEntityType extends CalendarEntityType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
         $builder
-            ->add('isTransparent')
-            ->add('endAt')
+            ->add('location')
         ;
-    }
 
-    public function getEntityDiscr()
-    {
-        return Status::EVENT;
+        parent::buildForm($builder, $options);
+
+        $builder
+            ->add('duration')
+            ->add('priority')
+            ->add('resources')
+        ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'IDCI\Bundle\SimpleScheduleBundle\Entity\Event'
+            'data_class' => 'IDCI\Bundle\SimpleScheduleBundle\Entity\LocationAwareCalendarEntity'
         ));
     }
 

@@ -1,0 +1,82 @@
+{% extends "IDCISimpleScheduleBundle::adminbase.html.twig" %}
+
+{% block body %}
+
+{{ parent() }}
+
+<div class="page-header">
+    <h1>{% trans %}List{% endtrans %}</h1>
+</div>
+
+<p>
+    {{ pagerfanta(pager, 'twitter_bootstrap') }}
+</p>
+
+<table class="table table-bordered table-striped table-condensed records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Createdat</th>
+            <th>Startat</th>
+            <th>Lastmodifiedat</th>
+            <th>Summary</th>
+            <th>Description</th>
+            <th>Comment</th>
+            <th>Url</th>
+            <th>Organizer</th>
+            <th>Revisionsequence</th>
+            <th>Contacts</th>
+            <th>Excludeddates</th>
+            <th>Includeddates</th>
+            <th>Xprop</th>
+            <th>Classification</th>
+            <th>Priority</th>
+            <th>Resources</th>
+            <th>Duration</th>
+            <th>Istransparent</th>
+            <th>Endat</th>
+            <th colspan="3">{% trans %}Actions{% endtrans %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in pager.currentPageResults %}
+        <tr>
+            <td><a href="{{ path('admin_event_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{% if entity.startAt %}{{ entity.startAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{% if entity.lastModifiedAt %}{{ entity.lastModifiedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{{ entity.summary }}</td>
+            <td>{{ entity.description }}</td>
+            <td>{{ entity.comment }}</td>
+            <td>{{ entity.url }}</td>
+            <td>{{ entity.organizer }}</td>
+            <td>{{ entity.revisionSequence }}</td>
+            <td>{{ entity.contacts }}</td>
+            <td>{{ entity.excludedDates }}</td>
+            <td>{{ entity.includedDates }}</td>
+            <td>{{ entity.xProp }}</td>
+            <td>{{ entity.classification }}</td>
+            <td>{{ entity.priority }}</td>
+            <td>{{ entity.resources }}</td>
+            <td>{{ entity.duration }}</td>
+            <td>{{ entity.isTransparent }}</td>
+            <td>{% if entity.endAt %}{{ entity.endAt|date('Y-m-d H:i:s') }}{% endif %}</td>    <td>
+                    <a class="btn btn-block" href="{{ path('admin_event_show', { 'id': entity.id }) }}">{% trans %}show{% endtrans %}</a>
+            </td>    <td>
+                    <a class="btn btn-block btn-primary" href="{{ path('admin_event_edit', { 'id': entity.id }) }}">{% trans %}edit{% endtrans %}</a>
+            </td>    <td>
+                    {% render 'IDCISimpleScheduleBundle:Event:deleteForm' with { 'id': entity.id } %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul class="list_actions">
+    <li>
+        <a class="btn btn-primary" href="{{ path('admin_event_new') }}">
+            {% trans %}Create a new entry{% endtrans %}
+        </a>
+    </li>
+</ul>
+{% endblock body %}

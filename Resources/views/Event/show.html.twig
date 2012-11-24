@@ -1,0 +1,114 @@
+{% extends "IDCISimpleScheduleBundle::adminbase.html.twig" %}
+
+{% block body %}
+
+{{ parent() }}
+
+<div class="page-header">
+  <h1>Event</h1>
+</div>
+
+<table class="table table-bordered table-striped record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Createdat</th>
+            <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Startat</th>
+            <td>{{ entity.startAt|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Lastmodifiedat</th>
+            <td>{{ entity.lastModifiedAt|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Summary</th>
+            <td>{{ entity.summary }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ entity.description }}</td>
+        </tr>
+        <tr>
+            <th>Comment</th>
+            <td>{{ entity.comment }}</td>
+        </tr>
+        <tr>
+            <th>Url</th>
+            <td>{{ entity.url }}</td>
+        </tr>
+        <tr>
+            <th>Organizer</th>
+            <td>{{ entity.organizer }}</td>
+        </tr>
+        <tr>
+            <th>Revisionsequence</th>
+            <td>{{ entity.revisionSequence }}</td>
+        </tr>
+        <tr>
+            <th>Contacts</th>
+            <td>{{ entity.contacts }}</td>
+        </tr>
+        <tr>
+            <th>Excludeddates</th>
+            <td>{{ entity.excludedDates }}</td>
+        </tr>
+        <tr>
+            <th>Includeddates</th>
+            <td>{{ entity.includedDates }}</td>
+        </tr>
+        <tr>
+            <th>Xprop</th>
+            <td>{{ entity.xProp }}</td>
+        </tr>
+        <tr>
+            <th>Classification</th>
+            <td>{{ entity.classification }}</td>
+        </tr>
+        <tr>
+            <th>Priority</th>
+            <td>{{ entity.priority }}</td>
+        </tr>
+        <tr>
+            <th>Resources</th>
+            <td>{{ entity.resources }}</td>
+        </tr>
+        <tr>
+            <th>Duration</th>
+            <td>{{ entity.duration }}</td>
+        </tr>
+        <tr>
+            <th>Istransparent</th>
+            <td>{{ entity.isTransparent }}</td>
+        </tr>
+        <tr>
+            <th>Endat</th>
+            <td>{{ entity.endAt|date('Y-m-d H:i:s') }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a class="btn" href="{{ path('admin_event') }}">
+            {% trans %}Back to the list{% endtrans %}
+        </a>
+    </li>
+    <li>
+        <a class="btn btn-primary" href="{{ path('admin_event_edit', { 'id': entity.id }) }}">
+            {% trans %}Edit{% endtrans %}
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('admin_event_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit" class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
+        </form>
+    </li>
+</ul>
+{% endblock body %}

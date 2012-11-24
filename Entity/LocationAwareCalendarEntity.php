@@ -133,4 +133,96 @@ abstract class LocationAwareCalendarEntity extends CalendarEntity
 
         return $duration_seconds / $time_units[$time_unit];
     }
+
+    /**
+     * Set priority
+     *
+     * @param integer $priority
+     * @return LocationAwareCalendarEntity
+     */
+    public function setPriority($priority)
+    {
+        $this->priority = $priority;
+    
+        return $this;
+    }
+
+    /**
+     * Get priority
+     *
+     * @return integer 
+     */
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+
+    /**
+     * Set resources
+     *
+     * @param string $resources
+     * @return LocationAwareCalendarEntity
+     */
+    public function setResources($resources)
+    {
+        $this->resources = $resources;
+    
+        return $this;
+    }
+
+    /**
+     * Get resources
+     *
+     * @return string 
+     */
+    public function getResources()
+    {
+        return $this->resources;
+    }
+
+    /**
+     * Set duration
+     *
+     * @param string $duration
+     * @return LocationAwareCalendarEntity
+     */
+    public function setDuration($duration)
+    {
+        $this->duration = $duration;
+    
+        return $this;
+    }
+
+    /**
+     * Get duration
+     *
+     * @return string 
+     */
+    public function getDuration()
+    {
+        return $this->duration;
+    }
+
+    /**
+     * Set location
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\Location $location
+     * @return LocationAwareCalendarEntity
+     */
+    public function setLocation(\IDCI\Bundle\SimpleScheduleBundle\Entity\Location $location = null)
+    {
+        $this->location = $location;
+    
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return \IDCI\Bundle\SimpleScheduleBundle\Entity\Location 
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
 }

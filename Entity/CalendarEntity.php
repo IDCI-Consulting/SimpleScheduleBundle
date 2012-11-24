@@ -24,7 +24,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="idci_schedule_entity")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"event"="Event", "todo"="Todo", "journal"="Journal"})
+ * @ORM\DiscriminatorMap({
+ *     "locationAwareCalendarEntities"="LocationAwareCalendarEntity",
+ *     "event"="Event",
+ *     "todo"="Todo",
+ *     "journal"="Journal"
+ * })
  */
 class CalendarEntity
 {
@@ -344,6 +349,11 @@ class CalendarEntity
      */
     public function __construct()
     {
+        $this->entities = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->relateds = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->includedRules = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->excludedRules = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -410,5 +420,525 @@ class CalendarEntity
         $dt->setTimeZone(new \DateTimezone($timezone));
 
         return $dt->format($format);
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return CalendarEntity
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set startAt
+     *
+     * @param \DateTime $startAt
+     * @return CalendarEntity
+     */
+    public function setStartAt($startAt)
+    {
+        $this->startAt = $startAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get startAt
+     *
+     * @return \DateTime 
+     */
+    public function getStartAt()
+    {
+        return $this->startAt;
+    }
+
+    /**
+     * Set lastModifiedAt
+     *
+     * @param \DateTime $lastModifiedAt
+     * @return CalendarEntity
+     */
+    public function setLastModifiedAt($lastModifiedAt)
+    {
+        $this->lastModifiedAt = $lastModifiedAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get lastModifiedAt
+     *
+     * @return \DateTime 
+     */
+    public function getLastModifiedAt()
+    {
+        return $this->lastModifiedAt;
+    }
+
+    /**
+     * Set summary
+     *
+     * @param string $summary
+     * @return CalendarEntity
+     */
+    public function setSummary($summary)
+    {
+        $this->summary = $summary;
+    
+        return $this;
+    }
+
+    /**
+     * Get summary
+     *
+     * @return string 
+     */
+    public function getSummary()
+    {
+        return $this->summary;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return CalendarEntity
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set comment
+     *
+     * @param string $comment
+     * @return CalendarEntity
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+    
+        return $this;
+    }
+
+    /**
+     * Get comment
+     *
+     * @return string 
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     * @return CalendarEntity
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string 
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set organizer
+     *
+     * @param string $organizer
+     * @return CalendarEntity
+     */
+    public function setOrganizer($organizer)
+    {
+        $this->organizer = $organizer;
+    
+        return $this;
+    }
+
+    /**
+     * Get organizer
+     *
+     * @return string 
+     */
+    public function getOrganizer()
+    {
+        return $this->organizer;
+    }
+
+    /**
+     * Set revisionSequence
+     *
+     * @param integer $revisionSequence
+     * @return CalendarEntity
+     */
+    public function setRevisionSequence($revisionSequence)
+    {
+        $this->revisionSequence = $revisionSequence;
+    
+        return $this;
+    }
+
+    /**
+     * Get revisionSequence
+     *
+     * @return integer 
+     */
+    public function getRevisionSequence()
+    {
+        return $this->revisionSequence;
+    }
+
+    /**
+     * Set contacts
+     *
+     * @param string $contacts
+     * @return CalendarEntity
+     */
+    public function setContacts($contacts)
+    {
+        $this->contacts = $contacts;
+    
+        return $this;
+    }
+
+    /**
+     * Get contacts
+     *
+     * @return string 
+     */
+    public function getContacts()
+    {
+        return $this->contacts;
+    }
+
+    /**
+     * Set excludedDates
+     *
+     * @param string $excludedDates
+     * @return CalendarEntity
+     */
+    public function setExcludedDates($excludedDates)
+    {
+        $this->excludedDates = $excludedDates;
+    
+        return $this;
+    }
+
+    /**
+     * Get excludedDates
+     *
+     * @return string 
+     */
+    public function getExcludedDates()
+    {
+        return $this->excludedDates;
+    }
+
+    /**
+     * Set includedDates
+     *
+     * @param string $includedDates
+     * @return CalendarEntity
+     */
+    public function setIncludedDates($includedDates)
+    {
+        $this->includedDates = $includedDates;
+    
+        return $this;
+    }
+
+    /**
+     * Get includedDates
+     *
+     * @return string 
+     */
+    public function getIncludedDates()
+    {
+        return $this->includedDates;
+    }
+
+    /**
+     * Set xProp
+     *
+     * @param string $xProp
+     * @return CalendarEntity
+     */
+    public function setXProp($xProp)
+    {
+        $this->xProp = $xProp;
+    
+        return $this;
+    }
+
+    /**
+     * Get xProp
+     *
+     * @return string 
+     */
+    public function getXProp()
+    {
+        return $this->xProp;
+    }
+
+    /**
+     * Set classification
+     *
+     * @param string $classification
+     * @return CalendarEntity
+     */
+    public function setClassification($classification)
+    {
+        $this->classification = $classification;
+    
+        return $this;
+    }
+
+    /**
+     * Get classification
+     *
+     * @return string 
+     */
+    public function getClassification()
+    {
+        return $this->classification;
+    }
+
+    /**
+     * Add entities
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $entities
+     * @return CalendarEntity
+     */
+    public function addEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $entities)
+    {
+        $this->entities[] = $entities;
+    
+        return $this;
+    }
+
+    /**
+     * Remove entities
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $entities
+     */
+    public function removeEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $entities)
+    {
+        $this->entities->removeElement($entities);
+    }
+
+    /**
+     * Get entities
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEntities()
+    {
+        return $this->entities;
+    }
+
+    /**
+     * Add relateds
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $relateds
+     * @return CalendarEntity
+     */
+    public function addRelated(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $relateds)
+    {
+        $this->relateds[] = $relateds;
+    
+        return $this;
+    }
+
+    /**
+     * Remove relateds
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $relateds
+     */
+    public function removeRelated(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $relateds)
+    {
+        $this->relateds->removeElement($relateds);
+    }
+
+    /**
+     * Get relateds
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRelateds()
+    {
+        return $this->relateds;
+    }
+
+    /**
+     * Set status
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\Status $status
+     * @return CalendarEntity
+     */
+    public function setStatus(\IDCI\Bundle\SimpleScheduleBundle\Entity\Status $status = null)
+    {
+        $this->status = $status;
+    
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return \IDCI\Bundle\SimpleScheduleBundle\Entity\Status 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Add categories
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\Category $categories
+     * @return CalendarEntity
+     */
+    public function addCategorie(\IDCI\Bundle\SimpleScheduleBundle\Entity\Category $categories)
+    {
+        $this->categories[] = $categories;
+    
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\Category $categories
+     */
+    public function removeCategorie(\IDCI\Bundle\SimpleScheduleBundle\Entity\Category $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * Add includedRules
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\Recur $includedRules
+     * @return CalendarEntity
+     */
+    public function addIncludedRule(\IDCI\Bundle\SimpleScheduleBundle\Entity\Recur $includedRules)
+    {
+        $this->includedRules[] = $includedRules;
+    
+        return $this;
+    }
+
+    /**
+     * Remove includedRules
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\Recur $includedRules
+     */
+    public function removeIncludedRule(\IDCI\Bundle\SimpleScheduleBundle\Entity\Recur $includedRules)
+    {
+        $this->includedRules->removeElement($includedRules);
+    }
+
+    /**
+     * Get includedRules
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIncludedRules()
+    {
+        return $this->includedRules;
+    }
+
+    /**
+     * Add excludedRules
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\Recur $excludedRules
+     * @return CalendarEntity
+     */
+    public function addExcludedRule(\IDCI\Bundle\SimpleScheduleBundle\Entity\Recur $excludedRules)
+    {
+        $this->excludedRules[] = $excludedRules;
+    
+        return $this;
+    }
+
+    /**
+     * Remove excludedRules
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\Recur $excludedRules
+     */
+    public function removeExcludedRule(\IDCI\Bundle\SimpleScheduleBundle\Entity\Recur $excludedRules)
+    {
+        $this->excludedRules->removeElement($excludedRules);
+    }
+
+    /**
+     * Get excludedRules
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExcludedRules()
+    {
+        return $this->excludedRules;
     }
 }

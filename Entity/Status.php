@@ -84,7 +84,12 @@ class Status
     {
         $this->calendarEntities = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
+    public function __toString()
+    {
+        return $this->getValue();
+    }
+
     /**
      * Get id
      *

@@ -28,13 +28,6 @@ class Event extends LocationAwareCalendarEntity
     public static $TRANSP = array(self::TRANSP_OPAQUE, self::TRANSP_TRANSPARENT);
 
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
-
-    /**
      * transp
      *
      * This property defines whether an event is transparent or not
@@ -61,9 +54,48 @@ class Event extends LocationAwareCalendarEntity
     protected $endAt;
 
     /**
-     * Constructor
+     * Set isTransparent
+     *
+     * @param boolean $isTransparent
+     * @return Event
      */
-    public function __construct()
+    public function setIsTransparent($isTransparent)
     {
+        $this->isTransparent = $isTransparent;
+    
+        return $this;
+    }
+
+    /**
+     * Get isTransparent
+     *
+     * @return boolean 
+     */
+    public function getIsTransparent()
+    {
+        return $this->isTransparent;
+    }
+
+    /**
+     * Set endAt
+     *
+     * @param \DateTime $endAt
+     * @return Event
+     */
+    public function setEndAt($endAt)
+    {
+        $this->endAt = $endAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get endAt
+     *
+     * @return \DateTime 
+     */
+    public function getEndAt()
+    {
+        return $this->endAt;
     }
 }

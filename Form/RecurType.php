@@ -2,36 +2,31 @@
 
 namespace IDCI\Bundle\SimpleScheduleBundle\Form;
 
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-use IDCI\Bundle\SimpleScheduleBundle\Entity\Status;
-
-class EventType extends LocationAwareCalendarEntityType
+class RecurType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
         $builder
-            ->add('isTransparent')
-            ->add('endAt')
+            ->add('frequency', 'hidden')
+            ->add('until')
+            ->add('count')
+            ->add('interval')
         ;
-    }
-
-    public function getEntityDiscr()
-    {
-        return Status::EVENT;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'IDCI\Bundle\SimpleScheduleBundle\Entity\Event'
+            'data_class' => 'IDCI\Bundle\SimpleScheduleBundle\Entity\Recur'
         ));
     }
 
     public function getName()
     {
-        return 'idci_simpleschedule_event_type';
+        return 'idci_bundle_simpleschedulebundle_recurtype';
     }
 }

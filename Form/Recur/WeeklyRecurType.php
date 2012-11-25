@@ -5,7 +5,6 @@ namespace IDCI\Bundle\SimpleScheduleBundle\Form\Recur;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use IDCI\Bundle\SimpleScheduleBundle\Form\RecurType;
-use IDCI\Bundle\SimpleScheduleBundle\Entity\Recur;
 
 class WeeklyRecurType extends RecurType
 {
@@ -13,11 +12,7 @@ class WeeklyRecurType extends RecurType
     {
         parent::buildForm($builder, $options);
         $builder
-            ->add('byDay', 'choice', array(
-                'choices'  => Recur::getWeekdays(),
-                'multiple' => true,
-                'expanded' => true
-            ))
+            ->add('byDay', 'week_days')
         ;
     }
 

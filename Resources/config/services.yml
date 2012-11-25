@@ -1,0 +1,5 @@
+services:
+    idci_simpleschedule.type.week_days:
+        class: IDCI\Bundle\SimpleScheduleBundle\Form\Type\WeekDaysType
+        tags:
+            - { name: form.type, alias: week_days }

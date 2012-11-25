@@ -68,10 +68,10 @@ class RecurController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $calendarEntity = $em->getRepository('IDCISimpleScheduleBundle:Event')->find($calendar_entity_id);
+        $calendarEntity = $em->getRepository('IDCISimpleScheduleBundle:CalendarEntity')->find($calendar_entity_id);
 
         if (!$calendarEntity) {
-            throw $this->createNotFoundException('Unable to find Event entity.');
+            throw $this->createNotFoundException('Unable to find Calendar entity.');
         }
 
         $entity = new Recur();
@@ -79,7 +79,14 @@ class RecurController extends Controller
         $recurForm->bind($request);
 
         if ($recurForm->isValid()) {
-            var_dump($entity); die('todo');
+            $calendarEntity->addIncludedRule($entity);
+            $em->persist($calendarEntity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl(
+                'admin_event_edit',
+                array('id' => $calendarEntity->getId())
+            ));
         }
 
         return array(

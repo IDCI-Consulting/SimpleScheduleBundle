@@ -91,7 +91,7 @@ class Recur
      *
      * @ORM\Column(type="integer", nullable=true)
      */
-    protected $count;
+    protected $rcount;
 
     /**
      * interval (1*DIGIT)
@@ -105,7 +105,7 @@ class Recur
      *
      * @ORM\Column(type="integer", nullable=true)
      */
-    protected $interval;
+    protected $rinterval;
 
     /**
      * bysecond (byseclist)
@@ -394,49 +394,49 @@ class Recur
     }
 
     /**
-     * Set count
+     * Set rcount
      *
-     * @param integer $count
+     * @param integer $rcount
      * @return Recur
      */
-    public function setCount($count)
+    public function setRcount($rcount)
     {
-        $this->count = $count;
+        $this->rcount = $rcount;
     
         return $this;
     }
 
     /**
-     * Get count
+     * Get rcount
      *
      * @return integer 
      */
-    public function getCount()
+    public function getRcount()
     {
-        return $this->count;
+        return $this->rcount;
     }
 
     /**
-     * Set interval
+     * Set rinterval
      *
-     * @param integer $interval
+     * @param integer $rinterval
      * @return Recur
      */
-    public function setInterval($interval)
+    public function setRinterval($rinterval)
     {
-        $this->interval = $interval;
+        $this->rinterval = $rinterval;
     
         return $this;
     }
 
     /**
-     * Get interval
+     * Get rinterval
      *
      * @return integer 
      */
-    public function getInterval()
+    public function getRinterval()
     {
-        return $this->interval;
+        return $this->rinterval;
     }
 
     /**

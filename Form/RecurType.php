@@ -13,8 +13,8 @@ class RecurType extends AbstractType
         $builder
             ->add('frequency', 'hidden')
             ->add('until')
-            ->add('count')
-            ->add('interval')
+            ->add('rcount')
+            ->add('rinterval')
         ;
     }
 

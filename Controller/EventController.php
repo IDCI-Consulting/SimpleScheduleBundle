@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use IDCI\Bundle\SimpleScheduleBundle\Entity\Event;
 use IDCI\Bundle\SimpleScheduleBundle\Form\EventType;
+use IDCI\Bundle\SimpleScheduleBundle\Form\RecurChoiceType;
 
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
@@ -49,6 +50,7 @@ class EventController extends Controller
             'pager' => $pager,
         );
     }
+
     /**
      * Finds and displays a Event entity.
      *
@@ -143,11 +145,13 @@ class EventController extends Controller
 
         $editForm = $this->createForm(new EventType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
+        $recurChoiceForm = $this->createForm(new RecurChoiceType());
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'entity'            => $entity,
+            'edit_form'         => $editForm->createView(),
+            'delete_form'       => $deleteForm->createView(),
+            'recur_choice_form' => $recurChoiceForm->createView()
         );
     }
 

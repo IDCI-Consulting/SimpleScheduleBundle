@@ -23,6 +23,22 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Recur
 {
+    const FREQ_SECONDLY = "SECONDLY";
+    const FREQ_MINUTELY = "MINUTELY";
+    const FREQ_HOURLY   = "HOURLY";
+    const FREQ_DAILY    = "DAILY";
+    const FREQ_WEEKLY   = "WEEKLY";
+    const FREQ_MONTHLY  = "MONTHLY";
+    const FREQ_YEARLY   = "YEARLY";
+
+    const WEEKDAY_SUNDAY    = "SU";
+    const WEEKDAY_MONDAY    = "MO";
+    const WEEKDAY_TUESDAY   = "TU";
+    const WEEKDAY_WEDNESDAY = "WE";
+    const WEEKDAY_THURSDAY  = "TH";
+    const WEEKDAY_FRIDAY    = "FR";
+    const WEEKDAY_SATURDAY  = "SA";
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -49,7 +65,7 @@ class Recur
      * @ORM\Column(type="string", length=32)
      * @Assert\Choice(choices = {"SECONDLY","MINUTELY","HOURLY","DAILY","WEEKLY","MONTHLY","YEARLY"}, message = "Choose a valid frequency.")
      */
-    protected $freq;
+    protected $frequency;
 
     /**
      * until (enddate)
@@ -275,4 +291,447 @@ class Recur
      * @ORM\ManyToMany(targetEntity="CalendarEntity", mappedBy="excludedRules", cascade={"persist"})
      */
     private $excludedEntities;
+
+    /**
+     * getFrequencies
+     *
+     * @return array()
+     */
+    public static function getFrequencies()
+    {
+        return array(
+            self::FREQ_SECONDLY  => self::FREQ_SECONDLY,
+            self::FREQ_MINUTELY  => self::FREQ_MINUTELY,
+            self::FREQ_HOURLY    => self::FREQ_HOURLY,
+            self::FREQ_DAILY     => self::FREQ_DAILY,
+            self::FREQ_WEEKLY    => self::FREQ_WEEKLY,
+            self::FREQ_MONTHLY   => self::FREQ_MONTHLY,
+            self::FREQ_YEARLY    => self::FREQ_YEARLY
+        );
+    }
+
+    /**
+     * getWeekdays
+     *
+     * @return array()
+     */
+    public static function getWeekdays()
+    {
+        return array(
+            self::WEEKDAY_SUNDAY    => "SUNDAY",
+            self::WEEKDAY_MONDAY    => "MONDAY",
+            self::WEEKDAY_TUESDAY   => "TUESDAY",
+            self::WEEKDAY_WEDNESDAY => "WEDNESDAY",
+            self::WEEKDAY_THURSDAY  => "THURSDAY",
+            self::WEEKDAY_FRIDAY    => "FRIDAY",
+            self::WEEKDAY_SATURDAY  => "SATURDAY"
+        );
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->includedEntities = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->excludedEntities = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set frequency
+     *
+     * @param string $frequency
+     * @return Recur
+     */
+    public function setFrequency($frequency)
+    {
+        $this->frequency = $frequency;
+    
+        return $this;
+    }
+
+    /**
+     * Get frequency
+     *
+     * @return string 
+     */
+    public function getFrequency()
+    {
+        return $this->frequency;
+    }
+
+    /**
+     * Set until
+     *
+     * @param \DateTime $until
+     * @return Recur
+     */
+    public function setUntil($until)
+    {
+        $this->until = $until;
+    
+        return $this;
+    }
+
+    /**
+     * Get until
+     *
+     * @return \DateTime 
+     */
+    public function getUntil()
+    {
+        return $this->until;
+    }
+
+    /**
+     * Set count
+     *
+     * @param integer $count
+     * @return Recur
+     */
+    public function setCount($count)
+    {
+        $this->count = $count;
+    
+        return $this;
+    }
+
+    /**
+     * Get count
+     *
+     * @return integer 
+     */
+    public function getCount()
+    {
+        return $this->count;
+    }
+
+    /**
+     * Set interval
+     *
+     * @param integer $interval
+     * @return Recur
+     */
+    public function setInterval($interval)
+    {
+        $this->interval = $interval;
+    
+        return $this;
+    }
+
+    /**
+     * Get interval
+     *
+     * @return integer 
+     */
+    public function getInterval()
+    {
+        return $this->interval;
+    }
+
+    /**
+     * Set bySecond
+     *
+     * @param string $bySecond
+     * @return Recur
+     */
+    public function setBySecond($bySecond)
+    {
+        $this->bySecond = $bySecond;
+    
+        return $this;
+    }
+
+    /**
+     * Get bySecond
+     *
+     * @return string 
+     */
+    public function getBySecond()
+    {
+        return $this->bySecond;
+    }
+
+    /**
+     * Set byMinute
+     *
+     * @param string $byMinute
+     * @return Recur
+     */
+    public function setByMinute($byMinute)
+    {
+        $this->byMinute = $byMinute;
+    
+        return $this;
+    }
+
+    /**
+     * Get byMinute
+     *
+     * @return string 
+     */
+    public function getByMinute()
+    {
+        return $this->byMinute;
+    }
+
+    /**
+     * Set byHour
+     *
+     * @param string $byHour
+     * @return Recur
+     */
+    public function setByHour($byHour)
+    {
+        $this->byHour = $byHour;
+    
+        return $this;
+    }
+
+    /**
+     * Get byHour
+     *
+     * @return string 
+     */
+    public function getByHour()
+    {
+        return $this->byHour;
+    }
+
+    /**
+     * Set byDay
+     *
+     * @param string $byDay
+     * @return Recur
+     */
+    public function setByDay($byDay)
+    {
+        $this->byDay = $byDay;
+    
+        return $this;
+    }
+
+    /**
+     * Get byDay
+     *
+     * @return string 
+     */
+    public function getByDay()
+    {
+        return $this->byDay;
+    }
+
+    /**
+     * Set byMonthday
+     *
+     * @param string $byMonthday
+     * @return Recur
+     */
+    public function setByMonthday($byMonthday)
+    {
+        $this->byMonthday = $byMonthday;
+    
+        return $this;
+    }
+
+    /**
+     * Get byMonthday
+     *
+     * @return string 
+     */
+    public function getByMonthday()
+    {
+        return $this->byMonthday;
+    }
+
+    /**
+     * Set byYearday
+     *
+     * @param string $byYearday
+     * @return Recur
+     */
+    public function setByYearday($byYearday)
+    {
+        $this->byYearday = $byYearday;
+    
+        return $this;
+    }
+
+    /**
+     * Get byYearday
+     *
+     * @return string 
+     */
+    public function getByYearday()
+    {
+        return $this->byYearday;
+    }
+
+    /**
+     * Set byWeekno
+     *
+     * @param string $byWeekno
+     * @return Recur
+     */
+    public function setByWeekno($byWeekno)
+    {
+        $this->byWeekno = $byWeekno;
+    
+        return $this;
+    }
+
+    /**
+     * Get byWeekno
+     *
+     * @return string 
+     */
+    public function getByWeekno()
+    {
+        return $this->byWeekno;
+    }
+
+    /**
+     * Set byMonth
+     *
+     * @param string $byMonth
+     * @return Recur
+     */
+    public function setByMonth($byMonth)
+    {
+        $this->byMonth = $byMonth;
+    
+        return $this;
+    }
+
+    /**
+     * Get byMonth
+     *
+     * @return string 
+     */
+    public function getByMonth()
+    {
+        return $this->byMonth;
+    }
+
+    /**
+     * Set bySetpos
+     *
+     * @param string $bySetpos
+     * @return Recur
+     */
+    public function setBySetpos($bySetpos)
+    {
+        $this->bySetpos = $bySetpos;
+    
+        return $this;
+    }
+
+    /**
+     * Get bySetpos
+     *
+     * @return string 
+     */
+    public function getBySetpos()
+    {
+        return $this->bySetpos;
+    }
+
+    /**
+     * Set wkst
+     *
+     * @param string $wkst
+     * @return Recur
+     */
+    public function setWkst($wkst)
+    {
+        $this->wkst = $wkst;
+    
+        return $this;
+    }
+
+    /**
+     * Get wkst
+     *
+     * @return string 
+     */
+    public function getWkst()
+    {
+        return $this->wkst;
+    }
+
+    /**
+     * Add includedEntities
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $includedEntities
+     * @return Recur
+     */
+    public function addIncludedEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $includedEntities)
+    {
+        $this->includedEntities[] = $includedEntities;
+    
+        return $this;
+    }
+
+    /**
+     * Remove includedEntities
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $includedEntities
+     */
+    public function removeIncludedEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $includedEntities)
+    {
+        $this->includedEntities->removeElement($includedEntities);
+    }
+
+    /**
+     * Get includedEntities
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIncludedEntities()
+    {
+        return $this->includedEntities;
+    }
+
+    /**
+     * Add excludedEntities
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $excludedEntities
+     * @return Recur
+     */
+    public function addExcludedEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $excludedEntities)
+    {
+        $this->excludedEntities[] = $excludedEntities;
+    
+        return $this;
+    }
+
+    /**
+     * Remove excludedEntities
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $excludedEntities
+     */
+    public function removeExcludedEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $excludedEntities)
+    {
+        $this->excludedEntities->removeElement($excludedEntities);
+    }
+
+    /**
+     * Get excludedEntities
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExcludedEntities()
+    {
+        return $this->excludedEntities;
+    }
 }

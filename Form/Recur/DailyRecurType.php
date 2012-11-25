@@ -4,8 +4,7 @@ namespace IDCI\Bundle\SimpleScheduleBundle\Form\Recur;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-
-namespace IDCI\Bundle\SimpleScheduleBundle\Form\RecurType;
+use IDCI\Bundle\SimpleScheduleBundle\Form\RecurType;
 
 class DailyRecurType extends RecurType
 {

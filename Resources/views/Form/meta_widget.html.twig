@@ -1,0 +1,10 @@
+{% block meta_widget %}
+    {{ form_label(form['namespace']) }}
+    {{ form_widget(form['namespace']) }}
+
+    {{ form_label(form['key']) }}
+    {{ form_widget(form['key']) }}
+
+    {{ form_label(form['value']) }}
+    {{ form_widget(form['value']) }}
+{% endblock %}

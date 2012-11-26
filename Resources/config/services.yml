@@ -3,3 +3,8 @@ services:
         class: IDCI\Bundle\SimpleScheduleBundle\Form\Type\WeekDaysType
         tags:
             - { name: form.type, alias: week_days }
+
+    idci_simpleschedule.type.meta:
+        class: IDCI\Bundle\SimpleScheduleBundle\Form\Type\MetaType
+        tags:
+            - { name: form.type, alias: meta }

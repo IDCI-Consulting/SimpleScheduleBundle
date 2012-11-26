@@ -32,7 +32,7 @@ abstract class CalendarEntityType extends AbstractType
             ->add('classification')
             ->add('organizer')
             ->add('contacts')
-            ->add('xProp')
+            ->add('xProp', 'meta')
         ;
     }
 

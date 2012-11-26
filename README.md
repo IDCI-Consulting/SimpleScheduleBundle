@@ -39,13 +39,20 @@ Configure your database parameters in the `app/config/parameters.yml` then run
 
     php app/console doctrine:schema:update --force
 
-Add the following lines in you routing.yml:
+Add the following lines in the `routing.yml`:
 
 For the query interfaces:
 
     idci_simple_schedule:
         resource: "@IDCISimpleScheduleBundle/Controller/QueryController.php"
         type:     annotation
+
+Add the following lines in the `config.yml`:
+
+    twig:
+        form:
+            resources:
+                - 'IDCISimpleScheduleBundle:Form:meta_widget.html.twig'
 
 TODO:
 

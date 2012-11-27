@@ -1,4 +1,5 @@
 {% block meta_widget %}
+<div>
     {{ form_label(form['namespace']) }}
     {{ form_widget(form['namespace']) }}
 
@@ -7,4 +8,5 @@
 
     {{ form_label(form['value']) }}
     {{ form_widget(form['value']) }}
+</div>
 {% endblock %}

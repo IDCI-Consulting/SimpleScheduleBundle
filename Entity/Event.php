@@ -52,11 +52,6 @@ class Event extends LocationAwareCalendarEntity
      */
     protected $endAt;
 
-    public function __construct()
-    {
-        $this->setStatus()
-    }
-
     /**
      * Set isTransparent
      *

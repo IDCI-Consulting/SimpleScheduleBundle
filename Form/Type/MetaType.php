@@ -7,16 +7,15 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use IDCI\Bundle\SimpleScheduleBundle\Form\DataTransformer\MetaToStringTransformer;
-use IDCI\Bundle\SimpleScheduleBundle\Entity\Recur;
 
 class MetaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('namespace', 'text')
-            ->add('key', 'text')
-            ->add('value', 'text')
+            ->add('namespace', 'text', array('required' => false))
+            ->add('key', 'text', array('required' => false))
+            ->add('value', 'text', array('required' => false))
         ;
 
         $transformer = new MetaToStringTransformer();

@@ -24,6 +24,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class LocationAwareCalendarEntity extends CalendarEntity
 {
+    static public $TIME_UNITS = array(
+        'week'    => 604800,
+        'day'     => 86400,
+        'hour'    => 3600,
+        'minute'  => 60,
+        'second'  => 1,
+    );
+
     /**
      * priority
      *
@@ -90,32 +98,50 @@ abstract class LocationAwareCalendarEntity extends CalendarEntity
     protected $location;
 
     /**
-     * durationTo
+     * durationInTime
      * Convert a duration into a countable given time unit
      *
      * @param string duration
      * @param string time unit [week, day, hour, minute, second]
      * @return float
      */
-    static public function durationTo($duration, $time_unit)
+    static public function durationInTime($duration, $time_unit)
     {
-        $time_units = array(
-            'week'    => 604800,
-            'day'     => 86400,
-            'hour'    => 3600,
-            'minute'  => 60,
-            'second'  => 1,
-        );
-
-        if(!in_array($time_unit, array_keys($time_units))) {
+        if(!in_array($time_unit, array_keys(self::$TIME_UNITS))) {
             throw new Exception(sprintf('Wrong given time unit: %s', $time_unit));
         }
 
+        $durationArray = self::durationToArray($duration);
+        $durationSeconds = 0;
+        foreach($duration_array as $unit => $value) {
+            $durationSeconds += $value * self::$TIME_UNITS[$unit];
+        }
+
+        return $durationSeconds / self::$TIME_UNITS[$time_unit];
+    }
+
+    public static function arrayToDuration($duration_array)
+    {
+        $time = '';
+        $time .= $duration_array['hour'] ? $duration_array['hour'].'H' : '';
+        $time .= $duration_array['minute'] ? $duration_array['minute'].'M' : '';
+        $time .= $duration_array['second'] ? $duration_array['second'].'S' : '';
+
+        $duration = 'P';
+        $duration .= $duration_array['week'] ? $duration_array['week'].'W' : '';
+        $duration .= $duration_array['day'] ? $duration_array['day'].'D' : '';
+        $duration .= empty($time) ? '' : 'T'.$time;
+
+        return $duration;
+    }
+
+    public static function durationToArray($duration)
+    {
         $matches = array();
 
         $pattern = "#^P(?:([0-9]+)W)?(?:([0-9]+)D)?T?(?:([0-9]+)H)?(?:([0-9]+)M)?(?:([0-9]+)S)?$#";
         if(!preg_match($pattern, $duration, $matches)) {
-            throw new Exception(sprintf('Invalid duration: %s', $duration));
+            throw new \Exception(sprintf('Invalid duration: %s', $duration));
         }
 
         $result = array(
@@ -126,12 +152,7 @@ abstract class LocationAwareCalendarEntity extends CalendarEntity
             'second' => isset($matches[5]) ? $matches[5] : 0
         );
 
-        $duration_seconds = 0;
-        foreach($result as $unit => $value) {
-            $duration_seconds += $value * $time_units[$unit];
-        }
-
-        return $duration_seconds / $time_units[$time_unit];
+        return $result;
     }
 
     /**

@@ -8,3 +8,8 @@ services:
         class: IDCI\Bundle\SimpleScheduleBundle\Form\Type\MetaType
         tags:
             - { name: form.type, alias: meta }
+
+    idci_simpleschedule.type.duration:
+        class: IDCI\Bundle\SimpleScheduleBundle\Form\Type\DurationType
+        tags:
+            - { name: form.type, alias: duration }

@@ -39,11 +39,6 @@ class Status
     const JOURNAL_DRAFT      = "DRAFT";          // Indicates journal is draft.
     const JOURNAL_FINAL      = "FINAL";          // Indicates journal is final.
 
-    //CalendarEntity.
-    const EVENT   = "Event";
-    const TODO    = "Todo";
-    const JOURNAL = "Journal";
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

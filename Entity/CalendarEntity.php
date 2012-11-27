@@ -34,6 +34,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class CalendarEntity
 {
+    //CalendarEntity.
+    const EVENT   = "Event";
+    const TODO    = "Todo";
+    const JOURNAL = "Journal";
+
     const CLASSIFICATION_PUBLIC        = "PUBLIC";
     const CLASSIFICATION_PRIVATE       = "PRIVATE";
     const CLASSIFICATION_CONFIDENTIAL  = "CONFIDENTIAL";
@@ -102,7 +107,7 @@ class CalendarEntity
      * This property specifies non-processing information intended
      * to provide a comment to the calendar user.
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
      protected $comment;
 

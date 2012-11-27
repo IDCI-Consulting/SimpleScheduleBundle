@@ -1,0 +1,16 @@
+{% block duration_widget %}
+    {{ form_label(form['week']) }}
+    {{ form_widget(form['week']) }}
+
+    {{ form_label(form['day']) }}
+    {{ form_widget(form['day']) }}
+
+    {{ form_label(form['hour']) }}
+    {{ form_widget(form['hour']) }}
+
+    {{ form_label(form['minute']) }}
+    {{ form_widget(form['minute']) }}
+
+    {{ form_label(form['second']) }}
+    {{ form_widget(form['second']) }}
+{% endblock %}

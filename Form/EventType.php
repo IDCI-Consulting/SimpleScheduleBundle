@@ -5,7 +5,7 @@ namespace IDCI\Bundle\SimpleScheduleBundle\Form;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-use IDCI\Bundle\SimpleScheduleBundle\Entity\Status;
+use IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity;
 
 class EventType extends LocationAwareCalendarEntityType
 {
@@ -20,7 +20,7 @@ class EventType extends LocationAwareCalendarEntityType
 
     public function getEntityDiscr()
     {
-        return Status::EVENT;
+        return CalendarEntity::EVENT;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

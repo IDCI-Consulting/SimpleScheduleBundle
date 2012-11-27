@@ -5,7 +5,7 @@ namespace IDCI\Bundle\SimpleScheduleBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-
+use IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity;
 use IDCI\Bundle\SimpleScheduleBundle\Repository\StatusRepository;
 
 abstract class CalendarEntityType extends AbstractType
@@ -29,7 +29,9 @@ abstract class CalendarEntityType extends AbstractType
                 }
             ))
             ->add('comment')
-            ->add('classification')
+            ->add('classification', 'choice', array(
+                'choices' => CalendarEntity::getClassifications()
+            ))
             ->add('organizer')
             ->add('contacts')
             ->add('xProp', 'meta')

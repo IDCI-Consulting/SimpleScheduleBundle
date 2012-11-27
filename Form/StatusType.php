@@ -5,7 +5,7 @@ namespace IDCI\Bundle\SimpleScheduleBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use IDCI\Bundle\SimpleScheduleBundle\Entity\Status;
+use IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity;
 
 class StatusType extends AbstractType
 {
@@ -15,7 +15,7 @@ class StatusType extends AbstractType
             ->add('value')
             ->add('discr', 'choice', array(
                 'label'   => 'CalendarEntity',
-                'choices' => Status::getDiscrs()
+                'choices' => CalendarEntity::getDiscrs()
             ));
         ;
     }

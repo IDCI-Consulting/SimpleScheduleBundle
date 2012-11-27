@@ -9,7 +9,6 @@
 
 namespace IDCI\Bundle\SimpleScheduleBundle\Entity;
 
-use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -52,6 +51,11 @@ class Event extends LocationAwareCalendarEntity
      * @ORM\Column(type="datetime", nullable=true, name="end_at")
      */
     protected $endAt;
+
+    public function __construct()
+    {
+        $this->setStatus()
+    }
 
     /**
      * Set isTransparent

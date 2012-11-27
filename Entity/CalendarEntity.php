@@ -9,7 +9,6 @@
 
 namespace IDCI\Bundle\SimpleScheduleBundle\Entity;
 
-use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -349,6 +348,25 @@ class CalendarEntity
      * object with a calendar component.
      */
     protected $attachs;
+
+
+    public static function getDiscrs()
+    {
+        return array(
+            self::EVENT   => self::EVENT,
+            self::TODO    => self::TODO,
+            self::JOURNAL => self::JOURNAL
+        );
+    }
+
+    public static function getClassifications()
+    {
+        return array(
+            self::CLASSIFICATION_PUBLIC       => self::CLASSIFICATION_PUBLIC,
+            self::CLASSIFICATION_PRIVATE      => self::CLASSIFICATION_PRIVATE,
+            self::CLASSIFICATION_CONFIDENTIAL => self::CLASSIFICATION_CONFIDENTIAL
+        );
+    }
 
     /**
      * Constructor

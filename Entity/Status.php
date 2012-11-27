@@ -9,7 +9,6 @@
 
 namespace IDCI\Bundle\SimpleScheduleBundle\Entity;
 
-use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -61,16 +60,6 @@ class Status
      * @ORM\OneToMany(targetEntity="CalendarEntity", mappedBy="status")
      */
     protected $calendarEntities;
-
-
-    public static function getDiscrs()
-    {
-        return array(
-            self::EVENT   => self::EVENT,
-            self::TODO    => self::TODO,
-            self::JOURNAL => self::JOURNAL
-        );
-    }
 
     /**
      * Constructor

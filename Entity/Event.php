@@ -18,6 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Purpose: Provide a grouping of component properties that describe an event.
  *
  * @ORM\Entity(repositoryClass="IDCI\Bundle\SimpleScheduleBundle\Repository\EventRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Event extends LocationAwareCalendarEntity
 {
@@ -51,6 +52,22 @@ class Event extends LocationAwareCalendarEntity
      * @ORM\Column(type="datetime", nullable=true, name="end_at")
      */
     protected $endAt;
+
+    /**
+     * computeEndAt
+     *
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function computeEndAt()
+    {
+        $endAt = clone $this->getStartAt();
+        $endAt->modify(sprintf(
+            '+ %d minutes',
+            self::durationInTime($this->getDuration(), 'minute')
+        ));
+        $this->setEndAt($endAt);
+    }
 
     /**
      * Set isTransparent

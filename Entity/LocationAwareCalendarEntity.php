@@ -104,7 +104,7 @@ abstract class LocationAwareCalendarEntity extends CalendarEntity
      * @param string time unit [week, day, hour, minute, second]
      * @return float
      */
-    static public function durationInTime($duration, $time_unit)
+    static public function durationInTime($duration, $time_unit = 'second')
     {
         if(!in_array($time_unit, array_keys(self::$TIME_UNITS))) {
             throw new Exception(sprintf('Wrong given time unit: %s', $time_unit));
@@ -112,7 +112,7 @@ abstract class LocationAwareCalendarEntity extends CalendarEntity
 
         $durationArray = self::durationToArray($duration);
         $durationSeconds = 0;
-        foreach($duration_array as $unit => $value) {
+        foreach($durationArray as $unit => $value) {
             $durationSeconds += $value * self::$TIME_UNITS[$unit];
         }
 

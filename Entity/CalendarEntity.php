@@ -229,18 +229,6 @@ class CalendarEntity
      protected $includedDates;
 
     /**
-     * x-prop
-     *
-     * Any property name with a "X-" prefix
-     *
-     * This class of property provides a framework for defining
-     * non-standard properties.
-     *
-     * @ORM\Column(type="text", nullable=true, name="x_prop")
-     */
-     protected $xProp;
-
-    /**
      * class
      *
      * This property defines the access classification for a calendar component.
@@ -269,6 +257,18 @@ class CalendarEntity
      * @ORM\OneToMany(targetEntity="CalendarEntityRelation", mappedBy="relatedTo")
      */
     protected $relateds;
+
+    /**
+     * x-prop
+     *
+     * Any property name with a "X-" prefix
+     *
+     * This class of property provides a framework for defining
+     * non-standard properties.
+     *
+     * @ORM\OneToMany(targetEntity="XProperty", mappedBy="entity", cascade={"persist", "remove"})
+     */
+     protected $xproperties;
 
     /**
      * status
@@ -375,6 +375,7 @@ class CalendarEntity
     {
         $this->entities = new \Doctrine\Common\Collections\ArrayCollection();
         $this->relateds = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->xproperties = new \Doctrine\Common\Collections\ArrayCollection();
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
         $this->includedRules = new \Doctrine\Common\Collections\ArrayCollection();
         $this->excludedRules = new \Doctrine\Common\Collections\ArrayCollection();
@@ -479,6 +480,8 @@ class CalendarEntity
 
         return $dt->format($format);
     }
+
+
 
     /**
      * Get id
@@ -767,29 +770,6 @@ class CalendarEntity
     }
 
     /**
-     * Set xProp
-     *
-     * @param string $xProp
-     * @return CalendarEntity
-     */
-    public function setXProp($xProp)
-    {
-        $this->xProp = $xProp;
-    
-        return $this;
-    }
-
-    /**
-     * Get xProp
-     *
-     * @return string 
-     */
-    public function getXProp()
-    {
-        return $this->xProp;
-    }
-
-    /**
      * Set classification
      *
      * @param string $classification
@@ -818,7 +798,7 @@ class CalendarEntity
      * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $entities
      * @return CalendarEntity
      */
-    public function addEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $entities)
+    public function addEntity(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $entities)
     {
         $this->entities[] = $entities;
     
@@ -830,7 +810,7 @@ class CalendarEntity
      *
      * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $entities
      */
-    public function removeEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $entities)
+    public function removeEntity(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $entities)
     {
         $this->entities->removeElement($entities);
     }
@@ -876,6 +856,55 @@ class CalendarEntity
     public function getRelateds()
     {
         return $this->relateds;
+    }
+
+    /**
+     * Add xproperties
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\XProperty $xproperties
+     * @return CalendarEntity
+     */
+    public function addXproperty(\IDCI\Bundle\SimpleScheduleBundle\Entity\XProperty $xproperties)
+    {
+        $this->xproperties[] = $xproperties;
+    
+        return $this;
+    }
+
+    /**
+     * Remove xproperties
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\XProperty $xproperties
+     */
+    public function removeXproperty(\IDCI\Bundle\SimpleScheduleBundle\Entity\XProperty $xproperties)
+    {
+        $this->xproperties->removeElement($xproperties);
+    }
+
+    /**
+     * Get xproperties
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getXproperties()
+    {
+        return $this->xproperties;
+    }
+
+    /**
+     * Set xproperties
+     *
+     * @param ArrayCollection $xproperties
+     * @return CalendarEntity
+     */
+    public function setXproperties(ArrayCollection $xproperties)
+    {
+        foreach ($xproperties as $xproperty) {
+            $xproperty->setEntity($this);
+            $this->addXproperty($xproperty);
+        }
+
+        return $this;
     }
 
     /**

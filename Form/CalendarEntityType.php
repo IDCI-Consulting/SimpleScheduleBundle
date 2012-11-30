@@ -23,7 +23,7 @@ abstract class CalendarEntityType extends AbstractType
             ->add('summary')
             ->add('startAt')
             ->add('status', 'entity', array(
-                'class' => 'IDCISimpleScheduleBundle:Status',
+                'class'         => 'IDCISimpleScheduleBundle:Status',
                 'query_builder' => function(StatusRepository $sr) use($discr) {
                     return $sr->getDiscrStatusQueryBuilder($discr);
                 }
@@ -34,7 +34,12 @@ abstract class CalendarEntityType extends AbstractType
             ))
             ->add('organizer')
             ->add('contacts')
-            ->add('xProp', 'meta')
+            ->add('xproperties', 'collection', array(
+                'type'         => new XPropertyType(),
+                'allow_add'    => true,
+                'allow_delete' => true,
+                'by_reference' => false
+            ));
         ;
     }
 

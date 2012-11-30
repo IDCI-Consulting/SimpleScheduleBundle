@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * This entity is based on Property Name STATUS of the RFC2445
+ * This entity is based on Property Named STATUS of the RFC2445
  *
  * Purpose: This property defines the overall status or confirmation for the calendar component.
  *

@@ -266,9 +266,9 @@ class CalendarEntity
      * This class of property provides a framework for defining
      * non-standard properties.
      *
-     * @ORM\OneToMany(targetEntity="XProperty", mappedBy="entity", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="XProperty", mappedBy="calendarEntity", cascade={"all"}, orphanRemoval=true)
      */
-     protected $xproperties;
+     protected $xProperties;
 
     /**
      * status
@@ -375,7 +375,7 @@ class CalendarEntity
     {
         $this->entities = new \Doctrine\Common\Collections\ArrayCollection();
         $this->relateds = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->xproperties = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->xProperties = new \Doctrine\Common\Collections\ArrayCollection();
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
         $this->includedRules = new \Doctrine\Common\Collections\ArrayCollection();
         $this->excludedRules = new \Doctrine\Common\Collections\ArrayCollection();
@@ -388,10 +388,10 @@ class CalendarEntity
      */
     public function __toString()
     {
-        return sprintf("%d] %s - %s",
+        return sprintf("%d] start at %s (%s)",
             $this->getId(),
-            $this->getLocation(),
-            $this->getActivity()
+            $this->getStartAt()->format('Y-m-d'),
+            $this->getLocation()
         );
     }
 
@@ -480,8 +480,6 @@ class CalendarEntity
 
         return $dt->format($format);
     }
-
-
 
     /**
      * Get id
@@ -798,7 +796,7 @@ class CalendarEntity
      * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $entities
      * @return CalendarEntity
      */
-    public function addEntity(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $entities)
+    public function addEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $entities)
     {
         $this->entities[] = $entities;
     
@@ -810,7 +808,7 @@ class CalendarEntity
      *
      * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $entities
      */
-    public function removeEntity(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $entities)
+    public function removeEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $entities)
     {
         $this->entities->removeElement($entities);
     }
@@ -859,52 +857,36 @@ class CalendarEntity
     }
 
     /**
-     * Add xproperties
+     * Add xProperties
      *
-     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\XProperty $xproperties
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\XProperty $xProperties
      * @return CalendarEntity
      */
-    public function addXproperty(\IDCI\Bundle\SimpleScheduleBundle\Entity\XProperty $xproperties)
+    public function addXPropertie(\IDCI\Bundle\SimpleScheduleBundle\Entity\XProperty $xProperties)
     {
-        $this->xproperties[] = $xproperties;
+        $this->xProperties[] = $xProperties;
     
         return $this;
     }
 
     /**
-     * Remove xproperties
+     * Remove xProperties
      *
-     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\XProperty $xproperties
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\XProperty $xProperties
      */
-    public function removeXproperty(\IDCI\Bundle\SimpleScheduleBundle\Entity\XProperty $xproperties)
+    public function removeXPropertie(\IDCI\Bundle\SimpleScheduleBundle\Entity\XProperty $xProperties)
     {
-        $this->xproperties->removeElement($xproperties);
+        $this->xProperties->removeElement($xProperties);
     }
 
     /**
-     * Get xproperties
+     * Get xProperties
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getXproperties()
+    public function getXProperties()
     {
-        return $this->xproperties;
-    }
-
-    /**
-     * Set xproperties
-     *
-     * @param ArrayCollection $xproperties
-     * @return CalendarEntity
-     */
-    public function setXproperties(ArrayCollection $xproperties)
-    {
-        foreach ($xproperties as $xproperty) {
-            $xproperty->setEntity($this);
-            $this->addXproperty($xproperty);
-        }
-
-        return $this;
+        return $this->xProperties;
     }
 
     /**

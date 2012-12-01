@@ -31,24 +31,24 @@ class LocationController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('IDCISimpleScheduleBundle:Location')->findAll();
 
         $adapter = new ArrayAdapter($entities);
         $pager = new PagerFanta($adapter);
         $pager->setMaxPerPage($this->container->getParameter('max_per_page'));
-        
+
         try {
             $pager->setCurrentPage($request->query->get('page', 1)); 
-        } 
+        }
         catch (NotValidCurrentPageException $e) {
             throw new NotFoundHttpException(); 
         }
-        
+
         return array(
             'pager' => $pager,
         );
     }
+
     /**
      * Finds and displays a Location entity.
      *
@@ -58,7 +58,6 @@ class LocationController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('IDCISimpleScheduleBundle:Location')->find($id);
 
         if (!$entity) {
@@ -134,7 +133,6 @@ class LocationController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('IDCISimpleScheduleBundle:Location')->find($id);
 
         if (!$entity) {
@@ -161,7 +159,6 @@ class LocationController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('IDCISimpleScheduleBundle:Location')->find($id);
 
         if (!$entity) {
@@ -237,7 +234,6 @@ class LocationController extends Controller
     public function deleteFormAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('IDCISimpleScheduleBundle:Location')->find($id);
 
         if (!$entity) {

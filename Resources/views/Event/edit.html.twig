@@ -15,12 +15,8 @@
     </p>
 </form>
 
-<form action="{{ path('admin_recur_add', { 'calendar_entity_id': entity.id}) }}" method="post">
-    {{ form_widget(recur_choice_form) }}
-    <p>
-        <button type="submit" class="btn btn-primary">{% trans %}Select{% endtrans %}</button>
-    </p>
-</form>
+{% include "IDCISimpleScheduleBundle:Event:xproperties.html.twig" %}
+{% include "IDCISimpleScheduleBundle:Event:recur.html.twig" %}
 
 <ul class="record_actions">
     <li>

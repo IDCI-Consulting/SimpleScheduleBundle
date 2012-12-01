@@ -17,7 +17,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * Purpose: This class of property provides a framework for defining non-standard properties
  *
- * @ORM\Table(name="idci_schedule_xprop")
+ * @ORM\Table(name="idci_schedule_xproperty", uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="idxUnique", columns={"x_namespace", "x_key"})
+ * })
  * @ORM\Entity(repositoryClass="IDCI\Bundle\SimpleScheduleBundle\Repository\XPropertyRepository")
  */
 class XProperty
@@ -30,34 +32,34 @@ class XProperty
     protected $id;
 
     /**
-     * entity
+     * calendarEntity
      *
      * @ORM\ManyToOne(targetEntity="CalendarEntity", inversedBy="xproperties")
      * @ORM\JoinColumn(name="entity_id", referencedColumnName="id", onDelete="Cascade")
      */
-    protected $entity;
+    protected $calendarEntity;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=64, name="x_namespace")
      */
-    protected $namespace;
+    protected $xNamespace;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=64, name="x_key")
      */
-    protected $key;
+    protected $xKey;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text", nullable=true, name="x_value")
      */
-    protected $value;
+    protected $xValue;
 
     public function __toString()
     {
         return sprintf('[%s] %s: %s',
-            $this->getNamespace(),
-            $this->getKey(),
-            $this->getValue()
+            $this->getXNamespace(),
+            $this->getXKey(),
+            $this->getXValue()
         );
     }
 
@@ -72,94 +74,94 @@ class XProperty
     }
 
     /**
-     * Set namespace
+     * Set xNamespace
      *
-     * @param string $namespace
+     * @param string $xNamespace
      * @return XProperty
      */
-    public function setNamespace($namespace)
+    public function setXNamespace($xNamespace)
     {
-        $this->namespace = $namespace;
+        $this->xNamespace = $xNamespace;
     
         return $this;
     }
 
     /**
-     * Get namespace
+     * Get xNamespace
      *
      * @return string 
      */
-    public function getNamespace()
+    public function getXNamespace()
     {
-        return $this->namespace;
+        return $this->xNamespace;
     }
 
     /**
-     * Set key
+     * Set xKey
      *
-     * @param string $key
+     * @param string $xKey
      * @return XProperty
      */
-    public function setKey($key)
+    public function setXKey($xKey)
     {
-        $this->key = $key;
+        $this->xKey = $xKey;
     
         return $this;
     }
 
     /**
-     * Get key
+     * Get xKey
      *
      * @return string 
      */
-    public function getKey()
+    public function getXKey()
     {
-        return $this->key;
+        return $this->xKey;
     }
 
     /**
-     * Set value
+     * Set xValue
      *
-     * @param string $value
+     * @param string $xValue
      * @return XProperty
      */
-    public function setValue($value)
+    public function setXValue($xValue)
     {
-        $this->value = $value;
+        $this->xValue = $xValue;
     
         return $this;
     }
 
     /**
-     * Get value
+     * Get xValue
      *
      * @return string 
      */
-    public function getValue()
+    public function getXValue()
     {
-        return $this->value;
+        return $this->xValue;
     }
 
     /**
-     * Set entity
+     * Set calendarEntity
      *
-     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $entity
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $calendarEntity
      * @return XProperty
      */
-    public function setEntity(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $entity = null)
+    public function setCalendarEntity(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $calendarEntity = null)
     {
-        $this->entity = $entity;
+        $this->calendarEntity = $calendarEntity;
     
         return $this;
     }
 
     /**
-     * Get entity
+     * Get calendarEntity
      *
      * @return \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity 
      */
-    public function getEntity()
+    public function getCalendarEntity()
     {
-        return $this->entity;
+        return $this->calendarEntity;
     }
 }

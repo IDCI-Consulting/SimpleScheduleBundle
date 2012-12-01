@@ -31,24 +31,24 @@ class CategoryController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('IDCISimpleScheduleBundle:Category')->findAll();
 
         $adapter = new ArrayAdapter($entities);
         $pager = new PagerFanta($adapter);
         $pager->setMaxPerPage($this->container->getParameter('max_per_page'));
-        
+
         try {
             $pager->setCurrentPage($request->query->get('page', 1)); 
-        } 
+        }
         catch (NotValidCurrentPageException $e) {
             throw new NotFoundHttpException(); 
         }
-        
+
         return array(
             'pager' => $pager,
         );
     }
+
     /**
      * Finds and displays a Category entity.
      *
@@ -58,7 +58,6 @@ class CategoryController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('IDCISimpleScheduleBundle:Category')->find($id);
 
         if (!$entity) {
@@ -134,7 +133,6 @@ class CategoryController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('IDCISimpleScheduleBundle:Category')->find($id);
 
         if (!$entity) {
@@ -161,7 +159,6 @@ class CategoryController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('IDCISimpleScheduleBundle:Category')->find($id);
 
         if (!$entity) {
@@ -176,16 +173,15 @@ class CategoryController extends Controller
             $em->persist($entity);
             $em->flush();
 
-        $this->get('session')->getFlashBag()->add(
-            'info',
-            $this->get('translator')->trans('%entity%[%id%] has been updated', array(
-                '%entity%' => 'Category',
-                '%id%'     => $entity->getId()
-            ))
-        );
+            $this->get('session')->getFlashBag()->add(
+                'info',
+                $this->get('translator')->trans('%entity%[%id%] has been updated', array(
+                    '%entity%' => 'Category',
+                    '%id%'     => $entity->getId()
+                ))
+            );
 
-        return $this->redirect($this->generateUrl('admin_category_edit', array('id' => $id)));
-        
+            return $this->redirect($this->generateUrl('admin_category_edit', array('id' => $id)));
         }
 
         return array(
@@ -216,7 +212,7 @@ class CategoryController extends Controller
 
             $em->remove($entity);
             $em->flush();
-            
+
             $this->get('session')->getFlashBag()->add(
                 'info',
                 $this->get('translator')->trans('%entity%[%id%] has been deleted', array(
@@ -237,7 +233,6 @@ class CategoryController extends Controller
     public function deleteFormAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('IDCISimpleScheduleBundle:Category')->find($id);
 
         if (!$entity) {

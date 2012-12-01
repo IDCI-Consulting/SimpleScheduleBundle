@@ -11,9 +11,13 @@ class XPropertyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('namespace')
-            ->add('key')
-            ->add('value')
+            ->add('xnamespace')
+            ->add('xkey')
+            ->add('xvalue')
+            ->add('calendarEntity', null, array(
+                'label' => ' ',
+                'attr'=> array('style'=>'display:none')
+            ));
         ;
     }
 

@@ -1,0 +1,30 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Namespace</th>
+            <th>Key</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for xproperty in entity.xproperties %}
+            <tr>
+                <td>{{ xproperty.xNamespace }}</td>
+                <td>{{ xproperty.xKey }}</td>
+                <td>{{ xproperty.xValue }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <td colspan="3">
+                <form action="{{ path('admin_xproperty_add', { 'calendar_entity_id': entity.id}) }}" method="post">
+                    {{ form_widget(xproperty_form) }}
+                    <button type="submit" class="btn btn-primary">{% trans %}Add{% endtrans %}</button>
+                </form>
+            </td>
+        </tr>
+    </tfoot>
+</table>

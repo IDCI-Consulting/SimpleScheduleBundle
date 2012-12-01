@@ -31,20 +31,19 @@ class StatusController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('IDCISimpleScheduleBundle:Status')->findAll();
 
         $adapter = new ArrayAdapter($entities);
         $pager = new PagerFanta($adapter);
         $pager->setMaxPerPage($this->container->getParameter('max_per_page'));
-        
+
         try {
             $pager->setCurrentPage($request->query->get('page', 1)); 
-        } 
+        }
         catch (NotValidCurrentPageException $e) {
             throw new NotFoundHttpException(); 
         }
-        
+
         return array(
             'pager' => $pager,
         );
@@ -58,7 +57,6 @@ class StatusController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('IDCISimpleScheduleBundle:Status')->find($id);
 
         if (!$entity) {
@@ -134,7 +132,6 @@ class StatusController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('IDCISimpleScheduleBundle:Status')->find($id);
 
         if (!$entity) {
@@ -161,7 +158,6 @@ class StatusController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('IDCISimpleScheduleBundle:Status')->find($id);
 
         if (!$entity) {
@@ -176,16 +172,16 @@ class StatusController extends Controller
             $em->persist($entity);
             $em->flush();
 
-        $this->get('session')->getFlashBag()->add(
-            'info',
-            $this->get('translator')->trans('%entity%[%id%] has been updated', array(
-                '%entity%' => 'Status',
-                '%id%'     => $entity->getId()
-            ))
-        );
+            $this->get('session')->getFlashBag()->add(
+                'info',
+                $this->get('translator')->trans('%entity%[%id%] has been updated', array(
+                    '%entity%' => 'Status',
+                    '%id%'     => $entity->getId()
+                ))
+            );
 
-        return $this->redirect($this->generateUrl('admin_status_edit', array('id' => $id)));
-        
+            return $this->redirect($this->generateUrl('admin_status_edit', array('id' => $id)));
+
         }
 
         return array(
@@ -237,7 +233,6 @@ class StatusController extends Controller
     public function deleteFormAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('IDCISimpleScheduleBundle:Status')->find($id);
 
         if (!$entity) {

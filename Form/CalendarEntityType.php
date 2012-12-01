@@ -34,12 +34,6 @@ abstract class CalendarEntityType extends AbstractType
             ))
             ->add('organizer')
             ->add('contacts')
-            ->add('xproperties', 'collection', array(
-                'type'         => new XPropertyType(),
-                'allow_add'    => true,
-                'allow_delete' => true,
-                'by_reference' => false
-            ));
         ;
     }
 

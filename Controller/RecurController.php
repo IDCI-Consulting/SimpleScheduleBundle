@@ -67,7 +67,6 @@ class RecurController extends Controller
     public function createRecurAction(Request $request, $calendar_entity_id, $frequency)
     {
         $em = $this->getDoctrine()->getManager();
-
         $calendarEntity = $em->getRepository('IDCISimpleScheduleBundle:CalendarEntity')->find($calendar_entity_id);
 
         if (!$calendarEntity) {

@@ -8,8 +8,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use IDCI\Bundle\SimpleScheduleBundle\Entity\Event;
+use IDCI\Bundle\SimpleScheduleBundle\Entity\XProperty;
 use IDCI\Bundle\SimpleScheduleBundle\Form\EventType;
 use IDCI\Bundle\SimpleScheduleBundle\Form\RecurChoiceType;
+use IDCI\Bundle\SimpleScheduleBundle\Form\XPropertyType;
 
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
@@ -32,7 +34,6 @@ class EventController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('IDCISimpleScheduleBundle:Event')->findAll();
 
         $adapter = new ArrayAdapter($entities);
@@ -60,7 +61,6 @@ class EventController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('IDCISimpleScheduleBundle:Event')->find($id);
 
         if (!$entity) {
@@ -136,7 +136,6 @@ class EventController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('IDCISimpleScheduleBundle:Event')->find($id);
 
         if (!$entity) {
@@ -147,11 +146,16 @@ class EventController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $recurChoiceForm = $this->createForm(new RecurChoiceType());
 
+        $xproperty = new XProperty();
+        $xproperty->setCalendarEntity($entity);
+        $xpropertyForm = $this->createForm(new XPropertyType(), $xproperty);
+
         return array(
             'entity'            => $entity,
             'edit_form'         => $editForm->createView(),
             'delete_form'       => $deleteForm->createView(),
-            'recur_choice_form' => $recurChoiceForm->createView()
+            'recur_choice_form' => $recurChoiceForm->createView(),
+            'xproperty_form'    => $xpropertyForm->createView()
         );
     }
 
@@ -165,7 +169,6 @@ class EventController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('IDCISimpleScheduleBundle:Event')->find($id);
 
         if (!$entity) {
@@ -180,16 +183,15 @@ class EventController extends Controller
             $em->persist($entity);
             $em->flush();
 
-        $this->get('session')->getFlashBag()->add(
-            'info',
-            $this->get('translator')->trans('%entity%[%id%] has been updated', array(
-                '%entity%' => 'Event',
-                '%id%'     => $entity->getId()
-            ))
-        );
+            $this->get('session')->getFlashBag()->add(
+                'info',
+                $this->get('translator')->trans('%entity%[%id%] has been updated', array(
+                    '%entity%' => 'Event',
+                    '%id%'     => $entity->getId()
+                ))
+            );
 
-        return $this->redirect($this->generateUrl('admin_event_edit', array('id' => $id)));
-        
+            return $this->redirect($this->generateUrl('admin_event_edit', array('id' => $id)));
         }
 
         return array(
@@ -241,7 +243,6 @@ class EventController extends Controller
     public function deleteFormAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('IDCISimpleScheduleBundle:Event')->find($id);
 
         if (!$entity) {

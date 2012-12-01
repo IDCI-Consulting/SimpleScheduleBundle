@@ -1,6 +1,36 @@
-<form action="{{ path('admin_recur_add', { 'calendar_entity_id': entity.id}) }}" method="post">
-    {{ form_widget(recur_choice_form) }}
-    <p>
-        <button type="submit" class="btn btn-primary">{% trans %}Select{% endtrans %}</button>
-    </p>
-</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Frequency</th>
+            <th>Until</th>
+            <th>Count</th>
+            <th>Interval</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for rule in entity.includedRules %}
+            <tr>
+                <td>{{ rule.frequency }}</td>
+                <td>{{ rule.until }}</td>
+                <td>{{ rule.rcount }}</td>
+                <td>{{ rule.rinterval }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+    {% if with_form is defined and with_form %}
+    <tfoot>
+        <tr>
+            <td colspan="3">
+                <form action="{{ path('admin_recur_add', { 'calendar_entity_id': entity.id}) }}" method="post">
+                    {{ form_widget(recur_choice_form) }}
+                    <button type="submit" class="btn btn-primary">{% trans %}Select{% endtrans %}</button>
+                </form>
+            </td>
+        </tr>
+    </tfoot>
+    {% endif %}
+</table>
+
+

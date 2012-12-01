@@ -15,8 +15,8 @@
     </p>
 </form>
 
-{% include "IDCISimpleScheduleBundle:Event:xproperties.html.twig" %}
-{% include "IDCISimpleScheduleBundle:Event:recur.html.twig" %}
+{% include "IDCISimpleScheduleBundle:Event:xproperties.html.twig" with {"with_form": true} %}
+{% include "IDCISimpleScheduleBundle:Event:recur.html.twig" with {"with_form": true} %}
 
 <ul class="record_actions">
     <li>

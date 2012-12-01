@@ -13,7 +13,9 @@ class EventType extends LocationAwareCalendarEntityType
     {
         parent::buildForm($builder, $options);
         $builder
-            ->add('isTransparent')
+            ->add('isTransparent', null, array(
+                'required' => false
+            ))
         ;
     }
 

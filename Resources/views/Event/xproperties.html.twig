@@ -17,6 +17,7 @@
         {% endfor %}
     </tbody>
 
+    {% if with_form is defined and with_form %}
     <tfoot>
         <tr>
             <td colspan="3">
@@ -27,4 +28,5 @@
             </td>
         </tr>
     </tfoot>
+    {% endif %}
 </table>

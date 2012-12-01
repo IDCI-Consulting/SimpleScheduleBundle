@@ -63,10 +63,6 @@
             <td>{{ entity.includedDates }}</td>
         </tr>
         <tr>
-            <th>Xprop</th>
-            <td>{{ entity.xProp }}</td>
-        </tr>
-        <tr>
             <th>Classification</th>
             <td>{{ entity.classification }}</td>
         </tr>
@@ -92,6 +88,9 @@
         </tr>
     </tbody>
 </table>
+
+{% include "IDCISimpleScheduleBundle:Event:xproperties.html.twig" %}
+{% include "IDCISimpleScheduleBundle:Event:recur.html.twig" %}
 
 <ul class="record_actions">
     <li>

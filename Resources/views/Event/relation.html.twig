@@ -1,0 +1,36 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Relation</th>
+            <th>startAt</th>
+            <th>summary</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for relation,entities in entity.getRelatedCalendarEntities() %}
+            {% for entity in entities %}
+            <tr>
+                <td>{{ entity.id }}</td>
+                <th>{{ relation }}</th>
+                <td>{{ entity.startAt | date('Y-m-d') }}</td>
+                <td>{{ entity.summary }}</td>
+            </tr>
+            {% endfor %}
+        {% endfor %}
+    </tbody>
+
+    {% if with_form is defined and with_form %}
+    <tfoot>
+        <tr>
+            <td colspan="4">
+                <form action="{{ path('admin_relation_add', { 'calendar_entity_id': entity.id}) }}" method="post">
+                    {{ form_widget(relation_form) }}
+                    <button type="submit" class="btn btn-primary">{% trans %}Add{% endtrans %}</button>
+                </form>
+            </td>
+        </tr>
+    </tfoot>
+    {% endif %}
+</table>

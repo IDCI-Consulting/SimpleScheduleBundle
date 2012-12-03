@@ -20,6 +20,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class CalendarEntityRelation
 {
+    const RELATION_TYPE_PARENT  = "PARENT";
+    const RELATION_TYPE_CHILD   = "CHILD";
+    const RELATION_TYPE_SIBLING = "SIBLING";
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -30,7 +34,7 @@ class CalendarEntityRelation
     /**
      * entity
      *
-     * @ORM\ManyToOne(targetEntity="CalendarEntity", inversedBy="calendarEntities")
+     * @ORM\ManyToOne(targetEntity="CalendarEntity", inversedBy="relateds")
      * @ORM\JoinColumn(name="entity_id", referencedColumnName="id", onDelete="Cascade")
      */
     protected $calendarEntity;
@@ -38,7 +42,7 @@ class CalendarEntityRelation
     /**
      * relatedTo
      *
-     * @ORM\ManyToOne(targetEntity="CalendarEntity", inversedBy="relateds")
+     * @ORM\ManyToOne(targetEntity="CalendarEntity", inversedBy="calendarEntities")
      * @ORM\JoinColumn(name="related_id", referencedColumnName="id", onDelete="Cascade")
      */
     protected $relatedTo;
@@ -57,4 +61,95 @@ class CalendarEntityRelation
      * @Assert\Choice(choices = {"PARENT","CHILD","SIBLING"}, message = "Choose a valid relation type.")
      */
     protected $relationType;
+
+    /**
+     * getRelationTypes
+     */
+    public static function getRelationTypes()
+    {
+        return array(
+            self::RELATION_TYPE_PARENT  => self::RELATION_TYPE_PARENT,
+            self::RELATION_TYPE_CHILD   => self::RELATION_TYPE_CHILD,
+            self::RELATION_TYPE_SIBLING => self::RELATION_TYPE_SIBLING
+        );
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set relationType
+     *
+     * @param string $relationType
+     * @return CalendarEntityRelation
+     */
+    public function setRelationType($relationType)
+    {
+        $this->relationType = $relationType;
+    
+        return $this;
+    }
+
+    /**
+     * Get relationType
+     *
+     * @return string 
+     */
+    public function getRelationType()
+    {
+        return $this->relationType;
+    }
+
+    /**
+     * Set calendarEntity
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $calendarEntity
+     * @return CalendarEntityRelation
+     */
+    public function setCalendarEntity(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $calendarEntity = null)
+    {
+        $this->calendarEntity = $calendarEntity;
+    
+        return $this;
+    }
+
+    /**
+     * Get calendarEntity
+     *
+     * @return \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity 
+     */
+    public function getCalendarEntity()
+    {
+        return $this->calendarEntity;
+    }
+
+    /**
+     * Set relatedTo
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $relatedTo
+     * @return CalendarEntityRelation
+     */
+    public function setRelatedTo(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $relatedTo = null)
+    {
+        $this->relatedTo = $relatedTo;
+    
+        return $this;
+    }
+
+    /**
+     * Get relatedTo
+     *
+     * @return \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity 
+     */
+    public function getRelatedTo()
+    {
+        return $this->relatedTo;
+    }
 }

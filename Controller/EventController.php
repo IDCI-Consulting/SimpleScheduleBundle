@@ -9,9 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use IDCI\Bundle\SimpleScheduleBundle\Entity\Event;
 use IDCI\Bundle\SimpleScheduleBundle\Entity\XProperty;
+use IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation;
 use IDCI\Bundle\SimpleScheduleBundle\Form\EventType;
 use IDCI\Bundle\SimpleScheduleBundle\Form\RecurChoiceType;
 use IDCI\Bundle\SimpleScheduleBundle\Form\XPropertyType;
+use IDCI\Bundle\SimpleScheduleBundle\Form\CalendarEntityRelationType;
 
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
@@ -150,12 +152,17 @@ class EventController extends Controller
         $xproperty->setCalendarEntity($entity);
         $xpropertyForm = $this->createForm(new XPropertyType(), $xproperty);
 
+        $relation = new CalendarEntityRelation();
+        $relation->setCalendarEntity($entity);
+        $relationForm = $this->createForm(new CalendarEntityRelationType($entity), $relation);
+
         return array(
             'entity'            => $entity,
             'edit_form'         => $editForm->createView(),
             'delete_form'       => $deleteForm->createView(),
             'recur_choice_form' => $recurChoiceForm->createView(),
-            'xproperty_form'    => $xpropertyForm->createView()
+            'xproperty_form'    => $xpropertyForm->createView(),
+            'relation_form'      => $relationForm->createView()
         );
     }
 

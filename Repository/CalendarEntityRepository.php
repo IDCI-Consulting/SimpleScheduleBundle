@@ -12,4 +12,59 @@ use Doctrine\ORM\EntityRepository;
  */
 class CalendarEntityRepository extends EntityRepository
 {
+/**
+     * getRelatedAvailableCalendarEntitiesQueryBuilder
+     *
+     * @param $entity CalendarEntity
+     * @return QueryBuilder
+     */
+    public function getRelatedAvailableCalendarEntitiesQueryBuilder($entity = null)
+    {
+        $qb = $this->createQueryBuilder('cer');
+
+        if($entity) {
+            $ids = array();
+            foreach($entity->getRelateds() as $related) {
+                $ids[] = $related->getRelatedTo()->getId();
+            }
+
+            $qb
+                ->where('cer.id not in (:entities_id)')
+                ->setParameter('entities_id', array_merge(
+                    array($entity->getId()),
+                    $ids
+                ))
+            ;
+        }
+
+        $qb->orderBy('cer.startAt', 'ASC');
+
+        return $qb;
+    }
+
+    /**
+     * getRelatedAvailableCalendarEntitiesQuery
+     *
+     * @param $entity CalendarEntity
+     * @return Query
+     */
+    public function getRelatedAvailableCalendarEntitiesQuery($entity = null)
+    {
+        $qb = $this->getRelatedAvailableCalendarEntitiesQueryBuilder($entity);
+
+        return is_null($qb) ? $qb : $qb->getQuery();
+    }
+
+    /**
+     * getRelatedAvailableCalendarEntities
+     *
+     * @param $entity CalendarEntity
+     * @return DoctrineCollection
+     */
+    public function getRelatedAvailableCalendarEntities($entity = null)
+    {
+        $q = $this->getRelatedAvailableCalendarEntitiesQuery($entity);
+
+        return is_null($q) ? array() : $q->getResult();
+    }
 }

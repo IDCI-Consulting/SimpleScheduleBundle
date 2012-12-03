@@ -57,7 +57,7 @@ abstract class CalendarEntityType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityEvent'
+            'data_class' => 'IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity'
         ));
     }
 

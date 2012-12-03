@@ -12,6 +12,8 @@ namespace IDCI\Bundle\SimpleScheduleBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+use IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation;
+
 /**
  * This entity is based on the "VEVENT", "VTODO", "VJOURNAL" components
  * describe in the RFC2445
@@ -244,7 +246,7 @@ class CalendarEntity
     protected $classification = self::CLASSIFICATION_PUBLIC;
 
     /**
-     * @ORM\OneToMany(targetEntity="CalendarEntityRelation", mappedBy="calendarEntity")
+     * @ORM\OneToMany(targetEntity="CalendarEntityRelation", mappedBy="relatedTo")
      */
     protected $calendarEntities;
 
@@ -254,7 +256,7 @@ class CalendarEntity
      * The property is used to represent a relationship or
      * reference between one calendar component and another.
      *
-     * @ORM\OneToMany(targetEntity="CalendarEntityRelation", mappedBy="relatedTo")
+     * @ORM\OneToMany(targetEntity="CalendarEntityRelation", mappedBy="calendarEntity")
      */
     protected $relateds;
 
@@ -349,7 +351,9 @@ class CalendarEntity
      */
     protected $attachs;
 
-
+    /**
+     * getDiscrs
+     */
     public static function getDiscrs()
     {
         return array(
@@ -359,6 +363,9 @@ class CalendarEntity
         );
     }
 
+    /**
+     * getClassifications
+     */
     public static function getClassifications()
     {
         return array(
@@ -388,10 +395,9 @@ class CalendarEntity
      */
     public function __toString()
     {
-        return sprintf("%d] start at %s (%s)",
+        return sprintf("%d] start at %s",
             $this->getId(),
-            $this->getStartAt()->format('Y-m-d'),
-            $this->getLocation()
+            $this->getStartAt()->format('Y-m-d')
         );
     }
 
@@ -854,6 +860,29 @@ class CalendarEntity
     public function getRelateds()
     {
         return $this->relateds;
+    }
+
+    /**
+     * Get getRelatedCalendarEntities
+     *
+     * @return array order by relation type
+     */
+    public function getRelatedCalendarEntities($type = null)
+    {
+        if($type && !in_array($type, CalendarEntityRelation::getRelationTypes())) {
+            throw new \Exception(sprintf('Wrong relation type given: %s', $type));
+        }
+
+        $entities = array();
+        foreach($this->relateds as $relation) {
+            if(!$type) {
+                $entities[$relation->getRelationType()][] = $relation->getRelatedTo();
+            } elseif($type == $relation->getRelationType()) {
+                $entities[$relation->getRelationType()][] = $relation->getRelatedTo();
+            }
+        }
+
+        return $entities;
     }
 
     /**

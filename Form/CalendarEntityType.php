@@ -17,27 +17,40 @@ abstract class CalendarEntityType extends AbstractType
         $discr = $this->getEntityDiscr();
 
         $builder
-            ->add('categories')
-            ->add('url')
-            ->add('description')
             ->add('summary')
             ->add('startAt', 'datetime', array(
                 'data'    => new \DateTime('now'),
                 'years'   => range(date('Y')-1, date('Y')+5),
                 'minutes' => range(0, 59, 5)
             ))
+            ->add('categories')
+        ;
+
+        $this->buildFormDetails($builder, $options);
+
+        $builder
             ->add('status', 'entity', array(
                 'class'         => 'IDCISimpleScheduleBundle:Status',
                 'query_builder' => function(StatusRepository $sr) use($discr) {
                     return $sr->getDiscrStatusQueryBuilder($discr);
                 }
             ))
-            ->add('comment')
             ->add('classification', 'choice', array(
-                'choices' => CalendarEntity::getClassifications()
+                'choices'  => CalendarEntity::getClassifications(),
+                'multiple' => false,
+                'expanded' => true
             ))
+            ->add('comment')
             ->add('organizer')
             ->add('contacts')
+        ;
+    }
+
+    public function buildFormDetails($builder, $options)
+    {
+        $builder
+            ->add('url')
+            ->add('description')
         ;
     }
 

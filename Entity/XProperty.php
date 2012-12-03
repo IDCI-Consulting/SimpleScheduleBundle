@@ -34,7 +34,7 @@ class XProperty
     /**
      * calendarEntity
      *
-     * @ORM\ManyToOne(targetEntity="CalendarEntity", inversedBy="xproperties")
+     * @ORM\ManyToOne(targetEntity="CalendarEntity", inversedBy="xProperties")
      * @ORM\JoinColumn(name="entity_id", referencedColumnName="id", onDelete="Cascade")
      */
     protected $calendarEntity;

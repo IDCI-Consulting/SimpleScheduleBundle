@@ -244,9 +244,9 @@ class CalendarEntity
     protected $classification = self::CLASSIFICATION_PUBLIC;
 
     /**
-     * @ORM\OneToMany(targetEntity="CalendarEntityRelation", mappedBy="entity")
+     * @ORM\OneToMany(targetEntity="CalendarEntityRelation", mappedBy="calendarEntity")
      */
-    protected $entities;
+    protected $calendarEntities;
 
     /**
      * related

@@ -30,7 +30,7 @@ class CalendarEntityRelation
     /**
      * entity
      *
-     * @ORM\ManyToOne(targetEntity="CalendarEntity", inversedBy="entities")
+     * @ORM\ManyToOne(targetEntity="CalendarEntity", inversedBy="calendarEntities")
      * @ORM\JoinColumn(name="entity_id", referencedColumnName="id", onDelete="Cascade")
      */
     protected $calendarEntity;

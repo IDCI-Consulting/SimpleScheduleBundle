@@ -8,9 +8,16 @@ use IDCI\Bundle\SimpleScheduleBundle\Form\RecurType;
 
 class DailyRecurType extends RecurType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildSpecificRecurForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
+        $builder
+            ->add('byMonth', 'month', array(
+                'required' => true
+            ))
+            ->add('byDay', 'week_days', array(
+                'required' => true
+            ))
+        ;
     }
 
     public function getName()

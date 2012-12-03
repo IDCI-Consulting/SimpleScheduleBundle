@@ -4,6 +4,21 @@ services:
         tags:
             - { name: form.type, alias: week_days }
 
+    idci_simpleschedule.type.month_days:
+        class: IDCI\Bundle\SimpleScheduleBundle\Form\Type\MonthDaysType
+        tags:
+            - { name: form.type, alias: month_days }
+
+    idci_simpleschedule.type.year_days:
+        class: IDCI\Bundle\SimpleScheduleBundle\Form\Type\YearDaysType
+        tags:
+            - { name: form.type, alias: year_days }
+
+    idci_simpleschedule.type.month_days:
+        class: IDCI\Bundle\SimpleScheduleBundle\Form\Type\MonthType
+        tags:
+            - { name: form.type, alias: month }
+
     idci_simpleschedule.type.duration:
         class: IDCI\Bundle\SimpleScheduleBundle\Form\Type\DurationType
         tags:

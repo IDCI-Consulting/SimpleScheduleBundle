@@ -8,9 +8,16 @@ use IDCI\Bundle\SimpleScheduleBundle\Form\RecurType;
 
 class YearlyRecurType extends RecurType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildSpecificRecurForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
+        $builder
+            ->add('byYearday', 'year_days', array(
+                'required' => true
+            ))
+            ->add('byMonth', 'month', array(
+                'required' => true
+            ))
+        ;
     }
 
     public function getName()

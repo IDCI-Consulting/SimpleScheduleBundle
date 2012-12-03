@@ -8,9 +8,8 @@ use IDCI\Bundle\SimpleScheduleBundle\Form\RecurType;
 
 class MinutelyRecurType extends RecurType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildSpecificRecurForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
     }
 
     public function getName()

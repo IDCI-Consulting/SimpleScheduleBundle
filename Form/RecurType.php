@@ -13,8 +13,7 @@ class RecurType extends AbstractType
     {
         $builder
             ->add('frequency', 'choice', array(
-                'choices'  => Recur::getFrequencies(),
-                'empty_value' => ' '
+                'choices'  => Recur::getFrequencies()
             ))
             ->add('byYearday', 'year_day')
             ->add('byMonth', 'month')
@@ -30,12 +29,11 @@ class RecurType extends AbstractType
             ->add('over', 'choice', array(
                 'choices' => array(
                     'never'  => 'never',
-                    'idci_simpleschedule_event_type_includedRule_rcount' => 'count',
-                    'idci_simpleschedule_event_type_includedRule_until'  => 'until'
+                    'rcount' => 'count',
+                    'until'  => 'until'
                 ),
                 'multiple'      => false,
                 'expanded'      => true,
-                'property_path' => false,
                 'attr'          => array('class' => 'over_selection'),
                 'data'          => 'never'
             ))

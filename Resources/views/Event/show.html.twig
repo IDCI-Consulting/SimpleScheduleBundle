@@ -15,16 +15,28 @@
             <td>{{ entity.id }}</td>
         </tr>
         <tr>
+            <th>Revisionsequence</th>
+            <td>{{ entity.revisionSequence }}</td>
+        </tr>
+        <tr>
             <th>Createdat</th>
             <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Lastmodifiedat</th>
+            <td>{{ entity.lastModifiedAt|date('Y-m-d H:i:s') }}</td>
         </tr>
         <tr>
             <th>Startat</th>
             <td>{{ entity.startAt|date('Y-m-d H:i:s') }}</td>
         </tr>
         <tr>
-            <th>Lastmodifiedat</th>
-            <td>{{ entity.lastModifiedAt|date('Y-m-d H:i:s') }}</td>
+            <th>Duration</th>
+            <td>{{ entity.duration }}</td>
+        </tr>
+        <tr>
+            <th>Endat</th>
+            <td>{% if entity.endAt %}{{ entity.endAt|date('Y-m-d H:i:s') }}{% endif %}</td>
         </tr>
         <tr>
             <th>Summary</th>
@@ -45,10 +57,6 @@
         <tr>
             <th>Organizer</th>
             <td>{{ entity.organizer }}</td>
-        </tr>
-        <tr>
-            <th>Revisionsequence</th>
-            <td>{{ entity.revisionSequence }}</td>
         </tr>
         <tr>
             <th>Contacts</th>
@@ -75,16 +83,8 @@
             <td>{{ entity.resources }}</td>
         </tr>
         <tr>
-            <th>Duration</th>
-            <td>{{ entity.duration }}</td>
-        </tr>
-        <tr>
             <th>Istransparent</th>
             <td>{{ entity.isTransparent }}</td>
-        </tr>
-        <tr>
-            <th>Endat</th>
-            <td>{{ entity.endAt|date('Y-m-d H:i:s') }}</td>
         </tr>
     </tbody>
 </table>

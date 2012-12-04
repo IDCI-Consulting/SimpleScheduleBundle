@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity;
 use IDCI\Bundle\SimpleScheduleBundle\Repository\StatusRepository;
+use IDCI\Bundle\SimpleScheduleBundle\Form\EventListener\RecurFieldSubscriber;
 
 abstract class CalendarEntityType extends AbstractType
 {
@@ -14,6 +15,9 @@ abstract class CalendarEntityType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $subscriber = new RecurFieldSubscriber($builder->getFormFactory());
+        $builder->addEventSubscriber($subscriber);
+
         $discr = $this->getEntityDiscr();
 
         $builder
@@ -23,6 +27,14 @@ abstract class CalendarEntityType extends AbstractType
                 'data'    => new \DateTime('now'),
                 'years'   => range(date('Y')-1, date('Y')+5),
                 'minutes' => range(0, 59, 5)
+            ))
+            ->add('options', 'choice', array(
+                'choices' => array(
+                    'all_day' => 'All the day',
+                    'is_recur' => 'Recurrence'
+                ),
+                'multiple' => true,
+                'expanded' => true
             ))
             ->add('includedRule', new RecurType(), array(
                 'required' => false

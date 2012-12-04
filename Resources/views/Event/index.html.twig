@@ -16,14 +16,13 @@
     <thead>
         <tr>
             <th>Id</th>
-            <th>Createdat</th>
-            <th>Startat</th>
-            <th>Lastmodifiedat</th>
-            <th>Summary</th>
             <th>Revisionsequence</th>
-            <th>Priority</th>
+            <th>Startat</th>
             <th>Duration</th>
             <th>Endat</th>
+            <th>Summary</th>
+            <th>Priority</th>
+            <th>Rrule</th>
             <th colspan="3">{% trans %}Actions{% endtrans %}</th>
         </tr>
     </thead>
@@ -31,19 +30,25 @@
     {% for entity in pager.currentPageResults %}
         <tr>
             <td><a href="{{ path('admin_event_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>{% if entity.startAt %}{{ entity.startAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>{% if entity.lastModifiedAt %}{{ entity.lastModifiedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>{{ entity.summary }}</td>
             <td>{{ entity.revisionSequence }}</td>
-            <td>{{ entity.priority }}</td>
+            <td>{% if entity.startAt %}{{ entity.startAt|date('Y-m-d H:i:s') }}{% endif %}</td>
             <td>{{ entity.duration }}</td>
-            <td>{% if entity.endAt %}{{ entity.endAt|date('Y-m-d H:i:s') }}{% endif %}</td>    <td>
-                    <a class="btn btn-block" href="{{ path('admin_event_show', { 'id': entity.id }) }}">{% trans %}show{% endtrans %}</a>
-            </td>    <td>
-                    <a class="btn btn-block btn-primary" href="{{ path('admin_event_edit', { 'id': entity.id }) }}">{% trans %}edit{% endtrans %}</a>
-            </td>    <td>
-                    {% render 'IDCISimpleScheduleBundle:Event:deleteForm' with { 'id': entity.id } %}
+            <td>{% if entity.endAt %}{{ entity.endAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{{ entity.summary }}</td>
+            <td>{{ entity.priority }}</td>
+            <td>
+            {% if entity.includedRule %}
+                {{ entity.includedRule }}
+            {% endif %}
+            </td>
+            <td>
+                <a class="btn btn-block" href="{{ path('admin_event_show', { 'id': entity.id }) }}">{% trans %}show{% endtrans %}</a>
+            </td>
+            <td>
+                <a class="btn btn-block btn-primary" href="{{ path('admin_event_edit', { 'id': entity.id }) }}">{% trans %}edit{% endtrans %}</a>
+            </td>
+            <td>
+                {% render 'IDCISimpleScheduleBundle:Event:deleteForm' with { 'id': entity.id } %}
             </td>
         </tr>
     {% endfor %}

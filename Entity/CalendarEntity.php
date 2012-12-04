@@ -298,16 +298,14 @@ class CalendarEntity
     /**
      * rrule
      *
-     * @ORM\OneToOne(targetEntity="Recur", inversedBy="includedEntity", cascade={"persist", "merge", "remove"})
-     * @ORM\JoinColumn(name="included_rule", referencedColumnName="id", onDelete="SET NULL")
+     * @ORM\OneToOne(targetEntity="Recur", mappedBy="includedEntity", cascade={"all"})
      */
      protected $includedRule;
 
     /**
      * exrule
      *
-     * @ORM\OneToOne(targetEntity="Recur", inversedBy="excludedEntity", cascade={"persist", "merge", "remove"})
-     * @ORM\JoinColumn(name="excluded_rule", referencedColumnName="id", onDelete="SET NULL")
+     * @ORM\OneToOne(targetEntity="Recur", mappedBy="excludedEntity", cascade={"all"})
      */
      protected $excludedRule;
 
@@ -346,6 +344,11 @@ class CalendarEntity
      * object with a calendar component.
      */
     protected $attachs;
+
+    /**
+     * options
+     */
+    protected $options;
 
     /**
      * getDiscrs
@@ -453,6 +456,29 @@ class CalendarEntity
             $this->getId(),
             $domain
         );
+    }
+
+    /**
+     * Set options
+     *
+     * @param string $options
+     * @return Recur
+     */
+    public function setOptions($options)
+    {
+        $this->options = $options;
+    
+        return $this;
+    }
+
+    /**
+     * Get options
+     *
+     * @return string 
+     */
+    public function getOptions()
+    {
+        return $this->options;
     }
 
     /**

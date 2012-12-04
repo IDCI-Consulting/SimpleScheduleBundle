@@ -19,6 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="idci_schedule_recur")
  * @ORM\Entity(repositoryClass="IDCI\Bundle\SimpleScheduleBundle\Repository\RecurRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Recur
 {
@@ -118,6 +119,11 @@ class Recur
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $rinterval;
+
+    /**
+     * over
+     */
+     protected $over;
 
     /**
      * bysecond (byseclist)
@@ -295,14 +301,78 @@ class Recur
     protected $wkst;
 
     /**
-     * @ORM\OneToOne(targetEntity="CalendarEntity", mappedBy="includedRule")
+     * includedEntity
+     *
+     * @ORM\OneToOne(targetEntity="CalendarEntity", inversedBy="includedRule", orphanRemoval=true)
+     * @ORM\JoinColumn(name="included_entity_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $includedEntity;
 
     /**
-     * @ORM\OneToOne(targetEntity="CalendarEntity", mappedBy="excludedRule")
+     * excludedEntity
+     *
+     * @ORM\OneToOne(targetEntity="CalendarEntity", inversedBy="excludedRule", orphanRemoval=true)
+     * @ORM\JoinColumn(name="excluded_entity_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $excludedEntity;
+
+    /**
+     * toString
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return sprintf('%s - %s',
+            $this->getFrequency(),
+            $this->byToString()
+        );
+    }
+
+    /**
+     * toString
+     *
+     * @return string
+     */
+    public function byToString()
+    {
+        $output = '';
+        if($this->getBySecond()) {
+            $output .= sprintf(' By Second: %s', $this->getBySecond());
+        }
+        if($this->getByMinute()) {
+            $output .= sprintf(' By Minute: %s', $this->getByMinute());
+        }
+        if($this->getByHour()) {
+            $output .= sprintf(' By Hour: %s', $this->getByHour());
+        }
+        if($this->getByDay()) {
+            $output .= sprintf(' By Day: %s', $this->getByDay());
+        }
+        if($this->getByMonthday()) {
+            $output .= sprintf(' By Month: %s', $this->getByMonth());
+        }
+        if($this->getByYearday()) {
+            $output .= sprintf(' By Year: %s', $this->getByYear());
+        }
+        if($this->getByWeekno()) {
+            $output .= sprintf(' By Weekno: %s', $this->getByWeekno());
+        }
+        if($this->getByMonth()) {
+            $output .= sprintf(' By Month: %s', $this->getByMonth());
+        }
+        if($this->getUntil()) {
+            $output .= sprintf(' Until: %s', $this->getUntil()->format('Y-m-d H:i'));
+        }
+        if($this->getRcount()) {
+            $output .= sprintf(' Count: %s', $this->getRcount());
+        }
+        if($this->getRinterval()) {
+            $output .= sprintf(' Interval: %s', $this->getRinterval());
+        }
+
+        return $output;
+    }
 
     /**
      * getFrequencies
@@ -411,6 +481,45 @@ class Recur
     public static function getSecond()
     {
         return range(0, 59);
+    }
+
+    /**
+     * overChoice
+     *
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function onOverChoice()
+    {
+        if($this->getOver() != 'rcount') {
+            $this->setRcount(null);
+        }
+        if($this->getOver() != 'until') {
+            $this->setUntil(null);
+        }
+    }
+
+    /**
+     * Set over
+     *
+     * @param string $over
+     * @return Recur
+     */
+    public function setOver($over)
+    {
+        $this->over = $over;
+    
+        return $this;
+    }
+
+    /**
+     * Get over
+     *
+     * @return string 
+     */
+    public function getOver()
+    {
+        return $this->over;
     }
 
     /**

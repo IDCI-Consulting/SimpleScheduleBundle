@@ -9,6 +9,10 @@
         overToDisplay.push($('#'+$('.over_selection > input:checked').val()).parent('div'));
         display(overToDisplay);
 
+        var rrule = new Array();
+        rrule.push($('#idci_simpleschedule_event_type_includedRule').parent('div'));
+        hide(rrule);
+
         var byToHide = new Array();
         byToHide.push($('#idci_simpleschedule_event_type_includedRule_byYearday').parent('div'));
         byToHide.push($('#idci_simpleschedule_event_type_includedRule_byMonth').parent('div'));
@@ -26,9 +30,19 @@
 
         $('.over_selection > input').change(function(event) {
             var toDisplay = new Array();
-            toDisplay.push($('#'+$(this).val()).parent('div'));
+            toDisplay.push($('#idci_simpleschedule_event_type_includedRule_'+$(this).val()).parent('div'));
             hide(overToHide);
             display(toDisplay);
+        });
+
+        $('#idci_simpleschedule_event_type_options > input').change(function(event) {
+            if($(this).val() == 'is_recur') {
+                if($(this).is(':checked')) {
+                    display(rrule);
+                } else {
+                    hide(rrule);
+                }
+            }
         });
 
         $('#idci_simpleschedule_event_type_includedRule_frequency').change(function(event) {

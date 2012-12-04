@@ -30,6 +30,10 @@ class ArrayToStringTransformer implements DataTransformerInterface
      */
     public function reverseTransform($data)
     {
+        if (empty($data)) {
+            return null;
+        }
+
         return json_encode($data);
     }
 }

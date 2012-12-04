@@ -8,15 +8,12 @@
   <h1>{% trans %}Edit{% endtrans %}</h1>
 </div>
 
-<form action="{{ path('admin_event_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    {{ form_widget(edit_form) }}
-    <p>
-        <button type="submit" class="btn btn-primary">{% trans %}Edit{% endtrans %}</button>
-    </p>
+<form action="{{ path('admin_event_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
+    {% include "IDCISimpleScheduleBundle:Event:form.html.twig" %}
+    <button type="submit" class="btn btn-primary">{% trans %}Edit{% endtrans %}</button>
 </form>
 
 {% include "IDCISimpleScheduleBundle:Event:xproperties.html.twig" with {"with_form": true} %}
-{% include "IDCISimpleScheduleBundle:Event:recur.html.twig" with {"with_form": true} %}
 {% include "IDCISimpleScheduleBundle:Event:relation.html.twig" with {"with_form": true} %}
 
 <ul class="record_actions">

@@ -9,10 +9,8 @@
 </div>
 
 <form action="{{ path('admin_event_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit" class="btn btn-primary">{% trans %}Create{% endtrans %}</button>
-    </p>
+    {% include "IDCISimpleScheduleBundle:Event:form.html.twig" %}
+    <button type="submit" class="btn btn-primary">{% trans %}Create{% endtrans %}</button>
 </form>
 
 <ul class="record_actions">

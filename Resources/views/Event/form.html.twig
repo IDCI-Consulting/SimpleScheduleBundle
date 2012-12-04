@@ -1,0 +1,55 @@
+{{ form_widget(form) }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        var overToHide = new Array();
+        overToHide.push($('#idci_simpleschedule_event_type_includedRule_rcount').parent('div'));
+        overToHide.push($('#idci_simpleschedule_event_type_includedRule_until').parent('div'));
+        hide(overToHide);
+        var overToDisplay = new Array();
+        overToDisplay.push($('#'+$('.over_selection > input:checked').val()).parent('div'));
+        display(overToDisplay);
+
+        var byToHide = new Array();
+        byToHide.push($('#idci_simpleschedule_event_type_includedRule_byYearday').parent('div'));
+        byToHide.push($('#idci_simpleschedule_event_type_includedRule_byMonth').parent('div'));
+        byToHide.push($('#idci_simpleschedule_event_type_includedRule_byMonthday').parent('div'));
+        byToHide.push($('#idci_simpleschedule_event_type_includedRule_byDay').parent('div'));
+        byToHide.push($('#idci_simpleschedule_event_type_includedRule_byHour').parent('div'));
+        byToHide.push($('#idci_simpleschedule_event_type_includedRule_byMinute').parent('div'));
+        byToHide.push($('#idci_simpleschedule_event_type_includedRule_bySecond').parent('div'));
+        hide(byToHide);
+        if($('#idci_simpleschedule_event_type_includedRule_frequency').val() != '') {
+            display(byToHide);
+        } else {
+            hide(byToHide);
+        }
+
+        $('.over_selection > input').change(function(event) {
+            var toDisplay = new Array();
+            toDisplay.push($('#'+$(this).val()).parent('div'));
+            hide(overToHide);
+            display(toDisplay);
+        });
+
+        $('#idci_simpleschedule_event_type_includedRule_frequency').change(function(event) {
+            if($(this).val() != '') {
+                display(byToHide);
+            } else {
+                hide(byToHide);
+            }
+        })
+
+    });
+
+    function hide(toHide) {
+        for(var i=0; i<toHide.length; i++) {
+            toHide[i].hide();
+        }
+    }
+
+    function display(toDisplay) {
+        for(var i=0; i<toDisplay.length; i++) {
+            toDisplay[i].show();
+        }
+    }
+</script>

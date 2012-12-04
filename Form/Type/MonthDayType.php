@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use IDCI\Bundle\SimpleScheduleBundle\Form\DataTransformer\ArrayToStringTransformer;
 use IDCI\Bundle\SimpleScheduleBundle\Entity\Recur;
 
-class WeekDaysType extends AbstractType
+class MonthDayType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -20,10 +20,10 @@ class WeekDaysType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'choices'         => Recur::getWeekDays(),
+            'choices'         => Recur::getMonthDay(),
             'multiple'        => true,
             'expanded'        => false,
-            'invalid_message' => 'The selected week days does not exist',
+            'invalid_message' => 'The selected month days does not exist',
         ));
     }
 
@@ -34,6 +34,6 @@ class WeekDaysType extends AbstractType
 
     public function getName()
     {
-        return 'week_days';
+        return 'month_day';
     }
 }

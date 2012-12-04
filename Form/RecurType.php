@@ -5,32 +5,39 @@ namespace IDCI\Bundle\SimpleScheduleBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use IDCI\Bundle\SimpleScheduleBundle\Entity\Recur;
 
-abstract class RecurType extends AbstractType
+class RecurType extends AbstractType
 {
-    abstract public function buildSpecificRecurForm(FormBuilderInterface $builder, array $options);
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->buildSpecificRecurForm($builder, $options);
-
         $builder
-            ->add('frequency', 'hidden')
+            ->add('frequency', 'choice', array(
+                'choices'  => Recur::getFrequencies(),
+                'empty_value' => ' '
+            ))
+            ->add('byYearday', 'year_day')
+            ->add('byMonth', 'month')
+            ->add('byMonthday', 'month_day')
+            ->add('byDay', 'week_day')
+            ->add('byHour', 'hour')
+            ->add('byMinute', 'minute')
+            ->add('bySecond', 'second')
             ->add('rinterval', 'integer', array(
                 'label'    => 'Repeat each',
                 'required' => false
             ))
             ->add('over', 'choice', array(
-                'choices'       => array(
-                    sprintf('%s_%s', $this->getName(), 'never')  => 'never',
-                    sprintf('%s_%s', $this->getName(), 'rcount') => 'count',
-                    sprintf('%s_%s', $this->getName(), 'until')  => 'until'
+                'choices' => array(
+                    'never'  => 'never',
+                    'idci_simpleschedule_event_type_includedRule_rcount' => 'count',
+                    'idci_simpleschedule_event_type_includedRule_until'  => 'until'
                 ),
                 'multiple'      => false,
                 'expanded'      => true,
                 'property_path' => false,
                 'attr'          => array('class' => 'over_selection'),
-                'data'          => sprintf('%s_%s', $this->getName(), 'never')
+                'data'          => 'never'
             ))
             ->add('rcount', 'integer', array(
                 'label'    => 'Count occurence',

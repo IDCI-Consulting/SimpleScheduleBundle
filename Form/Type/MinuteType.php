@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use IDCI\Bundle\SimpleScheduleBundle\Form\DataTransformer\ArrayToStringTransformer;
 use IDCI\Bundle\SimpleScheduleBundle\Entity\Recur;
 
-class MonthDaysType extends AbstractType
+class MinuteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -20,10 +20,10 @@ class MonthDaysType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'choices'         => Recur::getMonthDays(),
+            'choices'         => Recur::getMinute(),
             'multiple'        => true,
             'expanded'        => false,
-            'invalid_message' => 'The selected month days does not exist',
+            'invalid_message' => 'The selected minute does not exist',
         ));
     }
 
@@ -34,6 +34,6 @@ class MonthDaysType extends AbstractType
 
     public function getName()
     {
-        return 'month_days';
+        return 'minute';
     }
 }

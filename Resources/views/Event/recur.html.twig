@@ -2,6 +2,7 @@
     <thead>
         <tr>
             <th>Frequency</th>
+            <th>by</th>
             <th>Until</th>
             <th>Count</th>
             <th>Interval</th>
@@ -12,6 +13,17 @@
         {% for rule in entity.includedRules %}
             <tr>
                 <td>{{ rule.frequency }}</td>
+                <td>
+                    {% if rule.bySecond %}  bySecond:   {{ rule.bySecond }}   {% endif %}
+                    {% if rule.byMinute %}  byMinute:   {{ rule.byMinute }}   {% endif %}
+                    {% if rule.byHour %}    byHour:     {{ rule.byHour }}     {% endif %}
+                    {% if rule.byDay %}     byDay:      {{ rule.byDay }}      {% endif %}
+                    {% if rule.byMonthday %}byMonthday: {{ rule.byMonthday }} {% endif %}
+                    {% if rule.byYearday %} byYearday:  {{ rule.byYearday }}  {% endif %}
+                    {% if rule.byWeekno %}  byWeekno:   {{ rule.byWeekno }}   {% endif %}
+                    {% if rule.byMonth %}   byMonth:    {{ rule.byMonth }}    {% endif %}
+                    {% if rule.bySetpos %}  bySetpos:   {{ rule.bySetpos }}   {% endif %}
+                </td>
                 <td>{{ rule.until }}</td>
                 <td>{{ rule.rcount }}</td>
                 <td>{{ rule.rinterval }}</td>
@@ -22,7 +34,7 @@
     {% if with_form is defined and with_form %}
     <tfoot>
         <tr>
-            <td colspan="4">
+            <td colspan="5">
                 <form action="{{ path('admin_recur_add', { 'calendar_entity_id': entity.id}) }}" method="post">
                     {{ form_widget(recur_choice_form) }}
                     <button type="submit" class="btn btn-primary">{% trans %}Select{% endtrans %}</button>

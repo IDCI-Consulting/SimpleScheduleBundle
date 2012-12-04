@@ -12,21 +12,13 @@ abstract class LocationAwareCalendarEntityType extends CalendarEntityType
         parent::buildForm($builder, $options);
 
         $builder
+            ->add('duration', 'duration')
+            ->add('location')
             ->add('priority', 'choice', array(
                 'choices' => range(0, 9)
             ))
             ->add('resources')
         ;
-    }
-
-    public function buildFormDetails($builder, $options)
-    {
-        $builder
-            ->add('duration', 'duration')
-            ->add('location')
-        ;
-
-        parent::buildFormDetails($builder, $options);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

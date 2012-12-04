@@ -1,23 +1,38 @@
 services:
-    idci_simpleschedule.type.week_days:
-        class: IDCI\Bundle\SimpleScheduleBundle\Form\Type\WeekDaysType
+    idci_simpleschedule.type.year_day:
+        class: IDCI\Bundle\SimpleScheduleBundle\Form\Type\YearDayType
         tags:
-            - { name: form.type, alias: week_days }
+            - { name: form.type, alias: year_day }
 
-    idci_simpleschedule.type.month_days:
-        class: IDCI\Bundle\SimpleScheduleBundle\Form\Type\MonthDaysType
-        tags:
-            - { name: form.type, alias: month_days }
-
-    idci_simpleschedule.type.year_days:
-        class: IDCI\Bundle\SimpleScheduleBundle\Form\Type\YearDaysType
-        tags:
-            - { name: form.type, alias: year_days }
-
-    idci_simpleschedule.type.month_days:
+    idci_simpleschedule.type.month:
         class: IDCI\Bundle\SimpleScheduleBundle\Form\Type\MonthType
         tags:
             - { name: form.type, alias: month }
+
+    idci_simpleschedule.type.month_day:
+        class: IDCI\Bundle\SimpleScheduleBundle\Form\Type\MonthDayType
+        tags:
+            - { name: form.type, alias: month_day }
+
+    idci_simpleschedule.type.week_day:
+        class: IDCI\Bundle\SimpleScheduleBundle\Form\Type\WeekDayType
+        tags:
+            - { name: form.type, alias: week_day }
+
+    idci_simpleschedule.type.hour:
+        class: IDCI\Bundle\SimpleScheduleBundle\Form\Type\HourType
+        tags:
+            - { name: form.type, alias: hour }
+
+    idci_simpleschedule.type.minute:
+        class: IDCI\Bundle\SimpleScheduleBundle\Form\Type\MinuteType
+        tags:
+            - { name: form.type, alias: minute }
+
+    idci_simpleschedule.type.second:
+        class: IDCI\Bundle\SimpleScheduleBundle\Form\Type\SecondType
+        tags:
+            - { name: form.type, alias: second }
 
     idci_simpleschedule.type.duration:
         class: IDCI\Bundle\SimpleScheduleBundle\Form\Type\DurationType

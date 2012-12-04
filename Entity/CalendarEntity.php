@@ -22,7 +22,9 @@ use IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation;
  * a schedulable element.
  *
  * @ORM\Entity(repositoryClass="IDCI\Bundle\SimpleScheduleBundle\Repository\CalendarEntityRepository")
- * @ORM\Table(name="idci_schedule_entity")
+ * @ORM\Table(name="idci_schedule_entity", indexes={
+ *    @ORM\Index(name="start_at_idx", columns={"start_at"})
+ * })
  * @ORM\HasLifecycleCallbacks
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
@@ -296,24 +298,18 @@ class CalendarEntity
     /**
      * rrule
      *
-     * @ORM\ManyToMany(targetEntity="Recur", inversedBy="includedEntities", cascade={"persist"})
-     * @ORM\JoinTable(name="idci_schedule_entity_include_rule",
-     *     joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id", onDelete="Cascade")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="recur_id", referencedColumnName="id", onDelete="Cascade")}
-     * )
+     * @ORM\OneToOne(targetEntity="Recur", inversedBy="includedEntity", cascade={"persist", "merge", "remove"})
+     * @ORM\JoinColumn(name="included_rule", referencedColumnName="id", onDelete="SET NULL")
      */
-     protected $includedRules;
+     protected $includedRule;
 
     /**
      * exrule
      *
-     * @ORM\ManyToMany(targetEntity="Recur", inversedBy="excludedEntities", cascade={"persist"})
-     * @ORM\JoinTable(name="idci_schedule_entity_exclude_rule",
-     *     joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id", onDelete="Cascade")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="recur_id", referencedColumnName="id", onDelete="Cascade")}
-     * )
+     * @ORM\OneToOne(targetEntity="Recur", inversedBy="excludedEntity", cascade={"persist", "merge", "remove"})
+     * @ORM\JoinColumn(name="excluded_rule", referencedColumnName="id", onDelete="SET NULL")
      */
-     protected $excludedRules;
+     protected $excludedRule;
 
 // To keep recurid attachs ?
 
@@ -373,19 +369,6 @@ class CalendarEntity
             self::CLASSIFICATION_PRIVATE      => self::CLASSIFICATION_PRIVATE,
             self::CLASSIFICATION_CONFIDENTIAL => self::CLASSIFICATION_CONFIDENTIAL
         );
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->entities = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->relateds = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->xProperties = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->includedRules = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->excludedRules = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -487,6 +470,18 @@ class CalendarEntity
         return $dt->format($format);
     }
 
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->calendarEntities = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->relateds = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->xProperties = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -797,36 +792,36 @@ class CalendarEntity
     }
 
     /**
-     * Add entities
+     * Add calendarEntities
      *
-     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $entities
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $calendarEntities
      * @return CalendarEntity
      */
-    public function addEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $entities)
+    public function addCalendarEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $calendarEntities)
     {
-        $this->entities[] = $entities;
+        $this->calendarEntities[] = $calendarEntities;
     
         return $this;
     }
 
     /**
-     * Remove entities
+     * Remove calendarEntities
      *
-     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $entities
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $calendarEntities
      */
-    public function removeEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $entities)
+    public function removeCalendarEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation $calendarEntities)
     {
-        $this->entities->removeElement($entities);
+        $this->calendarEntities->removeElement($calendarEntities);
     }
 
     /**
-     * Get entities
+     * Get calendarEntities
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getEntities()
+    public function getCalendarEntities()
     {
-        return $this->entities;
+        return $this->calendarEntities;
     }
 
     /**
@@ -860,29 +855,6 @@ class CalendarEntity
     public function getRelateds()
     {
         return $this->relateds;
-    }
-
-    /**
-     * Get getRelatedCalendarEntities
-     *
-     * @return array order by relation type
-     */
-    public function getRelatedCalendarEntities($type = null)
-    {
-        if($type && !in_array($type, CalendarEntityRelation::getRelationTypes())) {
-            throw new \Exception(sprintf('Wrong relation type given: %s', $type));
-        }
-
-        $entities = array();
-        foreach($this->relateds as $relation) {
-            if(!$type) {
-                $entities[$relation->getRelationType()][] = $relation->getRelatedTo();
-            } elseif($type == $relation->getRelationType()) {
-                $entities[$relation->getRelationType()][] = $relation->getRelatedTo();
-            }
-        }
-
-        return $entities;
     }
 
     /**
@@ -975,68 +947,48 @@ class CalendarEntity
     }
 
     /**
-     * Add includedRules
+     * Set includedRule
      *
-     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\Recur $includedRules
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\Recur $includedRule
      * @return CalendarEntity
      */
-    public function addIncludedRule(\IDCI\Bundle\SimpleScheduleBundle\Entity\Recur $includedRules)
+    public function setIncludedRule(\IDCI\Bundle\SimpleScheduleBundle\Entity\Recur $includedRule = null)
     {
-        $this->includedRules[] = $includedRules;
+        $this->includedRule = $includedRule;
     
         return $this;
     }
 
     /**
-     * Remove includedRules
+     * Get includedRule
      *
-     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\Recur $includedRules
+     * @return \IDCI\Bundle\SimpleScheduleBundle\Entity\Recur 
      */
-    public function removeIncludedRule(\IDCI\Bundle\SimpleScheduleBundle\Entity\Recur $includedRules)
+    public function getIncludedRule()
     {
-        $this->includedRules->removeElement($includedRules);
+        return $this->includedRule;
     }
 
     /**
-     * Get includedRules
+     * Set excludedRule
      *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getIncludedRules()
-    {
-        return $this->includedRules;
-    }
-
-    /**
-     * Add excludedRules
-     *
-     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\Recur $excludedRules
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\Recur $excludedRule
      * @return CalendarEntity
      */
-    public function addExcludedRule(\IDCI\Bundle\SimpleScheduleBundle\Entity\Recur $excludedRules)
+    public function setExcludedRule(\IDCI\Bundle\SimpleScheduleBundle\Entity\Recur $excludedRule = null)
     {
-        $this->excludedRules[] = $excludedRules;
+        $this->excludedRule = $excludedRule;
     
         return $this;
     }
 
     /**
-     * Remove excludedRules
+     * Get excludedRule
      *
-     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\Recur $excludedRules
+     * @return \IDCI\Bundle\SimpleScheduleBundle\Entity\Recur 
      */
-    public function removeExcludedRule(\IDCI\Bundle\SimpleScheduleBundle\Entity\Recur $excludedRules)
+    public function getExcludedRule()
     {
-        $this->excludedRules->removeElement($excludedRules);
-    }
-
-    /**
-     * Get excludedRules
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getExcludedRules()
-    {
-        return $this->excludedRules;
+        return $this->excludedRule;
     }
 }

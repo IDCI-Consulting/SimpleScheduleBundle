@@ -295,14 +295,14 @@ class Recur
     protected $wkst;
 
     /**
-     * @ORM\ManyToMany(targetEntity="CalendarEntity", mappedBy="includedRules", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="CalendarEntity", mappedBy="includedRule")
      */
-    private $includedEntities;
+    private $includedEntity;
 
     /**
-     * @ORM\ManyToMany(targetEntity="CalendarEntity", mappedBy="excludedRules", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="CalendarEntity", mappedBy="excludedRule")
      */
-    private $excludedEntities;
+    private $excludedEntity;
 
     /**
      * getFrequencies
@@ -323,41 +323,13 @@ class Recur
     }
 
     /**
-     * getWeekDays
-     *
-     * @return array()
-     */
-    public static function getWeekDays()
-    {
-        return array(
-            self::WEEKDAY_SUNDAY    => "SUNDAY",
-            self::WEEKDAY_MONDAY    => "MONDAY",
-            self::WEEKDAY_TUESDAY   => "TUESDAY",
-            self::WEEKDAY_WEDNESDAY => "WEDNESDAY",
-            self::WEEKDAY_THURSDAY  => "THURSDAY",
-            self::WEEKDAY_FRIDAY    => "FRIDAY",
-            self::WEEKDAY_SATURDAY  => "SATURDAY"
-        );
-    }
-
-    /**
-     * getMonthDays
-     *
-     * @return array()
-     */
-    public static function getMonthDays()
-    {
-        return range(1, 31);
-    }
-
-    /**
      * getYearDays
      *
      * @return array()
      */
-    public static function getYearDays()
+    public static function getYearDay()
     {
-        return range(1, 365);
+        return array_combine(range(1, 365), range(1, 365));
     }
 
     /**
@@ -384,14 +356,63 @@ class Recur
     }
 
     /**
-     * Constructor
+     * getMonthDays
+     *
+     * @return array()
      */
-    public function __construct()
+    public static function getMonthDay()
     {
-        $this->includedEntities = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->excludedEntities = new \Doctrine\Common\Collections\ArrayCollection();
+        return array_combine(range(1, 31), range(1, 31));
     }
-    
+
+    /**
+     * getWeekDays
+     *
+     * @return array()
+     */
+    public static function getWeekDay()
+    {
+        return array(
+            self::WEEKDAY_SUNDAY    => "SUNDAY",
+            self::WEEKDAY_MONDAY    => "MONDAY",
+            self::WEEKDAY_TUESDAY   => "TUESDAY",
+            self::WEEKDAY_WEDNESDAY => "WEDNESDAY",
+            self::WEEKDAY_THURSDAY  => "THURSDAY",
+            self::WEEKDAY_FRIDAY    => "FRIDAY",
+            self::WEEKDAY_SATURDAY  => "SATURDAY"
+        );
+    }
+
+    /**
+     * getHour
+     *
+     * @return array()
+     */
+    public static function getHour()
+    {
+        return range(0, 23);
+    }
+
+    /**
+     * getMinute
+     *
+     * @return array()
+     */
+    public static function getMinute()
+    {
+        return range(0, 59);
+    }
+
+    /**
+     * getSecond
+     *
+     * @return array()
+     */
+    public static function getSecond()
+    {
+        return range(0, 59);
+    }
+
     /**
      * Get id
      *
@@ -725,68 +746,48 @@ class Recur
     }
 
     /**
-     * Add includedEntities
+     * Set includedEntity
      *
-     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $includedEntities
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $includedEntity
      * @return Recur
      */
-    public function addIncludedEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $includedEntities)
+    public function setIncludedEntity(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $includedEntity = null)
     {
-        $this->includedEntities[] = $includedEntities;
+        $this->includedEntity = $includedEntity;
     
         return $this;
     }
 
     /**
-     * Remove includedEntities
+     * Get includedEntity
      *
-     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $includedEntities
+     * @return \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity 
      */
-    public function removeIncludedEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $includedEntities)
+    public function getIncludedEntity()
     {
-        $this->includedEntities->removeElement($includedEntities);
+        return $this->includedEntity;
     }
 
     /**
-     * Get includedEntities
+     * Set excludedEntity
      *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getIncludedEntities()
-    {
-        return $this->includedEntities;
-    }
-
-    /**
-     * Add excludedEntities
-     *
-     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $excludedEntities
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $excludedEntity
      * @return Recur
      */
-    public function addExcludedEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $excludedEntities)
+    public function setExcludedEntity(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $excludedEntity = null)
     {
-        $this->excludedEntities[] = $excludedEntities;
+        $this->excludedEntity = $excludedEntity;
     
         return $this;
     }
 
     /**
-     * Remove excludedEntities
+     * Get excludedEntity
      *
-     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $excludedEntities
+     * @return \IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity 
      */
-    public function removeExcludedEntitie(\IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntity $excludedEntities)
+    public function getExcludedEntity()
     {
-        $this->excludedEntities->removeElement($excludedEntities);
-    }
-
-    /**
-     * Get excludedEntities
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getExcludedEntities()
-    {
-        return $this->excludedEntities;
+        return $this->excludedEntity;
     }
 }

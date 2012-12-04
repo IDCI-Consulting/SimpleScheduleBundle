@@ -41,14 +41,13 @@ class EventController extends Controller
         $adapter = new ArrayAdapter($entities);
         $pager = new PagerFanta($adapter);
         $pager->setMaxPerPage($this->container->getParameter('max_per_page'));
-        
+
         try {
-            $pager->setCurrentPage($request->query->get('page', 1)); 
-        } 
-        catch (NotValidCurrentPageException $e) {
-            throw new NotFoundHttpException(); 
+            $pager->setCurrentPage($request->query->get('page', 1));
+        } catch (NotValidCurrentPageException $e) {
+            throw new NotFoundHttpException();
         }
-        
+
         return array(
             'pager' => $pager,
         );
@@ -144,9 +143,8 @@ class EventController extends Controller
             throw $this->createNotFoundException('Unable to find Event entity.');
         }
 
-        $editForm = $this->createForm(new EventType(), $entity);
+        $form = $this->createForm(new EventType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
-        $recurChoiceForm = $this->createForm(new RecurChoiceType());
 
         $xproperty = new XProperty();
         $xproperty->setCalendarEntity($entity);
@@ -158,11 +156,10 @@ class EventController extends Controller
 
         return array(
             'entity'            => $entity,
-            'edit_form'         => $editForm->createView(),
+            'form'              => $form->createView(),
             'delete_form'       => $deleteForm->createView(),
-            'recur_choice_form' => $recurChoiceForm->createView(),
             'xproperty_form'    => $xpropertyForm->createView(),
-            'relation_form'      => $relationForm->createView()
+            'relation_form'     => $relationForm->createView()
         );
     }
 

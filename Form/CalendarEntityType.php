@@ -24,11 +24,11 @@ abstract class CalendarEntityType extends AbstractType
                 'years'   => range(date('Y')-1, date('Y')+5),
                 'minutes' => range(0, 59, 5)
             ))
-        ;
-
-        $this->buildFormDetails($builder, $options);
-
-        $builder
+            ->add('includedRule', new RecurType(), array(
+                'required' => false
+            ))
+            ->add('url')
+            ->add('description')
             ->add('status', 'entity', array(
                 'class'         => 'IDCISimpleScheduleBundle:Status',
                 'query_builder' => function(StatusRepository $sr) use($discr) {
@@ -43,14 +43,6 @@ abstract class CalendarEntityType extends AbstractType
             ->add('comment')
             ->add('organizer')
             ->add('contacts')
-        ;
-    }
-
-    public function buildFormDetails($builder, $options)
-    {
-        $builder
-            ->add('url')
-            ->add('description')
         ;
     }
 

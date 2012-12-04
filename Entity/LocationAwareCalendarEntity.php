@@ -106,6 +106,10 @@ abstract class LocationAwareCalendarEntity extends CalendarEntity
      */
     static public function durationInTime($duration, $time_unit = 'second')
     {
+        if(!$duration) {
+            return false;
+        }
+
         if(!in_array($time_unit, array_keys(self::$TIME_UNITS))) {
             throw new Exception(sprintf('Wrong given time unit: %s', $time_unit));
         }
@@ -121,6 +125,14 @@ abstract class LocationAwareCalendarEntity extends CalendarEntity
 
     public static function arrayToDuration($duration_array)
     {
+        if( $duration_array["week"] == 0 &&
+            $duration_array["day"] == 0 &&
+            $duration_array["hour"] == 0 &&
+            $duration_array["minute"] == 0 &&
+            $duration_array["second"] == 0) {
+            return null;
+        }
+
         $time = '';
         $time .= $duration_array['hour'] ? $duration_array['hour'].'H' : '';
         $time .= $duration_array['minute'] ? $duration_array['minute'].'M' : '';
@@ -140,7 +152,7 @@ abstract class LocationAwareCalendarEntity extends CalendarEntity
 
         $pattern = "#^P(?:([0-9]+)W)?(?:([0-9]+)D)?T?(?:([0-9]+)H)?(?:([0-9]+)M)?(?:([0-9]+)S)?$#";
         if(!preg_match($pattern, $duration, $matches)) {
-            throw new \Exception(sprintf('Invalid duration: %s', $duration));
+            return null;
         }
 
         $result = array(

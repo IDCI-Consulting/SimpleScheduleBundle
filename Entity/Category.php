@@ -167,6 +167,10 @@ class Category
      */
     public function getColor()
     {
+        if(null === $this->color && $this->getParent()) {
+            return $this->getParent()->getColor();
+        }
+
         return $this->color;
     }
 

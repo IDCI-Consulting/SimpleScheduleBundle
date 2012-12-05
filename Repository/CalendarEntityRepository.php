@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class CalendarEntityRepository extends EntityRepository
 {
-/**
+    /**
      * getRelatedAvailableCalendarEntitiesQueryBuilder
      *
      * @param $entity CalendarEntity
@@ -64,6 +64,43 @@ class CalendarEntityRepository extends EntityRepository
     public function getRelatedAvailableCalendarEntities($entity = null)
     {
         $q = $this->getRelatedAvailableCalendarEntitiesQuery($entity);
+
+        return is_null($q) ? array() : $q->getResult();
+    }
+
+    /**
+     * getAllOrderByStartAtQueryBuilder
+     *
+     * @return QueryBuilder
+     */
+    public function getAllOrderByStartAtQueryBuilder()
+    {
+        $qb = $this->createQueryBuilder('cer');
+        $qb->orderBy('cer.startAt', 'ASC');
+
+        return $qb;
+    }
+
+    /**
+     * getAllOrderByStartAtQuery
+     *
+     * @return Query
+     */
+    public function getAllOrderByStartAtQuery()
+    {
+        $qb = $this->getAllOrderByStartAtQueryBuilder();
+
+        return is_null($qb) ? $qb : $qb->getQuery();
+    }
+
+    /**
+     * getAllOrderByStartAt
+     *
+     * @return DoctrineCollection
+     */
+    public function getAllOrderByStartAt()
+    {
+        $q = $this->getAllOrderByStartAtQuery();
 
         return is_null($q) ? array() : $q->getResult();
     }

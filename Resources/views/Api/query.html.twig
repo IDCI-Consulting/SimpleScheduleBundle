@@ -1,0 +1,45 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap-responsive.css" />
+{% endblock %}
+
+{% block body %}
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th rowspan="2">id</th>
+            <th rowspan="2">location</th>
+            <th rowspan="2">categories</th>
+            <th colspan="3">event</th>
+        </tr>
+        <tr>
+            <td>Start At</td>
+            <td>Duration</td>
+            <td>Rrule</td>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for event in events %}
+        <tr>
+            <td>{{ event.id }}</td>
+            <td>{{ event.location }}</td>
+            <td>
+                {% for category in event.categories %}
+                <div style="width:28px;height:28px;border:1px solid #222;background:{{ category.color }};float:left;margin-right:6px;" title="{{ category }}"></div>
+                {% endfor %}
+            </td>
+            <td>{{ event.startAt | date('Y-m-d H:i') }}</td>
+            <td>{{ event.duration }}</td>
+            <td>{{ event.includedRule }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+
+</table>
+
+{% endblock %}

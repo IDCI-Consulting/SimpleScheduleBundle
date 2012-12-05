@@ -21,7 +21,7 @@ class Manager
         $entities = $this
             ->getEntityManager()
             ->getRepository('IDCISimpleScheduleBundle:CalendarEntity')
-            ->findAll()
+            ->getAllOrderByStartAt()
         ;
 
         return $entities;

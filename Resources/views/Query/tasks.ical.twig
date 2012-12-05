@@ -1,8 +1,0 @@
-BEGIN:VCALENDAR
-VERSION:2.0
-{% for task in tasks %}
-
-    {% include 'IDCISimpleScheduleBundle:Query:task.ical.twig' with {'task': task, 'count': count} %}
-
-{% endfor %}
-END:VCALENDAR

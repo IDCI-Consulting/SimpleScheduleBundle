@@ -16,9 +16,9 @@ class Manager
         return $this->container->get('doctrine.orm.entity_manager');
     }
 
-    public function getTemplate()
+    public function getExporterManager()
     {
-        return $this->container->get('templating');
+        return $this->container->get('idci_exporter.manager');
     }
 
     /**
@@ -40,8 +40,8 @@ class Manager
     /**
      * query
      *
-     * @param array Parameters
-     * @return DoctrineCollection
+     * @param array $params
+     * @return ExportResult
      */
     public function query($params)
     {
@@ -51,7 +51,20 @@ class Manager
             ->query($params)
         ;
 
-        return $entities;
+        return $this->getExporterManager()
+            ->export($entities, self::getFormat($params))
+        ;
+    }
+
+    /**
+     * getFormat
+     *
+     * @param array $params
+     * @return string The format
+     */
+    static function getFormat($params)
+    {
+        return isset($params['format']) ? $params['format'] : 'xml';
     }
 }
 

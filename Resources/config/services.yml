@@ -42,4 +42,3 @@ services:
     idci_simpleschedule.manager:
         class: IDCI\Bundle\SimpleScheduleBundle\Service\Manager
         arguments: [@service_container]
-

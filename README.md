@@ -9,11 +9,14 @@ Instalation
 
 To install this bundle please follow the next steps:
 
-First add the dependencie to your `composer.json` file:
+First add the dependency to your `composer.json` file:
 
     "require": {
         ...
-        "idci/simple-schedule-bundle": "dev-master"
+        "pagerfanta/pagerfanta":           "dev-master",
+        "white-october/pagerfanta-bundle": "dev-master",
+        "idci/exporter-bundle":            "dev-master",
+        "idci/simple-schedule-bundle":     "dev-master"
     },
 
 Then install the bundle with the command:
@@ -29,7 +32,9 @@ Enable the bundle in your application kernel:
     {
         $bundles = array(
             // ...
-            new IDCI\Bundle\SimpleScheduleBundle\IDCISimpleScheduleBundle(),
+            new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
+            new IDCI\Bundle\ExporterBundle\IDCIExporterBundle(),
+            new IDCI\Bundle\SimpleScheduleBundle\IDCISimpleScheduleBundle()
         );
     }
 

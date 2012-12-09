@@ -17,12 +17,15 @@ class ApiController extends Controller
 {
     /**
      * @Route("/query", name="simple_schedule_api")
-     * @Template()
      */
     public function queryAction(Request $request)
     {
-        $events = $this->get('idci_simpleschedule.manager')->getAll();
+        $result = $this->get('idci_simpleschedule.manager')->query($request->query->all());
 
-        return array('events' => $events);
+        $response = new Response();
+        $response->setContent($result->getContent());
+        $response->headers->set('Content-Type', $result->getContentType());
+
+        return $response;
     }
 }

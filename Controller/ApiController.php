@@ -22,7 +22,6 @@ class ApiController extends Controller
     {
         $result = $this->get('idci_simpleschedule.manager')->query($request->query->all());
 
-        var_dump($result);
         $response = new Response();
         $response->setContent($result->getContent());
         $response->headers->set('Content-Type', $result->getContentType());

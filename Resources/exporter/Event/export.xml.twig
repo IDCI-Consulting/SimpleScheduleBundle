@@ -1,3 +1,4 @@
-<data>
-  Hello World
-</data>
+<event id="{{ entity.id }}">
+  <name>{{ entity.summary }}</name>
+  <start_at>{{ entity.startAt | date('Y-m-d H:i') }}</start_at>
+</event>

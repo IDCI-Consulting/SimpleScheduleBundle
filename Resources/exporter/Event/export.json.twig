@@ -1,1 +1,22 @@
-{'hello': 'world'}
+    "event":
+    {
+        "id": "{{ element.id }}",
+        "name": "{{ element.summary }}",
+        "created_at": "{{ element.createdAt | date('Y-m-d H:i') }}",
+        "end_at": "{{ element.endAt | date('Y-m-d H:i') }}",
+        "start_at": "{{ element.startAt | date('Y-m-d H:i') }}",
+        "is_transparent": "{{ element.isTransparent }}",
+        "resources": "{{ element.resources }}",
+        "duration": "{{ element.duration }}",
+        "last_modified_at": "{{ element.lastModifiedAt | date('Y-m-d H:i') }}",
+        "description": "{{ element.description }}",
+        "comment": "{{ element.comment }}",
+        "url": "{{ element.url }}",
+        "organizer": "{{ element.organizer }}",
+        "revision_sequence": "{{ element.revisionSequence }}",
+        "attendees": "{{ element.attendees }}",
+        "contacts": "{{ element.contacts }}",
+        "excluded_dates": "{{ element.excludedDates }}",
+        "included_dates": "{{ element.includedDates }}",
+        "classification": "{{ element.classification }}"
+    }

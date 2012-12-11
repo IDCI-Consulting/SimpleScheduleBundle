@@ -1,1 +1,27 @@
-hello,world
+{% set enclosure = '"' %}
+{% set delimiter = ',' %}
+{% autoescape false %}
+{% spaceless %}
+
+{{ enclosure }}{{ element.id }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ element.summary }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ element.createdAt | date('Y-m-d H:i') }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ element.endAt | date('Y-m-d H:i') }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ element.startAt | date('Y-m-d H:i') }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ element.isTransparent }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ element.resources }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ element.duration }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ element.lastModifiedAt | date('Y-m-d H:i') }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ element.description }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ element.comment }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ element.url }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ element.organizer }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ element.revisionSequence }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ element.attendees }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ element.contacts }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ element.excludedDates }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ element.includedDates }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ element.classification }}{{ enclosure }}
+
+{% endspaceless %}
+{% endautoescape %}

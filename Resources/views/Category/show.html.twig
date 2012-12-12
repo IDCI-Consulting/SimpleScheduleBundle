@@ -15,16 +15,19 @@
             <td>{{ entity.id }}</td>
         </tr>
         <tr>
+            <th>Color</th>
+            <td>
+                <div style="width:28px;height:28px;border:1px solid #222;background:{{ entity.color }}" title="{{ entity.color }}">
+                </div>
+            </td>
+        </tr>
+        <tr>
             <th>Name</th>
             <td>{{ entity.name }}</td>
         </tr>
         <tr>
             <th>Description</th>
             <td>{{ entity.description }}</td>
-        </tr>
-        <tr>
-            <th>Color</th>
-            <td>{{ entity.color }}</td>
         </tr>
     </tbody>
 </table>

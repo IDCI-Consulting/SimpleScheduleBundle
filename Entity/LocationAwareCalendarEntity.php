@@ -97,6 +97,45 @@ abstract class LocationAwareCalendarEntity extends CalendarEntity
     protected $location;
 
     /**
+     * hasGeo
+     * Check if the related location has latitude and longitude parmaters defined
+     * 
+     * @return bool
+     */
+    public function hasGeo()
+    {
+        return $this->getGeoLatitude() && $this->getGeoLongitude();
+    }
+
+    /**
+     * getGeoLatitude
+     * 
+     * @return float
+     */
+    public function getGeoLatitude()
+    {
+        if ($this->getLocation()) {
+            return $this->getLocation()->getLatitude();
+        }
+
+        return null;
+    }
+
+    /**
+     * getGeoLongitude
+     * 
+     * @return float
+     */
+    public function getGeoLongitude()
+    {
+        if ($this->getLocation()) {
+            return $this->getLocation()->getLongitude();
+        }
+
+        return null;
+    }
+
+    /**
      * durationInTime
      * Convert a duration into a countable given time unit
      *

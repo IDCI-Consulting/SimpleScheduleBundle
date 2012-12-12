@@ -10,6 +10,7 @@
 namespace IDCI\Bundle\SimpleScheduleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="idci_schedule_location")
@@ -36,11 +37,15 @@ class Location
 
     /**
      * @ORM\Column(type="decimal", precision=10, scale=6, nullable=true)
+     * @Assert\Max(limit = 90, message = "You must be between -90 and 90.")
+     * @Assert\Min(limit = "-90", message = "You must be between -90 and 90.")
      */
     protected $latitude;
 
     /**
      * @ORM\Column(type="decimal", precision=10, scale=6, nullable=true)
+     * @Assert\Max(limit = 180, message = "You must be between -180 and 180.")
+     * @Assert\Min(limit = "-180", message = "You must be between -180 and 180.")
      */
     protected $longitude;
 

@@ -16,33 +16,29 @@
   <contacts>{{ entity.contacts }}</contacts>
   <excluded_dates>{{ entity.excludedDates }}</excluded_dates>  
   <included_dates>{{ entity.includedDates }}</included_dates>
-  <classification>{{ entity.classification }}</classification> 
+  <classification>{{ entity.classification }}</classification>
+  <rrule>
+    {% for freq, bys in entity.includedRule.__toArray() %}
+          <frequency>{{ freq }}</frequency>
+          {% for by, values in bys %}
+          <by name="{{ by }}">{{ values |join('|') }}</by>
+          {% endfor %}
+    {% endfor %}
+  </rrule>
+
+  <location>
+      <id>{{ entity.location.id }}</id>
+      <name>{{ entity.location.name }}</name>
+      <description>{{ entity.location.description }}</description>
+      {% if entity.hasGeo() %}
+      <latitude>{{ entity.geoLatitude }}</latitude>
+      <longitude>{{ entity.geoLongitude }}</longitude>
+      {% endif %}
+  </location>
+  {% for category in entity.categories %}
+  <category>
+    <name>{{ category }}</name>
+    <color>{{ category.color }}</color>
+  </category>
+  {% endfor %}
 </event>
-
-{#
-
-o $endAt datetime
-o $isTransparent boolean
-
-o $priority integer
-o $resources string
-o $duration string
-$location LocationEntityMachinJeSaisPas
-
-o $id integer
-o $createdAt datetime
-o $startAt datetime
-o $lastModifiedAt datetime
-o $summary string
-o $description text
-o $comment string
-o $url string
-o $organizer string
-o $revisionSequence integer
-o $attendees string
-o $contacts string
-o $excludedDates string
-o $includedDates string
-o $classification string
-
-#}

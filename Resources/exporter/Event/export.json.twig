@@ -1,22 +1,46 @@
-    "event":
+{% autoescape false %}
+{
+    "id": "{{ entity.id }}",
+    "name": "{{ entity.summary }}",
+    "created_at": "{{ entity.createdAt | date('Y-m-d H:i') }}",
+    "end_at": "{{ entity.endAt | date('Y-m-d H:i') }}",
+    "start_at": "{{ entity.startAt | date('Y-m-d H:i') }}",
+    "is_transparent": "{{ entity.isTransparent }}",
+    "resources": "{{ entity.resources }}",
+    "duration": "{{ entity.duration }}",
+    "last_modified_at": "{{ entity.lastModifiedAt | date('Y-m-d H:i') }}",
+    "description": "{{ entity.description }}",
+    "comment": "{{ entity.comment }}",
+    "url": "{{ entity.url }}",
+    "organizer": "{{ entity.organizer }}",
+    "revision_sequence": "{{ entity.revisionSequence }}",
+    "attendees": "{{ entity.attendees }}",
+    "contacts": "{{ entity.contacts }}",
+    "excluded_dates": "{{ entity.excludedDates }}",
+    "included_dates": "{{ entity.includedDates }}",
+    "classification": "{{ entity.classification }}",
+    "r_rule": {{ entity.includedRule }},
+    "location":
     {
-        "id": "{{ element.id }}",
-        "name": "{{ element.summary }}",
-        "created_at": "{{ element.createdAt | date('Y-m-d H:i') }}",
-        "end_at": "{{ element.endAt | date('Y-m-d H:i') }}",
-        "start_at": "{{ element.startAt | date('Y-m-d H:i') }}",
-        "is_transparent": "{{ element.isTransparent }}",
-        "resources": "{{ element.resources }}",
-        "duration": "{{ element.duration }}",
-        "last_modified_at": "{{ element.lastModifiedAt | date('Y-m-d H:i') }}",
-        "description": "{{ element.description }}",
-        "comment": "{{ element.comment }}",
-        "url": "{{ element.url }}",
-        "organizer": "{{ element.organizer }}",
-        "revision_sequence": "{{ element.revisionSequence }}",
-        "attendees": "{{ element.attendees }}",
-        "contacts": "{{ element.contacts }}",
-        "excluded_dates": "{{ element.excludedDates }}",
-        "included_dates": "{{ element.includedDates }}",
-        "classification": "{{ element.classification }}"
-    }
+        "id": "{{ entity.location.id }}",
+        "name": "{{ entity.location.name }}",
+        {% if entity.hasGeo() %}
+        "latitude": "{{ entity.location.latitude }}",
+        "latitude": "{{ entity.location.longitude }}",
+        {% endif %}
+        "description": "{{ entity.location.description }}"
+    },
+    {% spaceless %}
+    {% for category in entity.categories %}
+    "categories":
+    [
+        {% if loop.first %}
+        { "name": "{{ category.name }}", "color": "{{ category.color }}" }
+        {% else %}
+        ,{ "name": "{{ category.name }}", "color": "{{ category.color }}" }
+        {% endif %}
+    ]
+    {% endfor %}
+    {% endspaceless %}
+}
+{% endautoescape %}

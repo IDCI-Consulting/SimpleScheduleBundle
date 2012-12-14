@@ -323,55 +323,62 @@ class Recur
      */
     public function __toString()
     {
-        return sprintf('%s - %s',
-            $this->getFrequency(),
-            $this->byToString()
-        );
+        return json_encode($this->__toArray());
     }
 
     /**
-     * toString
+     * toArray
      *
-     * @return string
+     * @return array
      */
-    public function byToString()
+    public function __toArray()
     {
-        $output = '';
+        return array($this->getFrequency() => $this->getBys());
+    }
+
+    /**
+     * getBys
+     *
+     * @return array
+     */
+    public function getBys()
+    {
+        $bys = array();
         if($this->getBySecond()) {
-            $output .= sprintf(' By Second: %s', $this->getBySecond());
+            $bys['second'] = $this->getBySecond();
         }
         if($this->getByMinute()) {
-            $output .= sprintf(' By Minute: %s', $this->getByMinute());
+            $bys['minute'] = $this->getByMinute();
         }
         if($this->getByHour()) {
-            $output .= sprintf(' By Hour: %s', $this->getByHour());
+            $bys['hour'] = $this->getByHour();
         }
         if($this->getByDay()) {
-            $output .= sprintf(' By Day: %s', $this->getByDay());
+            $bys['day'] = $this->getByDay();
         }
         if($this->getByMonthday()) {
-            $output .= sprintf(' By Month: %s', $this->getByMonth());
+            $bys['month'] = $this->getByMonth();
         }
         if($this->getByYearday()) {
-            $output .= sprintf(' By Year: %s', $this->getByYear());
+            $bys['year'] = $this->getByYear();
         }
         if($this->getByWeekno()) {
-            $output .= sprintf(' By Weekno: %s', $this->getByWeekno());
+            $bys['weekno'] = $this->getByWeekno();
         }
         if($this->getByMonth()) {
-            $output .= sprintf(' By Month: %s', $this->getByMonth());
+            $bys['month'] = $this->getByMonth();
         }
         if($this->getUntil()) {
-            $output .= sprintf(' Until: %s', $this->getUntil()->format('Y-m-d H:i'));
+            $bys['until'] = array($this->getUntil()->format('Y-m-d H:i'));
         }
         if($this->getRcount()) {
-            $output .= sprintf(' Count: %s', $this->getRcount());
+            $bys['count'] = array($this->getRcount());
         }
         if($this->getRinterval()) {
-            $output .= sprintf(' Interval: %s', $this->getRinterval());
+            $bys['interval'] = array($this->getRinterval());
         }
 
-        return $output;
+        return $bys;
     }
 
     /**
@@ -640,11 +647,11 @@ class Recur
     /**
      * Get bySecond
      *
-     * @return string 
+     * @return array 
      */
     public function getBySecond()
     {
-        return $this->bySecond;
+        return json_decode($this->bySecond);
     }
 
     /**
@@ -663,11 +670,11 @@ class Recur
     /**
      * Get byMinute
      *
-     * @return string 
+     * @return array 
      */
     public function getByMinute()
     {
-        return $this->byMinute;
+        return json_decode($this->byMinute);
     }
 
     /**
@@ -686,11 +693,11 @@ class Recur
     /**
      * Get byHour
      *
-     * @return string 
+     * @return array 
      */
     public function getByHour()
     {
-        return $this->byHour;
+        return json_decode($this->byHour);
     }
 
     /**
@@ -709,11 +716,11 @@ class Recur
     /**
      * Get byDay
      *
-     * @return string 
+     * @return array 
      */
     public function getByDay()
     {
-        return $this->byDay;
+        return json_decode($this->byDay);
     }
 
     /**
@@ -732,11 +739,11 @@ class Recur
     /**
      * Get byMonthday
      *
-     * @return string 
+     * @return array 
      */
     public function getByMonthday()
     {
-        return $this->byMonthday;
+        return json_decode($this->byMonthday);
     }
 
     /**
@@ -755,11 +762,11 @@ class Recur
     /**
      * Get byYearday
      *
-     * @return string 
+     * @return array 
      */
     public function getByYearday()
     {
-        return $this->byYearday;
+        return json_decode($this->byYearday);
     }
 
     /**
@@ -778,11 +785,11 @@ class Recur
     /**
      * Get byWeekno
      *
-     * @return string 
+     * @return array 
      */
     public function getByWeekno()
     {
-        return $this->byWeekno;
+        return json_decode($this->byWeekno);
     }
 
     /**
@@ -801,11 +808,11 @@ class Recur
     /**
      * Get byMonth
      *
-     * @return string 
+     * @return array 
      */
     public function getByMonth()
     {
-        return $this->byMonth;
+        return json_decode($this->byMonth);
     }
 
     /**
@@ -824,11 +831,11 @@ class Recur
     /**
      * Get bySetpos
      *
-     * @return string 
+     * @return array 
      */
     public function getBySetpos()
     {
-        return $this->bySetpos;
+        return json_decode($this->bySetpos);
     }
 
     /**
@@ -847,11 +854,11 @@ class Recur
     /**
      * Get wkst
      *
-     * @return string 
+     * @return array 
      */
     public function getWkst()
     {
-        return $this->wkst;
+        return json_decode($this->wkst);
     }
 
     /**

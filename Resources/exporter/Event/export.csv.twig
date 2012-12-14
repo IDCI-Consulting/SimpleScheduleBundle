@@ -3,25 +3,37 @@
 {% autoescape false %}
 {% spaceless %}
 
-{{ enclosure }}{{ element.id }}{{ enclosure }}{{ delimiter }}
-{{ enclosure }}{{ element.summary }}{{ enclosure }}{{ delimiter }}
-{{ enclosure }}{{ element.createdAt | date('Y-m-d H:i') }}{{ enclosure }}{{ delimiter }}
-{{ enclosure }}{{ element.endAt | date('Y-m-d H:i') }}{{ enclosure }}{{ delimiter }}
-{{ enclosure }}{{ element.startAt | date('Y-m-d H:i') }}{{ enclosure }}{{ delimiter }}
-{{ enclosure }}{{ element.isTransparent }}{{ enclosure }}{{ delimiter }}
-{{ enclosure }}{{ element.resources }}{{ enclosure }}{{ delimiter }}
-{{ enclosure }}{{ element.duration }}{{ enclosure }}{{ delimiter }}
-{{ enclosure }}{{ element.lastModifiedAt | date('Y-m-d H:i') }}{{ enclosure }}{{ delimiter }}
-{{ enclosure }}{{ element.description }}{{ enclosure }}{{ delimiter }}
-{{ enclosure }}{{ element.comment }}{{ enclosure }}{{ delimiter }}
-{{ enclosure }}{{ element.url }}{{ enclosure }}{{ delimiter }}
-{{ enclosure }}{{ element.organizer }}{{ enclosure }}{{ delimiter }}
-{{ enclosure }}{{ element.revisionSequence }}{{ enclosure }}{{ delimiter }}
-{{ enclosure }}{{ element.attendees }}{{ enclosure }}{{ delimiter }}
-{{ enclosure }}{{ element.contacts }}{{ enclosure }}{{ delimiter }}
-{{ enclosure }}{{ element.excludedDates }}{{ enclosure }}{{ delimiter }}
-{{ enclosure }}{{ element.includedDates }}{{ enclosure }}{{ delimiter }}
-{{ enclosure }}{{ element.classification }}{{ enclosure }}
+{{ enclosure }}{{ entity.id }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.summary }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.createdAt | date('Y-m-d H:i') }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.endAt | date('Y-m-d H:i') }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.startAt | date('Y-m-d H:i') }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.isTransparent }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.resources }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.duration }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.lastModifiedAt | date('Y-m-d H:i') }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.description }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.comment }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.url }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.organizer }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.revisionSequence }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.attendees }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.contacts }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.excludedDates }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.includedDates }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.classification }}{{ enclosure }}
+{{ enclosure }}{{ entity.location.id }}{{ enclosure }}
+{{ enclosure }}{{ entity.location.name }}{{ enclosure }}
+{{ enclosure }}{{ entity.location.description }}{{ enclosure }}
+{{ enclosure }}{{ entity.includedRule }}{{ enclosure }}
+{% if entity.hasGeo() %}
+{{ enclosure }}{{ entity.location.latitude }}{{ enclosure }}
+{{ enclosure }}{{ entity.location.longitude }}{{ enclosure }}
+{% endif %}
+
+{% for category in entity.categories %}
+    {{ enclosure }}{{ category }}{{ enclosure }}
+{% endfor %}
 
 {% endspaceless %}
 {% endautoescape %}

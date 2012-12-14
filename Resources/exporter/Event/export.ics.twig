@@ -1,2 +1,27 @@
-HELLO
-WORLD
+{% autoescape false %}
+BEGIN:VEVENT
+UID:{{ entity.id }}
+DTSTAMP:{{ entity.createdAt | date('Y-m-d H:i') }}
+DTSTART:{{ entity.startAt | date('Y-m-d H:i') }}
+DTEND:{{ entity.endAt | date('Y-m-d H:i') }}
+SUMMARY:{{ entity.summary }}
+TRANSP:{{ entity.isTransparent }}
+CLASS:{{ entity.classification }}
+ORGANIZER:{{ entity.organizer }}
+EXDATE:{{ entity.excludedDates }}
+DURATION:{{ entity.duration }}
+ATTENDEE:{{ entity.attendees }}
+CONTACT:{{ entity.contacts }}
+URL:{{ entity.url }}
+DESCRIPTION:{{ entity.description }}
+COMMENT:{{ entity.comment }}
+LAST-MODIFIED:{{ entity.lastModifiedAt | date('Y-m-d H:i') }}
+RESOURCES:{{ entity.resources }}
+SEQUENCE:{{ entity.revisionSequence }}
+EXDATE:{{ entity.excludedDates }}
+RDATE:{{ entity.includedDates }}
+LOCATION:{{ entity.location }}
+CATEGORIES:{% for category in entity.categories %}{% if loop.first %}{{ category }}{% else %},{{ category }}{% endif %}{% endfor %}
+RRULE: {{ entity.includedRule }}
+END:VEVENT
+{% endautoescape %}

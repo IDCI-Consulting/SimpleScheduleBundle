@@ -114,6 +114,7 @@ class CalendarEntityRepository extends EntityRepository
     public function queryQueryBuilder($params)
     {
         $qb = $this->createQueryBuilder('cer');
+        $qb->orderBy('cer.startAt', 'ASC');
 
         return $qb;
     }

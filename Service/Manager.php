@@ -47,13 +47,26 @@ class Manager
     {
         $entities = $this
             ->getEntityManager()
-            ->getRepository('IDCISimpleScheduleBundle:CalendarEntity')
+            ->getRepository(self::getEntity($params))
             ->query($params)
         ;
 
         return $this->getExporterManager()
             ->export($entities, self::getFormat($params))
         ;
+    }
+
+    /**
+     * getEntity
+     *
+     * @param array $params
+     * @return string The Entity
+     */
+    static function getEntity($params)
+    {
+        return sprintf('IDCISimpleScheduleBundle:%s',
+            isset($params['entity']) ? $params['entity'] : 'CalendarEntity'
+        );
     }
 
     /**

@@ -23,7 +23,7 @@ class LocationAwareCalendarEntityRepository extends CalendarEntityRepository
         $qb = parent::queryQueryBuilder($params);
         if(isset($params['location_id'])) {
             $qb
-                ->where('cer.location = :location_id')
+                ->andWhere('cer.location = :location_id')
                 ->setParameter('location_id', $params['location_id'])
             ;
         }

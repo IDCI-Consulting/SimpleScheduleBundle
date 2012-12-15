@@ -116,6 +116,20 @@ class CalendarEntityRepository extends EntityRepository
         $qb = $this->createQueryBuilder('cer');
         $qb->orderBy('cer.startAt', 'ASC');
 
+        if(isset($params['categories'])) {
+            $qb
+                ->leftJoin('cer.categories', 'c')
+                ->andWhere($qb->expr()->in('c.id', $params['categories']))
+            ;
+        }
+
+        if(isset($params['parent_categories'])) {
+            $qb
+                ->leftJoin('cer.categories', 'c')
+                ->andWhere($qb->expr()->in('c.parent', $params['parent_categories']))
+            ;
+        }
+
         return $qb;
     }
 

@@ -10,7 +10,7 @@ class ArrayToStringTransformer implements DataTransformerInterface
     /**
      * Transforms a string (data) to an array.
      *
-     * @param  string $week_days
+     * @param  string $data
      * @return array
      */
     public function transform($data)

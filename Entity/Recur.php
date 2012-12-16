@@ -639,7 +639,7 @@ class Recur
      */
     public function setBySecond($bySecond)
     {
-        $this->bySecond = $bySecond;
+        $this->bySecond = json_encode($bySecond, true);
     
         return $this;
     }
@@ -662,7 +662,7 @@ class Recur
      */
     public function setByMinute($byMinute)
     {
-        $this->byMinute = $byMinute;
+        $this->byMinute = json_encode($byMinute, true);
     
         return $this;
     }
@@ -685,7 +685,7 @@ class Recur
      */
     public function setByHour($byHour)
     {
-        $this->byHour = $byHour;
+        $this->byHour = json_encode($byHour, true);
     
         return $this;
     }
@@ -708,7 +708,7 @@ class Recur
      */
     public function setByDay($byDay)
     {
-        $this->byDay = $byDay;
+        $this->byDay = json_encode($byDay, true);
     
         return $this;
     }
@@ -731,7 +731,7 @@ class Recur
      */
     public function setByMonthday($byMonthday)
     {
-        $this->byMonthday = $byMonthday;
+        $this->byMonthday = json_encode($byMonthday, true);
     
         return $this;
     }
@@ -754,7 +754,7 @@ class Recur
      */
     public function setByYearday($byYearday)
     {
-        $this->byYearday = $byYearday;
+        $this->byYearday = json_encode($byYearday, true);
     
         return $this;
     }
@@ -777,7 +777,7 @@ class Recur
      */
     public function setByWeekno($byWeekno)
     {
-        $this->byWeekno = $byWeekno;
+        $this->byWeekno = json_encode($byWeekno, true);
     
         return $this;
     }
@@ -800,7 +800,7 @@ class Recur
      */
     public function setByMonth($byMonth)
     {
-        $this->byMonth = $byMonth;
+        $this->byMonth = json_encode($byMonth, true);
     
         return $this;
     }
@@ -823,7 +823,7 @@ class Recur
      */
     public function setBySetpos($bySetpos)
     {
-        $this->bySetpos = $bySetpos;
+        $this->bySetpos = json_encode($bySetpos, true);
     
         return $this;
     }
@@ -846,7 +846,7 @@ class Recur
      */
     public function setWkst($wkst)
     {
-        $this->wkst = $wkst;
+        $this->wkst = json_encode($wkst, true);
     
         return $this;
     }

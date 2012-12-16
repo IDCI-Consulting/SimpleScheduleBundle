@@ -15,6 +15,7 @@ use IDCI\Bundle\SimpleScheduleBundle\Util\StringTools;
 /**
  * @ORM\Table(name="idci_schedule_category")
  * @ORM\Entity(repositoryClass="IDCI\Bundle\SimpleScheduleBundle\Repository\CategoryRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Category
 {
@@ -39,6 +40,16 @@ class Category
      * @ORM\Column(type="string", nullable=true)
      */
     protected $color;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $level;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $tree;
 
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="childs")
@@ -82,6 +93,7 @@ class Category
     {
         return StringTools::slugify($this->getName());
     }
+
     /**
      * Constructor
      */
@@ -90,7 +102,63 @@ class Category
         $this->childs = new \Doctrine\Common\Collections\ArrayCollection();
         $this->calendarEntities = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
+    /**
+     * hasParent
+     *
+     * @return boolean
+     */
+    public function hasParent()
+    {
+        return null !== $this->getParent();
+    }
+
+    /**
+     * buildTree
+     *
+     * @return string
+     */
+    public function buildTree()
+    {
+        if(!$this->hasParent()) {
+            return null;
+        }
+
+        return sprintf('%s%s%d',
+            $this->getParent()->getTree(),
+            null !== $this->getParent()->getTree() ? '-': '',
+            $this->getParent()->getId()
+        );
+    }
+
+    /**
+     * countLevel
+     *
+     * @return integer
+     */
+    public function countLevel()
+    {
+        if(!$this->hasParent()) {
+            return 0;
+        }
+
+        return $this->getParent()->getLevel() + 1;
+    }
+
+    /**
+     * onUpdate
+     *
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function onUpdate()
+    {
+        $now = new \DateTime('now');
+
+        $this->setTree($this->buildTree());
+        $this->setLevel($this->countLevel());
+    }
+
     /**
      * Get id
      *
@@ -167,11 +235,57 @@ class Category
      */
     public function getColor()
     {
-        if(null === $this->color && $this->getParent()) {
+        if(null === $this->color && $this->hasParent()) {
             return $this->getParent()->getColor();
         }
 
         return $this->color;
+    }
+
+    /**
+     * Set level
+     *
+     * @param integer $level
+     * @return Category
+     */
+    public function setLevel($level)
+    {
+        $this->level = $level;
+    
+        return $this;
+    }
+
+    /**
+     * Get level
+     *
+     * @return integer 
+     */
+    public function getLevel()
+    {
+        return null !== $this->level ? $this->level : $this->countLevel();
+    }
+
+    /**
+     * Set tree
+     *
+     * @param string $tree
+     * @return Category
+     */
+    public function setTree($tree)
+    {
+        $this->tree = $tree;
+    
+        return $this;
+    }
+
+    /**
+     * Get tree
+     *
+     * @return string 
+     */
+    public function getTree()
+    {
+        return null !== $this->tree ? $this->tree : $this->buildTree();
     }
 
     /**

@@ -12,4 +12,49 @@ use Doctrine\ORM\EntityRepository;
  */
 class CategoryRepository extends EntityRepository
 {
+    /**
+     * queryQueryBuilder
+     *
+     * @param array Parameters
+     * @return QueryBuilder
+     */
+    public function queryQueryBuilder($params)
+    {
+        $qb = $this->createQueryBuilder('cat');
+        $qb->orderBy('cat.name', 'ASC');
+
+        if(isset($params['level'])) {
+            $qb
+                ->andWhere('cat.level', $params['level'])
+            ;
+        }
+
+        return $qb;
+    }
+
+    /**
+     * queryQuery
+     *
+     * @param array Parameters
+     * @return Query
+     */
+    public function queryQuery($params)
+    {
+        $qb = $this->queryQueryBuilder($params);
+
+        return is_null($qb) ? $qb : $qb->getQuery();
+    }
+
+    /**
+     * query
+     *
+     * @param array Parameters
+     * @return DoctrineCollection
+     */
+    public function query($params)
+    {
+        $q = $this->queryQuery($params);
+
+        return is_null($q) ? array() : $q->getResult();
+    }
 }

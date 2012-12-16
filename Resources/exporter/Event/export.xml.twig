@@ -36,8 +36,8 @@
       {% endif %}
   </location>
   {% for category in entity.categories %}
-  <category>
-    <name>{{ category }}</name>
+  <category id="{{ category.id }}">
+    <name>{{ category.name }}</name>
     <color>{{ category.color }}</color>
   </category>
   {% endfor %}

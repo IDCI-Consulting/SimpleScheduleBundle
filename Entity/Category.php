@@ -32,6 +32,11 @@ class Category
     protected $name;
 
     /**
+     * @ORM\Column(type="string", length=128, unique=true)
+     */
+    protected $slug;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
      */
     protected $description;
@@ -85,22 +90,20 @@ class Category
     }
 
     /**
-     * Slugify
-     *
-     * @return string
-     */
-    public function slugify()
-    {
-        return StringTools::slugify($this->getName());
-    }
-
-    /**
      * Constructor
      */
     public function __construct()
     {
         $this->childs = new \Doctrine\Common\Collections\ArrayCollection();
         $this->calendarEntities = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Slugify
+     */
+    public function slugify()
+    {
+        $this->setSlug(StringTools::slugify($this->getName()));
     }
 
     /**
@@ -132,6 +135,19 @@ class Category
     }
 
     /**
+     * updateTree
+     *
+     * @return boolean
+     */
+    public function updateTree()
+    {
+        $tree = $this->getTree();
+        $this->setTree($this->buildTree());
+
+        return $tree != $this->getTree();
+    }
+
+    /**
      * countLevel
      *
      * @return integer
@@ -146,6 +162,32 @@ class Category
     }
 
     /**
+     * updateLevel
+     *
+     * @return boolean
+     */
+    public function updateLevel()
+    {
+        $level = $this->getLevel();
+        $this->setLevel($this->countLevel());
+
+        return $level != $this->getLevel();
+    }
+
+    /**
+     * updateHierachyFields
+     *
+     * @return boolean
+     */
+    public function updateHierachyFields()
+    {
+        $treeUpdated = $this->updateTree();
+        $levelUpdated = $this->updateLevel();
+
+        return $treeUpdated || $levelUpdated;
+    }
+
+    /**
      * onUpdate
      *
      * @ORM\PrePersist()
@@ -155,8 +197,8 @@ class Category
     {
         $now = new \DateTime('now');
 
-        $this->setTree($this->buildTree());
-        $this->setLevel($this->countLevel());
+        $this->slugify();
+        $this->updateHierachyFields();
     }
 
     /**
@@ -190,6 +232,30 @@ class Category
     public function getName()
     {
         return $this->name;
+    }
+
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Category
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**
@@ -262,7 +328,7 @@ class Category
      */
     public function getLevel()
     {
-        return null !== $this->level ? $this->level : $this->countLevel();
+        return $this->level;
     }
 
     /**
@@ -285,7 +351,7 @@ class Category
      */
     public function getTree()
     {
-        return null !== $this->tree ? $this->tree : $this->buildTree();
+        return $this->tree;
     }
 
     /**

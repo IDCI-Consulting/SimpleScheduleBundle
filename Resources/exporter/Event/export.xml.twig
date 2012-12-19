@@ -25,9 +25,7 @@
           {% endfor %}
     {% endfor %}
   </rrule>
-
-  <location>
-      <id>{{ entity.location.id }}</id>
+  <location id="{{ entity.location.id }}">
       <name>{{ entity.location.name }}</name>
       <description>{{ entity.location.description }}</description>
       {% if entity.hasGeo() %}
@@ -36,9 +34,9 @@
       {% endif %}
   </location>
   {% for category in entity.categories %}
-  <category id="{{ category.id }}">
+  <category id="{{ category.id }}" color="{{ category.color }}">
     <name>{{ category.name }}</name>
-    <color>{{ category.color }}</color>
+    <slug>{{ category.slug }}</slug>
   </category>
   {% endfor %}
 </event>

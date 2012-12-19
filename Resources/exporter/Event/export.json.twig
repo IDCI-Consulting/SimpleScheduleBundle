@@ -35,9 +35,9 @@
     [
     {% for category in entity.categories %}
         {% if loop.first %}
-        { "id": "{{ category.id }}", "name": "{{ category.name }}", "color": "{{ category.color }}" }
+        { "id": "{{ category.id }}", "name": "{{ category.name }}", "slug": "{{ category.slug }}", "color": "{{ category.color }}" }
         {% else %}
-        ,{ "id": "{{ category.id }}", "name": "{{ category.name }}", "color": "{{ category.color }}" }
+        ,{ "id": "{{ category.id }}", "name": "{{ category.name }}", "slug": "{{ category.slug }}", "color": "{{ category.color }}" }
         {% endif %}
     {% endfor %}
     ]

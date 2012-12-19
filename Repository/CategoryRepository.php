@@ -21,11 +21,19 @@ class CategoryRepository extends EntityRepository
     public function queryQueryBuilder($params)
     {
         $qb = $this->createQueryBuilder('cat');
-        $qb->orderBy('cat.name', 'ASC');
+        $qb->orderBy('cat.parent', 'ASC');
+        $qb->addOrderBy('cat.name', 'ASC');
 
         if(isset($params['level'])) {
             $qb
-                ->andWhere('cat.level', $params['level'])
+                ->andWhere('cat.level = :level')
+                ->setParameter('level', $params['level'])
+            ;
+        }
+
+        if(isset($params['ids'])) {
+            $qb
+                ->andWhere($qb->expr()->in('cat.id', $params['ids']))
             ;
         }
 
@@ -54,6 +62,8 @@ class CategoryRepository extends EntityRepository
     public function query($params)
     {
         $q = $this->queryQuery($params);
+        // Disable lazy loading
+        //$q->setHint(\Doctrine\ORM\Query::HINT_FORCE_PARTIAL_LOAD, true);
 
         return is_null($q) ? array() : $q->getResult();
     }

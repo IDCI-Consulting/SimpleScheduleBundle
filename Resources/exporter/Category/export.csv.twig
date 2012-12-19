@@ -1,0 +1,15 @@
+{% set enclosure = '"' %}
+{% set delimiter = ',' %}
+
+{% autoescape false %}
+{% spaceless %}
+
+{{ enclosure }}{{ entity.id }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.name }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.color }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.level }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.description }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.tree }}{{ enclosure }}
+
+{% endspaceless %}
+{% endautoescape %}

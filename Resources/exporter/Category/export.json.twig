@@ -1,0 +1,10 @@
+{% autoescape false %}
+{
+    "id": "{{ entity.id }}",
+    "name": "{{ entity.name }}",
+    "color": "{{ entity.color }}",
+    "level": "{{ entity.level }}",
+    "description": "{{ entity.description }}",
+    "parents": "{{ entity.tree }}"
+}
+{% endautoescape %}

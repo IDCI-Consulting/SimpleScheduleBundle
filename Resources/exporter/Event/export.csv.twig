@@ -1,5 +1,6 @@
 {% set enclosure = '"' %}
 {% set delimiter = ',' %}
+
 {% autoescape false %}
 {% spaceless %}
 
@@ -21,18 +22,16 @@
 {{ enclosure }}{{ entity.contacts }}{{ enclosure }}{{ delimiter }}
 {{ enclosure }}{{ entity.excludedDates }}{{ enclosure }}{{ delimiter }}
 {{ enclosure }}{{ entity.includedDates }}{{ enclosure }}{{ delimiter }}
-{{ enclosure }}{{ entity.classification }}{{ enclosure }}
-{{ enclosure }}{{ entity.location.id }}{{ enclosure }}
-{{ enclosure }}{{ entity.location.name }}{{ enclosure }}
-{{ enclosure }}{{ entity.location.description }}{{ enclosure }}
-{{ enclosure }}{{ entity.includedRule }}{{ enclosure }}
-{% if entity.hasGeo() %}
-{{ enclosure }}{{ entity.location.latitude }}{{ enclosure }}
-{{ enclosure }}{{ entity.location.longitude }}{{ enclosure }}
-{% endif %}
+{{ enclosure }}{{ entity.classification }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.location.id }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.location.name }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.location.description }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.includedRule }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.location.latitude }}{{ enclosure }}{{ delimiter }}
+{{ enclosure }}{{ entity.location.longitude }}{{ enclosure }}{{ delimiter }}
 
 {% for category in entity.categories %}
-    {{ enclosure }}{{ category }}{{ enclosure }}
+    {{ enclosure }}{{ category }}|{{ enclosure }}
 {% endfor %}
 
 {% endspaceless %}

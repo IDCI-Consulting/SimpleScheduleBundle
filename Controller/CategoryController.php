@@ -31,7 +31,7 @@ class CategoryController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('IDCISimpleScheduleBundle:Category')->findAll();
+        $entities = $em->getRepository('IDCISimpleScheduleBundle:Category')->getOrdered();
 
         $adapter = new ArrayAdapter($entities);
         $pager = new PagerFanta($adapter);

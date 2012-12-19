@@ -13,6 +13,45 @@ use Doctrine\ORM\EntityRepository;
 class CategoryRepository extends EntityRepository
 {
     /**
+     * getOrderedQueryBuilder
+     *
+     * @return QueryBuilder
+     */
+    public function getOrderedQueryBuilder()
+    {
+        $qb = $this->createQueryBuilder('cat');
+        $qb->orderBy('cat.level', 'ASC');
+        $qb->addOrderBy('cat.parent', 'ASC');
+        $qb->addOrderBy('cat.name', 'ASC');
+
+        return $qb;
+    }
+
+    /**
+     * getOrderedQuery
+     *
+     * @return Query
+     */
+    public function getOrderedQuery()
+    {
+        $qb = $this->getOrderedQueryBuilder();
+
+        return is_null($qb) ? $qb : $qb->getQuery();
+    }
+
+    /**
+     * getOrdered
+     *
+     * @return DoctrineCollection
+     */
+    public function getOrdered()
+    {
+        $q = $this->getOrderedQuery();
+
+        return is_null($q) ? array() : $q->getResult();
+    }
+
+    /**
      * queryQueryBuilder
      *
      * @param array Parameters
@@ -20,9 +59,7 @@ class CategoryRepository extends EntityRepository
      */
     public function queryQueryBuilder($params)
     {
-        $qb = $this->createQueryBuilder('cat');
-        $qb->orderBy('cat.parent', 'ASC');
-        $qb->addOrderBy('cat.name', 'ASC');
+        $qb = $this->getOrderedQueryBuilder();
 
         if(isset($params['level'])) {
             $qb
@@ -62,8 +99,6 @@ class CategoryRepository extends EntityRepository
     public function query($params)
     {
         $q = $this->queryQuery($params);
-        // Disable lazy loading
-        //$q->setHint(\Doctrine\ORM\Query::HINT_FORCE_PARTIAL_LOAD, true);
 
         return is_null($q) ? array() : $q->getResult();
     }

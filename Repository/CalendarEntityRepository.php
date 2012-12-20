@@ -116,18 +116,50 @@ class CalendarEntityRepository extends EntityRepository
         $qb = $this->createQueryBuilder('cer');
         $qb->orderBy('cer.startAt', 'ASC');
 
-        if(isset($params['categories'])) {
+
+        if(isset($params['id'])) {
             $qb
-                ->leftJoin('cer.categories', 'c')
-                ->andWhere($qb->expr()->in('c.id', $params['categories']))
+                ->andWhere('cer.id = :id')
+                ->setParameter('id', $params['id'])
             ;
         }
 
-        if(isset($params['parent_categories'])) {
+        if(isset($params['ids'])) {
+            $qb
+                ->andWhere($qb->expr()->in('cer.id', $params['ids']))
+            ;
+        }
+
+        if(isset($params['category_id'])) {
             $qb
                 ->leftJoin('cer.categories', 'c')
-                ->andWhere($qb->expr()->in('c.parent', $params['parent_categories']))
+                ->andWhere('c.id = :cat_id')
+                ->setParameter('cat_id', $params['category_id'])
             ;
+        }
+
+        if(isset($params['category_ids'])) {
+            $qb
+                ->leftJoin('cer.categories', 'c')
+                ->andWhere($qb->expr()->in('c.id', $params['category_ids']))
+            ;
+        }
+
+        if(isset($params['parent_category_id'])) {
+            $qb
+                ->leftJoin('cer.categories', 'c')
+                ->andWhere($qb->expr()->like('c.tree', '\'% '.$params['parent_category_id'].' -\''))
+            ;
+        }
+
+        if(isset($params['parent_category_ids'])) {
+            $qb->leftJoin('cer.categories', 'c');
+
+            foreach($params['parent_category_ids'] as $id) {
+                $temp[] = $qb->expr()->like('c.tree', '\'% '.$id.' -\'');
+            }
+
+            $qb->andWhere(call_user_func_array(array($qb->expr(),'orx'), $temp));
         }
 
         return $qb;

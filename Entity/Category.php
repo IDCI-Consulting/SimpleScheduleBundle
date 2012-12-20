@@ -127,10 +127,10 @@ class Category
             return null;
         }
 
-        return sprintf('%s%s%d',
+        return sprintf('%s %d %s',
             $this->getParent()->getTree(),
-            null !== $this->getParent()->getTree() ? '-': '',
-            $this->getParent()->getId()
+            $this->getParent()->getId(),
+            '-'
         );
     }
 

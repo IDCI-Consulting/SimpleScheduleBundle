@@ -21,6 +21,7 @@ class LocationAwareCalendarEntityRepository extends CalendarEntityRepository
     public function queryQueryBuilder($params)
     {
         $qb = parent::queryQueryBuilder($params);
+
         if(isset($params['location_id'])) {
             $qb
                 ->andWhere('cer.location = :location_id')

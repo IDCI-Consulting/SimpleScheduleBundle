@@ -31,7 +31,7 @@
 {{ enclosure }}{{ entity.location.longitude }}{{ enclosure }}{{ delimiter }}
 
 {% for category in entity.categories %}
-    {{ enclosure }}{{ category }}|{{ enclosure }}
+    {{ enclosure }}{{ category }}|{{ enclosure }}{{ delimiter }}
 {% endfor %}
 
 {% endspaceless %}

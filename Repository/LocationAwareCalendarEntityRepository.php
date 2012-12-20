@@ -28,6 +28,12 @@ class LocationAwareCalendarEntityRepository extends CalendarEntityRepository
             ;
         }
 
+        if(isset($params['location_ids'])) {
+            $qb
+                ->andWhere($qb->expr()->in('cer.location', $params['location_ids']))
+            ;
+        }
+
         return $qb;
     }
 }

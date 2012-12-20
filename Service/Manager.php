@@ -22,22 +22,6 @@ class Manager
     }
 
     /**
-     * getAll
-     *
-     * @return DoctrineCollection
-     */
-    public function getAll()
-    {
-        $entities = $this
-            ->getEntityManager()
-            ->getRepository('IDCISimpleScheduleBundle:CalendarEntity')
-            ->getAllOrderByStartAt()
-        ;
-
-        return $entities;
-    }
-
-    /**
      * query
      *
      * @param array $params

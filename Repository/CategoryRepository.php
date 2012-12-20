@@ -68,6 +68,13 @@ class CategoryRepository extends EntityRepository
             ;
         }
 
+        if(isset($params['id'])) {
+            $qb
+                ->andWhere('cat.id = :id')
+                ->setParameter('id', $params['id'])
+            ;
+        }
+
         if(isset($params['ids'])) {
             $qb
                 ->andWhere($qb->expr()->in('cat.id', $params['ids']))

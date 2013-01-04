@@ -734,6 +734,29 @@ class CalendarEntity
     }
 
     /**
+     * Set attendees
+     *
+     * @param string $attendees
+     * @return CalendarEntity
+     */
+    public function setAttendees($attendees)
+    {
+        $this->attendees = $attendees;
+    
+        return $this;
+    }
+
+    /**
+     * Get attendees
+     *
+     * @return string 
+     */
+    public function getAttendees()
+    {
+        return $this->attendees;
+    }
+
+    /**
      * Set contacts
      *
      * @param string $contacts

@@ -84,7 +84,6 @@ class CategoryRepository extends EntityRepository
         if(isset($params['location_id'])) {
             $qb
                 ->leftJoin('cat.calendarEntities', 'ce')
-                ->andWhere('ce INSTANCE OF IDCI\Bundle\SimpleScheduleBundle\Entity\Event')
                 ->andWhere('ce.location = :loc_id')
                 ->setParameter('loc_id', $params['location_id'])
             ;

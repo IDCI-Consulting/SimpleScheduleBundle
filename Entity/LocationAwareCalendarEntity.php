@@ -89,14 +89,6 @@ abstract class LocationAwareCalendarEntity extends CalendarEntity
     protected $duration;
 
     /**
-     * location
-     *
-     * @ORM\ManyToOne(targetEntity="IDCI\Bundle\SimpleScheduleBundle\Entity\Location", inversedBy="locationAwareCalendarEntities")
-     * @ORM\JoinColumn(name="location_id", referencedColumnName="id", onDelete="Set Null")
-     */
-    protected $location;
-
-    /**
      * hasGeo
      * Check if the related location has latitude and longitude parmaters defined
      * 
@@ -272,28 +264,5 @@ abstract class LocationAwareCalendarEntity extends CalendarEntity
     public function getDuration()
     {
         return $this->duration;
-    }
-
-    /**
-     * Set location
-     *
-     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\Location $location
-     * @return LocationAwareCalendarEntity
-     */
-    public function setLocation(\IDCI\Bundle\SimpleScheduleBundle\Entity\Location $location = null)
-    {
-        $this->location = $location;
-    
-        return $this;
-    }
-
-    /**
-     * Get location
-     *
-     * @return \IDCI\Bundle\SimpleScheduleBundle\Entity\Location 
-     */
-    public function getLocation()
-    {
-        return $this->location;
     }
 }

@@ -50,9 +50,9 @@ class Location
     protected $longitude;
 
     /**
-     * @ORM\OneToMany(targetEntity="LocationAwareCalendarEntity", mappedBy="location")
+     * @ORM\OneToMany(targetEntity="CalendarEntity", mappedBy="location")
      */
-    protected $locationAwareCalendarEntities;
+    protected $calendarEntities;
 
     /**
      * Constructor

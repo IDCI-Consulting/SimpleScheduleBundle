@@ -283,6 +283,14 @@ class CalendarEntity
     protected $status;
 
     /**
+     * location
+     *
+     * @ORM\ManyToOne(targetEntity="IDCI\Bundle\SimpleScheduleBundle\Entity\Location", inversedBy="calendarEntities")
+     * @ORM\JoinColumn(name="location_id", referencedColumnName="id", onDelete="Set Null")
+     */
+    protected $location;
+
+    /**
      * categories
      *
      * This property defines the categories for a calendar component.
@@ -937,6 +945,29 @@ class CalendarEntity
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set location
+     *
+     * @param \IDCI\Bundle\SimpleScheduleBundle\Entity\Location $location
+     * @return LocationAwareCalendarEntity
+     */
+    public function setLocation(\IDCI\Bundle\SimpleScheduleBundle\Entity\Location $location = null)
+    {
+        $this->location = $location;
+    
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return \IDCI\Bundle\SimpleScheduleBundle\Entity\Location 
+     */
+    public function getLocation()
+    {
+        return $this->location;
     }
 
     /**

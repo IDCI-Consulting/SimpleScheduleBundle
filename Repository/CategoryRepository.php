@@ -81,6 +81,21 @@ class CategoryRepository extends EntityRepository
             ;
         }
 
+        if(isset($params['parent_category_id'])) {
+            $qb
+                ->andWhere($qb->expr()->like('cat.tree', '\'% '.$params['parent_category_id'].' -\''))
+            ;
+        }
+
+        if(isset($params['parent_category_ids'])) {
+
+            foreach($params['parent_category_ids'] as $id) {
+                $temp[] = $qb->expr()->like('cat.tree', '\'% '.$id.' -\'');
+            }
+
+            $qb->andWhere(call_user_func_array(array($qb->expr(),'orx'), $temp));
+        }
+
         if(isset($params['location_id'])) {
             $qb
                 ->leftJoin('cat.calendarEntities', 'ce')

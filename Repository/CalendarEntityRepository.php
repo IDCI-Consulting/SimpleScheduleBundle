@@ -140,23 +140,23 @@ class CalendarEntityRepository extends EntityRepository
 
         if(isset($params['category_ids'])) {
             $qb
-                ->leftJoin('cer.categories', 'c')
-                ->andWhere($qb->expr()->in('c.id', $params['category_ids']))
+                ->leftJoin('cer.categories', 'cs')
+                ->andWhere($qb->expr()->in('cs.id', $params['category_ids']))
             ;
         }
 
         if(isset($params['parent_category_id'])) {
             $qb
-                ->leftJoin('cer.categories', 'c')
-                ->andWhere($qb->expr()->like('c.tree', '\'% '.$params['parent_category_id'].' -\''))
+                ->leftJoin('cer.categories', 'pc')
+                ->andWhere($qb->expr()->like('pc.tree', '\'% '.$params['parent_category_id'].' -\''))
             ;
         }
 
         if(isset($params['parent_category_ids'])) {
-            $qb->leftJoin('cer.categories', 'c');
+            $qb->leftJoin('cer.categories', 'pcs');
 
             foreach($params['parent_category_ids'] as $id) {
-                $temp[] = $qb->expr()->like('c.tree', '\'% '.$id.' -\'');
+                $temp[] = $qb->expr()->like('pcs.tree', '\'% '.$id.' -\'');
             }
 
             $qb->andWhere(call_user_func_array(array($qb->expr(),'orx'), $temp));

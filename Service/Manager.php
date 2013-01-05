@@ -29,6 +29,8 @@ class Manager
      */
     public function query($params)
     {
+        $params = self::cleanParams($params);
+
         $entities = $this
             ->getEntityManager()
             ->getRepository(self::getEntity($params))
@@ -41,12 +43,30 @@ class Manager
     }
 
     /**
+     * Clean Params
+     *
+     * @param array $params
+     * @return array
+     */
+    static public function cleanParams($params)
+    {
+        $clean = array();
+        foreach($params as $k => $v) {
+            if($v != '') {
+                $clean[$k] = $v;
+            }
+        }
+
+        return $clean;
+    }
+
+    /**
      * getEntity
      *
      * @param array $params
      * @return string The Entity
      */
-    static function getEntity($params)
+    static public function getEntity($params)
     {
         return sprintf('IDCISimpleScheduleBundle:%s',
             isset($params['entity']) ? $params['entity'] : 'CalendarEntity'

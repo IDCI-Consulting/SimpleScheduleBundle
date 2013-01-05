@@ -36,7 +36,7 @@ class Manager
         ;
 
         return $this->getExporterManager()
-            ->export($entities, self::getFormat($params))
+            ->export($entities, self::getFormat($params), $params)
         ;
     }
 

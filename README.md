@@ -54,6 +54,11 @@ For the query interfaces:
 
 Add the following lines in the `config.yml`:
 
+    imports:
+        - { resource: @IDCISimpleScheduleBundle/Resources/config/config.yml }
+
+    ...
+
     twig:
         form:
             resources:

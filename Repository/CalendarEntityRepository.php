@@ -3,6 +3,7 @@
 namespace IDCI\Bundle\SimpleScheduleBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use IDCI\Bundle\SimpleScheduleBundle\Entity\Category;
 
 /**
  * CalendarEntityRepository
@@ -148,17 +149,39 @@ class CalendarEntityRepository extends EntityRepository
         if(isset($params['parent_category_id'])) {
             $qb
                 ->leftJoin('cer.categories', 'pc')
-                ->andWhere($qb->expr()->like('pc.tree', '\'% '.$params['parent_category_id'].' -\''))
+                ->andWhere('pc.parent = :parent_id')
+                ->setParameter('parent_id', $params['parent_category_id'])
             ;
         }
 
         if(isset($params['parent_category_ids'])) {
+            $qb
+                ->leftJoin('cer.categories', 'pcs')
+                ->andWhere($qb->expr()->in('pcs.parent', $params['parent_category_ids']))
+            ;
+        }
+
+        if(isset($params['ancestor_category_id'])) {
+            $qb
+                ->leftJoin('cer.categories', 'pc')
+                ->andWhere($qb->expr()->like('pc.tree', sprintf(
+                    "'%%%d%s'",
+                    $params['ancestor_category_id'],
+                    Category::getTreeSeparator()
+                )))
+            ;
+        }
+
+        if(isset($params['ancestor_category_ids'])) {
             $qb->leftJoin('cer.categories', 'pcs');
-
-            foreach($params['parent_category_ids'] as $id) {
-                $temp[] = $qb->expr()->like('pcs.tree', '\'% '.$id.' -\'');
+            $temp = array();
+            foreach($params['ancestor_category_ids'] as $id) {
+                $temp[] = $qb->expr()->like('pcs.tree', sprintf(
+                    "'%%%d%s'",
+                    $id,
+                    Category::getTreeSeparator()
+                ));
             }
-
             $qb->andWhere(call_user_func_array(array($qb->expr(),'orx'), $temp));
         }
 

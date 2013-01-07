@@ -85,18 +85,32 @@ class CategoryRepository extends EntityRepository
 
         if(isset($params['parent_category_id'])) {
             $qb
+                ->andWhere('cat.parent = :parent_id')
+                ->setParameter('parent_id', $params['parent_category_id'])
+            ;
+        }
+
+        if(isset($params['parent_category_ids'])) {
+            $qb
+                ->andWhere($qb->expr()->in('cat.parent', $params['parent_category_ids']))
+            ;
+        }
+
+        if(isset($params['ancestor_category_id'])) {
+            $qb
                 ->andWhere($qb->expr()->like('cat.tree', sprintf(
                     "'%%%d%s'",
-                    $params['parent_category_id'],
+                    $params['ancestor_category_id'],
                     Category::getTreeSeparator()
                 )))
             ;
         }
 
-        if(isset($params['parent_category_ids'])) {
-            foreach($params['parent_category_ids'] as $id) {
+        if(isset($params['ancestor_category_ids'])) {
+            $temp = array();
+            foreach($params['ancestor_category_ids'] as $id) {
                 $temp[] = $qb->expr()->like('cat.tree', sprintf(
-                    "'%d%s%%'",
+                    "'%%%d%s'",
                     $id,
                     Category::getTreeSeparator()
                 ));

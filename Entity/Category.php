@@ -20,6 +20,16 @@ use IDCI\Bundle\SimpleScheduleBundle\Util\StringTools;
 class Category
 {
     /**
+     * Get tree separator
+     *
+     * @return string
+     */
+    public static function getTreeSeparator()
+    {
+        return '-';
+    }
+
+    /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -127,10 +137,10 @@ class Category
             return null;
         }
 
-        return sprintf('%s %d %s',
+        return sprintf('%s%d%s',
             $this->getParent()->getTree(),
             $this->getParent()->getId(),
-            '-'
+            self::getTreeSeparator()
         );
     }
 

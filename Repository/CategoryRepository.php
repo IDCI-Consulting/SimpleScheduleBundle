@@ -3,6 +3,7 @@
 namespace IDCI\Bundle\SimpleScheduleBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use IDCI\Bundle\SimpleScheduleBundle\Entity\Category;
 
 /**
  * CategoryRepository
@@ -19,10 +20,11 @@ class CategoryRepository extends EntityRepository
      */
     public function getOrderedQueryBuilder()
     {
-        $qb = $this->createQueryBuilder('cat');
-        $qb->orderBy('cat.level', 'ASC');
-        $qb->addOrderBy('cat.parent', 'ASC');
-        $qb->addOrderBy('cat.name', 'ASC');
+        $qb = $this->createQueryBuilder('cat')
+            ->orderBy('cat.level', 'ASC')
+            ->addOrderBy('cat.parent', 'ASC')
+            ->addOrderBy('cat.name', 'ASC')
+        ;
 
         return $qb;
     }
@@ -83,16 +85,22 @@ class CategoryRepository extends EntityRepository
 
         if(isset($params['parent_category_id'])) {
             $qb
-                ->andWhere($qb->expr()->like('cat.tree', '\'% '.$params['parent_category_id'].' -\''))
+                ->andWhere($qb->expr()->like('cat.tree', sprintf(
+                    "'%d%s%%'",
+                    $params['parent_category_id'],
+                    Category::getTreeSeparator()
+                )))
             ;
         }
 
         if(isset($params['parent_category_ids'])) {
-
             foreach($params['parent_category_ids'] as $id) {
-                $temp[] = $qb->expr()->like('cat.tree', '\'% '.$id.' -\'');
+                $temp[] = $qb->expr()->like('cat.tree', sprintf(
+                    "'%d%s%%'",
+                    $id,
+                    Category::getTreeSeparator()
+                ));
             }
-
             $qb->andWhere(call_user_func_array(array($qb->expr(),'orx'), $temp));
         }
 
@@ -101,6 +109,31 @@ class CategoryRepository extends EntityRepository
                 ->leftJoin('cat.calendarEntities', 'ce')
                 ->andWhere('ce.location = :loc_id')
                 ->setParameter('loc_id', $params['location_id'])
+            ;
+        }
+
+        if(isset($params['all_in_location_id'])) {
+            $tempQb = $this->getOrderedQueryBuilder()
+                ->leftJoin('cat.calendarEntities', 'ce')
+                ->andWhere('ce.location = :loc_id')
+                ->setParameter('loc_id', $params['all_in_location_id'])
+            ;
+
+            $tempResult = $tempQb->getQuery()->getResult();
+
+            $tempIds = array();
+            foreach($tempResult as $r) {
+                $tempIds[$r->getId()] = 1;
+                $ids = explode(Category::getTreeSeparator(), $r->getTree());
+                foreach($ids as $id) {
+                    if($id != '') {
+                        $tempIds[$id] = 1;
+                    }
+                }
+            }
+
+            $qb
+                ->andWhere($qb->expr()->in('cat.id', array_keys($tempIds)))
             ;
         }
 

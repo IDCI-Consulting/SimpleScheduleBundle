@@ -86,7 +86,7 @@ class CategoryRepository extends EntityRepository
         if(isset($params['parent_category_id'])) {
             $qb
                 ->andWhere($qb->expr()->like('cat.tree', sprintf(
-                    "'%d%s%%'",
+                    "'%%%d%s'",
                     $params['parent_category_id'],
                     Category::getTreeSeparator()
                 )))

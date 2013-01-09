@@ -81,9 +81,9 @@ The main parameters are:
 
 Exemples:
 
-To query all the locations in the json format: `/api/query?entity=Location&format=json`
-To query all the events in the ics format: `/api/query?entity=Event&format=ics`
-To query all the category in the xml format: `/api/query?entity=Category&format=xml` or `/api/query?entity=Category`
+To query all the locations in the json format: `/api/query?entity=Location&format=json`  
+To query all the events in the ics format: `/api/query?entity=Event&format=ics`  
+To query all the category in the xml format: `/api/query?entity=Category&format=xml` or `/api/query?entity=Category`  
 
 You can also use more specific query parameters for each entity as folow:
 
@@ -114,7 +114,11 @@ Event:
  * parent_category_ids
  * ancestor_category_id
  * ancestor_category_ids
+ * location_id
+ * location_ids
+
 Todo ~ TER ;)
+
  * xproperty_namespace
  * xproperty_key
- * xproperty_value 
+ * xproperty_value

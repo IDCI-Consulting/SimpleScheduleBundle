@@ -185,6 +185,20 @@ class CalendarEntityRepository extends EntityRepository
             $qb->andWhere(call_user_func_array(array($qb->expr(),'orx'), $temp));
         }
 
+        if(isset($params['location_id'])) {
+            $qb
+                ->andWhere('cer.location = :location_id')
+                ->setParameter('location_id', $params['location_id'])
+            ;
+        }
+
+        if(isset($params['location_ids'])) {
+            $qb
+                ->andWhere($qb->expr()->in('cer.location', $params['location_ids']))
+            ;
+        }
+
+
         return $qb;
     }
 

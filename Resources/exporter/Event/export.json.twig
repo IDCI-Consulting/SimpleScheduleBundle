@@ -1,4 +1,3 @@
-{% autoescape false %}
 {
     "id": "{{ entity.id }}",
     "name": "{{ entity.summary }}",
@@ -9,7 +8,7 @@
     "resources": "{{ entity.resources }}",
     "duration": "{{ entity.duration }}",
     "last_modified_at": "{{ entity.lastModifiedAt | date('Y-m-d H:i') }}",
-    "description": "{{ entity.description }}",
+    "description": "{% autoescape 'js' %}{{ entity.description }}{% endautoescape %}",
     "comment": "{{ entity.comment }}",
     "url": "{{ entity.url }}",
     "organizer": "{{ entity.organizer }}",
@@ -19,7 +18,7 @@
     "excluded_dates": "{{ entity.excludedDates }}",
     "included_dates": "{{ entity.includedDates }}",
     "classification": "{{ entity.classification }}",
-    "r_rule": {{ entity.includedRule }},
+    "r_rule": {% autoescape false %}{{ entity.includedRule }}{% endautoescape %},
     "location":
     {
         "id": "{{ entity.location.id }}",
@@ -28,7 +27,7 @@
         "latitude": "{{ entity.location.latitude }}",
         "latitude": "{{ entity.location.longitude }}",
         {% endif %}
-        "description": "{{ entity.location.description }}"
+        "description": "{% autoescape 'js' %}{{ entity.location.description }}{% endautoescape %}"
     },
     {% spaceless %}
     "categories":
@@ -43,4 +42,3 @@
     ]
     {% endspaceless %}
 }
-{% endautoescape %}

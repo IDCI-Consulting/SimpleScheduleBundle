@@ -7,7 +7,7 @@
   <resources>{{ entity.resources }}</resources>
   <duration>{{ entity.duration }}</duration> 
   <last_modified_at>{{ entity.lastModifiedAt | date('Y-m-d H:i') }}</last_modified_at>
-  <description>{{ entity.description }}</description>
+  <description><![CDATA[{{ entity.description }}]]></description>
   <comment>{{ entity.comment }}</comment>
   <url>{{ entity.url }}</url>
   <organizer>{{ entity.organizer }}</organizer>
@@ -18,16 +18,18 @@
   <included_dates>{{ entity.includedDates }}</included_dates>
   <classification>{{ entity.classification }}</classification>
   <rrule>
+    {% autoescape false %}
     {% for freq, bys in entity.includedRule.__toArray() %}
           <frequency>{{ freq }}</frequency>
           {% for by, values in bys %}
           <by name="{{ by }}">{{ values |join('|') }}</by>
           {% endfor %}
     {% endfor %}
+    {% endautoescape %}
   </rrule>
   <location id="{{ entity.location.id }}">
       <name>{{ entity.location.name }}</name>
-      <description>{{ entity.location.description }}</description>
+      <description><![CDATA[{{ entity.location.description }}]]></description>
       {% if entity.hasGeo() %}
       <latitude>{{ entity.geoLatitude }}</latitude>
       <longitude>{{ entity.geoLongitude }}</longitude>

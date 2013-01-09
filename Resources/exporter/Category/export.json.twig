@@ -3,7 +3,7 @@
     "name": "{{ entity.name }}",
     "slug": "{{ entity.slug }}",
     "color": "{{ entity.color }}",
-    "description": "{{ entity.description }}",
+    "description": "{% autoescape 'js' %}{{ entity.description }}{% endautoescape %}",
     "level": "{{ entity.level }}",
     "tree": "{{ entity.tree }}"
 }

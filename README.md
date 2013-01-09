@@ -68,3 +68,53 @@ TODO:
 
  * How to use the admin provided with the bundle:
  * How to override this bundle
+
+Query parameter:
+
+This bundle can be use through a web API.
+To query this api simply use this url `/api/query?[params]`
+
+The main parameters are:
+
+ * format: xml (default), json, jsonp, csv, ics (for event entity)
+ * entity: Event (default), Location, Category
+
+Exemples:
+
+To query all the locations in the json format: `/api/query?entity=Location&format=json`
+To query all the events in the ics format: `/api/query?entity=Event&format=ics`
+To query all the category in the xml format: `/api/query?entity=Category&format=xml` or `/api/query?entity=Category`
+
+You can also use more specific query parameters for each entity as folow:
+
+Location:
+
+ * id => id=x
+ * ids => ids[]=x&ids[]=y
+
+Category:
+
+ * id => id=x
+ * ids => ids[]=x&ids[]=y
+ * level => level=0
+ * parent_category_id
+ * parent_category_ids
+ * ancestor_category_id
+ * ancestor_category_ids
+ * location_id
+ * all_in_location_id
+
+Event:
+
+ * id => id=x
+ * ids => ids[]=x&ids[]=y
+ * category_id
+ * category_ids
+ * parent_category_id
+ * parent_category_ids
+ * ancestor_category_id
+ * ancestor_category_ids
+Todo ~ TER ;)
+ * xproperty_namespace
+ * xproperty_key
+ * xproperty_value 

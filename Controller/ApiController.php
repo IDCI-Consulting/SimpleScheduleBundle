@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Api controller.
  *
- * @Route("/api")
+ * @Route("/api/schedule")
  */
 class ApiController extends Controller
 {

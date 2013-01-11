@@ -8,7 +8,7 @@
   <h1>{% trans %}Status creation{% endtrans %}</h1>
 </div>
 
-<form action="{{ path('admin_status_create') }}" method="post" {{ form_enctype(form) }}>
+<form action="{{ path('admin_schedule_status_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <p>
         <button type="submit" class="btn btn-primary">{% trans %}Create{% endtrans %}</button>
@@ -17,7 +17,7 @@
 
 <ul class="record_actions">
     <li>
-        <a class="btn" href="{{ path('admin_status') }}">
+        <a class="btn" href="{{ path('admin_schedule_status') }}">
             {% trans %}Back to the list{% endtrans %}
         </a>
     </li>

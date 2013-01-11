@@ -24,12 +24,12 @@
     <tbody>
     {% for entity in pager.currentPageResults %}
         <tr>
-            <td><a href="{{ path('admin_status_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td><a href="{{ path('admin_schedule_status_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
             <td>{{ entity.value }}</td>
             <td>{{ entity.discr }}</td>    <td>
-                    <a class="btn btn-block" href="{{ path('admin_status_show', { 'id': entity.id }) }}">{% trans %}show{% endtrans %}</a>
+                    <a class="btn btn-block" href="{{ path('admin_schedule_status_show', { 'id': entity.id }) }}">{% trans %}show{% endtrans %}</a>
             </td>    <td>
-                    <a class="btn btn-block btn-primary" href="{{ path('admin_status_edit', { 'id': entity.id }) }}">{% trans %}edit{% endtrans %}</a>
+                    <a class="btn btn-block btn-primary" href="{{ path('admin_schedule_status_edit', { 'id': entity.id }) }}">{% trans %}edit{% endtrans %}</a>
             </td>    <td>
                     {% render 'IDCISimpleScheduleBundle:Status:deleteForm' with { 'id': entity.id } %}
             </td>
@@ -40,7 +40,7 @@
 
 <ul class="list_actions">
     <li>
-        <a class="btn btn-primary" href="{{ path('admin_status_new') }}">
+        <a class="btn btn-primary" href="{{ path('admin_schedule_status_new') }}">
             {% trans %}Create a new entry{% endtrans %}
         </a>
     </li>

@@ -94,17 +94,17 @@
 
 <ul class="record_actions">
     <li>
-        <a class="btn" href="{{ path('admin_event') }}">
+        <a class="btn" href="{{ path('admin_schedule_event') }}">
             {% trans %}Back to the list{% endtrans %}
         </a>
     </li>
     <li>
-        <a class="btn btn-primary" href="{{ path('admin_event_edit', { 'id': entity.id }) }}">
+        <a class="btn btn-primary" href="{{ path('admin_schedule_event_edit', { 'id': entity.id }) }}">
             {% trans %}Edit{% endtrans %}
         </a>
     </li>
     <li>
-        <form action="{{ path('admin_event_delete', { 'id': entity.id }) }}" method="post">
+        <form action="{{ path('admin_schedule_event_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
             <button type="submit" class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
         </form>

@@ -23,14 +23,14 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * Event controller.
  *
- * @Route("/admin/event")
+ * @Route("/admin/schedule/event")
  */
 class EventController extends Controller
 {
     /**
      * Lists all Event entities.
      *
-     * @Route("/", name="admin_event")
+     * @Route("/", name="admin_schedule_event")
      * @Template()
      */
     public function indexAction(Request $request)
@@ -56,7 +56,7 @@ class EventController extends Controller
     /**
      * Finds and displays a Event entity.
      *
-     * @Route("/{id}/show", name="admin_event_show")
+     * @Route("/{id}/show", name="admin_schedule_event_show")
      * @Template()
      */
     public function showAction($id)
@@ -79,7 +79,7 @@ class EventController extends Controller
     /**
      * Displays a form to create a new Event entity.
      *
-     * @Route("/new", name="admin_event_new")
+     * @Route("/new", name="admin_schedule_event_new")
      * @Template()
      */
     public function newAction()
@@ -96,7 +96,7 @@ class EventController extends Controller
     /**
      * Creates a new Event entity.
      *
-     * @Route("/create", name="admin_event_create")
+     * @Route("/create", name="admin_schedule_event_create")
      * @Method("POST")
      * @Template("IDCISimpleScheduleBundle:Event:new.html.twig")
      */
@@ -119,7 +119,7 @@ class EventController extends Controller
                 ))
             );
 
-            return $this->redirect($this->generateUrl('admin_event_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('admin_schedule_event_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -131,7 +131,7 @@ class EventController extends Controller
     /**
      * Displays a form to edit an existing Event entity.
      *
-     * @Route("/{id}/edit", name="admin_event_edit")
+     * @Route("/{id}/edit", name="admin_schedule_event_edit")
      * @Template()
      */
     public function editAction($id)
@@ -166,7 +166,7 @@ class EventController extends Controller
     /**
      * Edits an existing Event entity.
      *
-     * @Route("/{id}/update", name="admin_event_update")
+     * @Route("/{id}/update", name="admin_schedule_event_update")
      * @Method("POST")
      * @Template("IDCISimpleScheduleBundle:Event:edit.html.twig")
      */
@@ -195,7 +195,7 @@ class EventController extends Controller
                 ))
             );
 
-            return $this->redirect($this->generateUrl('admin_event_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('admin_schedule_event_edit', array('id' => $id)));
         }
 
         return array(
@@ -208,7 +208,7 @@ class EventController extends Controller
     /**
      * Deletes a Event entity.
      *
-     * @Route("/{id}/delete", name="admin_event_delete")
+     * @Route("/{id}/delete", name="admin_schedule_event_delete")
      * @Method("POST")
      */
     public function deleteAction(Request $request, $id)
@@ -236,7 +236,7 @@ class EventController extends Controller
             );
         }
 
-        return $this->redirect($this->generateUrl('admin_event'));
+        return $this->redirect($this->generateUrl('admin_schedule_event'));
     }
     
     /**

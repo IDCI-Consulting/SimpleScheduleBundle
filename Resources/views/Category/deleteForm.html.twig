@@ -1,4 +1,4 @@
-<form action="{{ path('admin_category_delete', { 'id': entity.id }) }}" method="post">
+<form action="{{ path('admin_schedule_category_delete', { 'id': entity.id }) }}" method="post">
     {{ form_widget(delete_form) }}
     <button type="submit" class="btn btn-block btn-danger">{% trans %}delete{% endtrans %}</button>
 </form>

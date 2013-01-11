@@ -8,14 +8,14 @@
   <h1>{% trans %}Event creation{% endtrans %}</h1>
 </div>
 
-<form action="{{ path('admin_event_create') }}" method="post" {{ form_enctype(form) }}>
+<form action="{{ path('admin_schedule_event_create') }}" method="post" {{ form_enctype(form) }}>
     {% include "IDCISimpleScheduleBundle:Event:form.html.twig" %}
     <button type="submit" class="btn btn-primary">{% trans %}Create{% endtrans %}</button>
 </form>
 
 <ul class="record_actions">
     <li>
-        <a class="btn" href="{{ path('admin_event') }}">
+        <a class="btn" href="{{ path('admin_schedule_event') }}">
             {% trans %}Back to the list{% endtrans %}
         </a>
     </li>

@@ -21,7 +21,7 @@
     <tfoot>
         <tr>
             <td colspan="3">
-                <form action="{{ path('admin_xproperty_add', { 'calendar_entity_id': entity.id}) }}" method="post">
+                <form action="{{ path('admin_schedule_xproperty_add', { 'calendar_entity_id': entity.id}) }}" method="post">
                     {{ form_widget(xproperty_form) }}
                     <button type="submit" class="btn btn-primary">{% trans %}Add{% endtrans %}</button>
                 </form>

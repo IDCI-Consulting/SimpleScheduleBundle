@@ -18,14 +18,14 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * Status controller.
  *
- * @Route("/admin/status")
+ * @Route("/admin/schedule/status")
  */
 class StatusController extends Controller
 {
     /**
      * Lists all Status entities.
      *
-     * @Route("/", name="admin_status")
+     * @Route("/", name="admin_schedule_status")
      * @Template()
      */
     public function indexAction(Request $request)
@@ -50,7 +50,7 @@ class StatusController extends Controller
     /**
      * Finds and displays a Status entity.
      *
-     * @Route("/{id}/show", name="admin_status_show")
+     * @Route("/{id}/show", name="admin_schedule_status_show")
      * @Template()
      */
     public function showAction($id)
@@ -73,7 +73,7 @@ class StatusController extends Controller
     /**
      * Displays a form to create a new Status entity.
      *
-     * @Route("/new", name="admin_status_new")
+     * @Route("/new", name="admin_schedule_status_new")
      * @Template()
      */
     public function newAction()
@@ -90,7 +90,7 @@ class StatusController extends Controller
     /**
      * Creates a new Status entity.
      *
-     * @Route("/create", name="admin_status_create")
+     * @Route("/create", name="admin_schedule_status_create")
      * @Method("POST")
      * @Template("IDCISimpleScheduleBundle:Status:new.html.twig")
      */
@@ -113,7 +113,7 @@ class StatusController extends Controller
                 ))
             );
 
-            return $this->redirect($this->generateUrl('admin_status_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('admin_schedule_status_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -125,7 +125,7 @@ class StatusController extends Controller
     /**
      * Displays a form to edit an existing Status entity.
      *
-     * @Route("/{id}/edit", name="admin_status_edit")
+     * @Route("/{id}/edit", name="admin_schedule_status_edit")
      * @Template()
      */
     public function editAction($id)
@@ -150,7 +150,7 @@ class StatusController extends Controller
     /**
      * Edits an existing Status entity.
      *
-     * @Route("/{id}/update", name="admin_status_update")
+     * @Route("/{id}/update", name="admin_schedule_status_update")
      * @Method("POST")
      * @Template("IDCISimpleScheduleBundle:Status:edit.html.twig")
      */
@@ -179,7 +179,7 @@ class StatusController extends Controller
                 ))
             );
 
-            return $this->redirect($this->generateUrl('admin_status_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('admin_schedule_status_edit', array('id' => $id)));
 
         }
 
@@ -193,7 +193,7 @@ class StatusController extends Controller
     /**
      * Deletes a Status entity.
      *
-     * @Route("/{id}/delete", name="admin_status_delete")
+     * @Route("/{id}/delete", name="admin_schedule_status_delete")
      * @Method("POST")
      */
     public function deleteAction(Request $request, $id)
@@ -221,7 +221,7 @@ class StatusController extends Controller
             );
         }
 
-        return $this->redirect($this->generateUrl('admin_status'));
+        return $this->redirect($this->generateUrl('admin_schedule_status'));
     }
     
     /**

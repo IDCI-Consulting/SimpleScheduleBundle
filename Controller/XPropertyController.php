@@ -16,14 +16,14 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * Event controller.
  *
- * @Route("/admin/xproperty")
+ * @Route("/admin/schedule/xproperty")
  */
 class XPropertyController extends Controller
 {
     /**
      * Add a XProperty
      *
-     * @Route("/{calendar_entity_id}/add", name="admin_xproperty_add")
+     * @Route("/{calendar_entity_id}/add", name="admin_schedule_xproperty_add")
      */
     public function addXPropertyAction(Request $request, $calendar_entity_id)
     {

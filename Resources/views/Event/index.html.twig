@@ -29,7 +29,7 @@
     <tbody>
     {% for entity in pager.currentPageResults %}
         <tr>
-            <td><a href="{{ path('admin_event_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td><a href="{{ path('admin_schedule_event_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
             <td>
                 {% for category in entity.categories %}
                 <div style="width:28px;height:28px;border:1px solid #222;background:{{ category.color }};float:left;margin-right:6px;" title="{{ category }}"></div>
@@ -46,10 +46,10 @@
             {% endif %}
             </td>
             <td>
-                <a class="btn btn-block" href="{{ path('admin_event_show', { 'id': entity.id }) }}">{% trans %}show{% endtrans %}</a>
+                <a class="btn btn-block" href="{{ path('admin_schedule_event_show', { 'id': entity.id }) }}">{% trans %}show{% endtrans %}</a>
             </td>
             <td>
-                <a class="btn btn-block btn-primary" href="{{ path('admin_event_edit', { 'id': entity.id }) }}">{% trans %}edit{% endtrans %}</a>
+                <a class="btn btn-block btn-primary" href="{{ path('admin_schedule_event_edit', { 'id': entity.id }) }}">{% trans %}edit{% endtrans %}</a>
             </td>
             <td>
                 {% render 'IDCISimpleScheduleBundle:Event:deleteForm' with { 'id': entity.id } %}
@@ -61,7 +61,7 @@
 
 <ul class="list_actions">
     <li>
-        <a class="btn btn-primary" href="{{ path('admin_event_new') }}">
+        <a class="btn btn-primary" href="{{ path('admin_schedule_event_new') }}">
             {% trans %}Create a new entry{% endtrans %}
         </a>
     </li>

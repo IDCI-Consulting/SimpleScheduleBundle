@@ -49,7 +49,7 @@ Add the following lines in the `routing.yml`:
 For the query interfaces:
 
     idci_simple_schedule:
-        resource: "@IDCISimpleScheduleBundle/Controller/QueryController.php"
+        resource: "@IDCISimpleScheduleBundle/Controller/"
         type:     annotation
 
 Add the following lines in the `config.yml`:

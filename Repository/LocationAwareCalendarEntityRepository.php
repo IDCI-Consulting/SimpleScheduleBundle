@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * 
+ * @author:  Gabriel BONDAZ <gabriel.bondaz@idci-consulting.fr>
+ * @licence: GPL
+ *
+ */
+
 namespace IDCI\Bundle\SimpleScheduleBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;

@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * 
+ * @author:  Gabriel BONDAZ <gabriel.bondaz@idci-consulting.fr>
+ * @licence: GPL
+ *
+ */
+
 namespace IDCI\Bundle\SimpleScheduleBundle\Form\EventListener;
 
 use Symfony\Component\Form\Event\DataEvent;

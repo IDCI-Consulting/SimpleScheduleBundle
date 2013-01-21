@@ -62,7 +62,7 @@ Add the following lines in the `config.yml`:
     twig:
         form:
             resources:
-                - 'IDCISimpleScheduleBundle:Form:meta_widget.html.twig'
+                - 'IDCISimpleScheduleBundle:Form:duration_widget.html.twig'
 
 TODO:
 

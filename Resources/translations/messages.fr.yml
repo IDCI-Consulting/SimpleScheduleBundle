@@ -8,6 +8,26 @@ Actions: Actions
 Create: Créer
 Back to the list: Retourner à la liste
 List: Liste
+Category: Catégorie
+Categories: Catégories
+category: catégorie
+categories: catégories
+Location: Localisation
+Locations: Localisations
+location: localisation
+locations: localisations
+Status: Statut
+status: status
+Event: Evenement
+Events: Evenements
+events: evenements
+event: evenement
+schedule: planning
+Schedule: Planning
+Event creation: création d'évenements
+Category creation: création de catégories
+Location creation: création de localisations
+Status creation: Création de statuts
 %entity% creation: création de %entity%
 %entity% edit: editer un %entity%
 %entity%[%id%] has been created: %entity%[%id%] a bien été créé

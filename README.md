@@ -9,7 +9,7 @@ Instalation
 
 To install this bundle please follow the next steps:
 
-First add the dependency to your `composer.json` file:
+First add the dependencies to your `composer.json` file:
 
     "require": {
         ...
@@ -64,12 +64,56 @@ Add the following lines in the `config.yml`:
             resources:
                 - 'IDCISimpleScheduleBundle:Form:duration_widget.html.twig'
 
-TODO:
 
- * How to use the admin provided with the bundle:
- * How to override this bundle
+The administration area
+=======================
 
-Query parameter:
+This bundle provides an administration section in order to use it quickly.
+If you would like to use it, simply point your browser at `/admin/schedule`.
+To paginate element lists, this bundle uses the well known [WhiteOctoberPagerfantaBundle](https://github.com/whiteoctober/WhiteOctoberPagerfantaBundle)
+You need to configure the `max_per_page` parameter in your `app/config/parameter.yml` file as follows:
+
+    parameters:
+        ...
+        # Pager Fanta
+        max_per_page:      20
+
+In order to secure this area, you need to edit `app/config/security.yml` as described in the [Symfony2 documentation](http://symfony.com/doc/master/book/security.html)
+This is not required for testing though it is really recommanded as a production setting.
+
+Here's a simple but effective configuration example which uses a basic in-memory user security model:
+
+    security:
+        encoders:
+            Symfony\Component\Security\Core\User\User: plaintext
+
+        role_hierarchy:
+            ROLE_ADMIN:       ROLE_USER
+            ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+        providers:
+            in_memory:
+                memory:
+                    users:
+                        admin: { password: userpass, roles: [ 'ROLE_ADMIN' ] }
+
+        firewalls:
+            dev:
+                pattern:  ^/(_(profiler|wdt)|css|images|js)/
+                security: false
+
+            secured_area:
+                pattern:    ^/admin/
+                anonymous: ~
+                http_basic:
+                    realm: "Secured Admin Area"
+
+        access_control:
+            - { path: ^/admin, roles: ROLE_ADMIN }
+
+
+Web service (REST)
+==================
 
 This bundle can be use through a web API.
 To query this api simply use this url `/api/query?[params]`
@@ -122,3 +166,9 @@ Todo ~ TER ;)
  * xproperty_namespace
  * xproperty_key
  * xproperty_value
+
+
+TODO
+====
+
+ * How to override this bundle

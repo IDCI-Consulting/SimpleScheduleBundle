@@ -21,7 +21,7 @@ class CalendarEntityRepository extends EntityRepository
      */
     public function getRelatedAvailableCalendarEntitiesQueryBuilder($entity = null)
     {
-        $qb = $this->createQueryBuilder('cer');
+        $qb = $this->getAllOrderByStartAtQueryBuilder();
 
         if($entity) {
             $ids = array();
@@ -37,8 +37,6 @@ class CalendarEntityRepository extends EntityRepository
                 ))
             ;
         }
-
-        $qb->orderBy('cer.startAt', 'ASC');
 
         return $qb;
     }
@@ -77,7 +75,10 @@ class CalendarEntityRepository extends EntityRepository
     public function getAllOrderByStartAtQueryBuilder()
     {
         $qb = $this->createQueryBuilder('cer');
-        $qb->orderBy('cer.startAt', 'ASC');
+        $qb
+            ->orderBy('cer.location', 'ASC')
+            ->addOrderBy('cer.startAt', 'ASC')
+        ;
 
         return $qb;
     }
@@ -114,9 +115,7 @@ class CalendarEntityRepository extends EntityRepository
      */
     public function queryQueryBuilder($params)
     {
-        $qb = $this->createQueryBuilder('cer');
-        $qb->orderBy('cer.startAt', 'ASC');
-
+        $qb = $this->getAllOrderByStartAtQueryBuilder();
 
         if(isset($params['id'])) {
             $qb

@@ -36,7 +36,7 @@ class EventController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('IDCISimpleScheduleBundle:Event')->findAll();
+        $entities = $em->getRepository('IDCISimpleScheduleBundle:Event')->getAllOrderByStartAt();
 
         $adapter = new ArrayAdapter($entities);
         $pager = new PagerFanta($adapter);

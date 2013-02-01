@@ -357,10 +357,10 @@ class Recur
             $bys['day'] = $this->getByDay();
         }
         if($this->getByMonthday()) {
-            $bys['month'] = $this->getByMonth();
+            $bys['monthday'] = $this->getByMonthday();
         }
         if($this->getByYearday()) {
-            $bys['year'] = $this->getByYear();
+            $bys['yearday'] = $this->getByYearday();
         }
         if($this->getByWeekno()) {
             $bys['weekno'] = $this->getByWeekno();

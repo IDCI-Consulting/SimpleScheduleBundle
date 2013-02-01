@@ -9,7 +9,7 @@
     </thead>
 
     <tbody>
-        {% for relation,entities in entity.getRelatedCalendarEntities() %}
+        {% for relation,entities in entity.getRelateds() %}
             {% for entity in entities %}
             <tr>
                 <td>{{ entity.id }}</td>

@@ -1,16 +1,16 @@
 idci_exporter:
     entities:
-        "IDCI\Bundle\SimpleScheduleBundle\Entity\Event":
+        "IDCI\\Bundle\\SimpleScheduleBundle\\Entity\Event":
             formats:
                 jsonp:
                     template_name_format: "export.json.twig"
 
-        "IDCI\Bundle\SimpleScheduleBundle\Entity\Category":
+        "IDCI\\Bundle\\SimpleScheduleBundle\\Entity\\Category":
             formats:
                 jsonp:
                     template_name_format: "export.json.twig"
 
-        "IDCI\Bundle\SimpleScheduleBundle\Entity\Location":
+        "IDCI\\Bundle\\SimpleScheduleBundle\\Entity\\Location":
             formats:
                 jsonp:
                     template_name_format: "export.json.twig"

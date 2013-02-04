@@ -23,7 +23,7 @@
         </a>
     </li>
     <li>
-        <form action="{{ path('admin_schedule_delete', { 'id': entity.id }) }}" method="post">
+        <form action="{{ path('admin_schedule_event_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
             <button type="submit" class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
         </form>

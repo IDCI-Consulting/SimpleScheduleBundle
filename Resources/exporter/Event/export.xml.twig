@@ -41,4 +41,11 @@
     <slug>{{ category.slug }}</slug>
   </category>
   {% endfor %}
+  {% for xproperty in entity.xProperties %}
+  <xproperty id="{{ xproperty.id }}" calendarEntity="{{ xproperty.calendarEntity }}">
+    <xnamespace>{{ xproperty.xNamespace }}</xnamespace>
+    <xkey>{{ xproperty.xKey }}</xkey>
+    <xvalue>{{ xproperty.xValue }}</xvalue>
+  </xproperty>
+  {% endfor %}
 </event>

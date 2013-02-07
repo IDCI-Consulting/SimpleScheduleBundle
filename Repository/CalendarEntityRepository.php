@@ -196,13 +196,38 @@ class CalendarEntityRepository extends EntityRepository
                 ->andWhere('cer.location = :location_id')
                 ->setParameter('location_id', $params['location_id'])
             ;
-        }
+        }   
 
         if(isset($params['location_ids'])) {
             $qb
                 ->andWhere($qb->expr()->in('cer.location', $params['location_ids']))
             ;
         }
+
+        if(isset($params['xproperty_namespace'])) {
+            $qb
+                ->leftJoin('cer.xProperties', 'xp')
+                ->andWhere('xp.xNamespace = :xproperty_namespace')
+                ->setParameter('xproperty_namespace', $params['xproperty_namespace'])
+            ;
+        }
+
+        if(isset($params['xproperty_key'])) {
+            $qb
+                ->leftJoin('cer.xProperties', 'xp')
+                ->andWhere('xp.xKey = :xproperty_key')
+                ->setParameter('xproperty_key', $params['xproperty_key'])
+            ;
+        }
+
+        if(isset($params['xproperty_value'])) {
+            $qb
+                ->leftJoin('cer.xProperties', 'xp')
+                ->andWhere('xp.xValue = :xproperty_value')
+                ->setParameter('xproperty_value', $params['xproperty_value'])
+            ;
+        }
+        
 
         return $qb;
     }

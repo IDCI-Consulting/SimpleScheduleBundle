@@ -53,7 +53,7 @@ class XPropertyController extends Controller
         }
 
         return $this->redirect($this->generateUrl(
-            'admin_event_edit',
+            'admin_schedule_event_edit',
             array('id' => $calendarEntity->getId())
         ));
     }

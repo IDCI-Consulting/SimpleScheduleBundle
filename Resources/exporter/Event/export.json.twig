@@ -39,6 +39,17 @@
         ,{ "id": "{{ category.id }}", "name": "{{ category.name }}", "slug": "{{ category.slug }}", "color": "{{ category.color }}" }
         {% endif %}
     {% endfor %}
+    ],
+    "xproperties":
+    [
+    {% for xproperty in entity.xProperties %}
+        {% if loop.first %}
+        { "id": "{{ xproperty.id }}","xNamespace": "{{ xproperty.xNamespace }}","xKey": "{{ xproperty.xKey }}","xValue": "{{ xproperty.xValue }}" }
+        {% else %}
+,{ "id": "{{ xproperty.id }}","xNamespace": "{{ xproperty.xNamespace }}","xKey": "{{ xproperty.xKey }}","xValue": "{{ xproperty.xValue }}" }
+        {% endif %}
+    {% endfor %}
     ]
     {% endspaceless %}
+    
 }

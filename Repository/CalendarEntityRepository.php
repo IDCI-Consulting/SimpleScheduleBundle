@@ -196,7 +196,7 @@ class CalendarEntityRepository extends EntityRepository
                 ->andWhere('cer.location = :location_id')
                 ->setParameter('location_id', $params['location_id'])
             ;
-        }   
+        }
 
         if(isset($params['location_ids'])) {
             $qb
@@ -227,7 +227,6 @@ class CalendarEntityRepository extends EntityRepository
                 ->setParameter('xproperty_value', $params['xproperty_value'])
             ;
         }
-        
 
         return $qb;
     }

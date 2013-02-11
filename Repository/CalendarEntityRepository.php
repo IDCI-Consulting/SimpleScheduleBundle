@@ -117,7 +117,7 @@ class CalendarEntityRepository extends EntityRepository
     /**
      * extractQueryBuilder
      *
-     * @param array Parameters
+     * @param array $params
      * @return QueryBuilder
      */
     public function extractQueryBuilder($params)
@@ -234,7 +234,7 @@ class CalendarEntityRepository extends EntityRepository
     /**
      * extractQuery
      *
-     * @param array Parameters
+     * @param array $params
      * @return Query
      */
     public function extractQuery($params)
@@ -247,7 +247,7 @@ class CalendarEntityRepository extends EntityRepository
     /**
      * extract
      *
-     * @param array Parameters
+     * @param array $params
      * @return DoctrineCollection
      */
     public function extract($params)

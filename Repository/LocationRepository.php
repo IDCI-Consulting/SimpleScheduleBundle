@@ -59,7 +59,7 @@ class LocationRepository extends EntityRepository
     /**
      * extractQueryBuilder
      *
-     * @param array Parameters
+     * @param array $params
      * @return QueryBuilder
      */
     public function extractQueryBuilder($params)
@@ -85,7 +85,7 @@ class LocationRepository extends EntityRepository
     /**
      * extractQuery
      *
-     * @param array Parameters
+     * @param array $params
      * @return Query
      */
     public function extractQuery($params)
@@ -98,7 +98,7 @@ class LocationRepository extends EntityRepository
     /**
      * extract
      *
-     * @param array Parameters
+     * @param array $params
      * @return DoctrineCollection
      */
     public function extract($params)

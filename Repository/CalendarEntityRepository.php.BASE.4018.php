@@ -204,55 +204,31 @@ class CalendarEntityRepository extends EntityRepository
             ;
         }
 
-        if(isset($params['xproperty_namespace'])) {
-            $qb
-                ->leftJoin('cer.xProperties', 'xp')
-                ->andWhere('xp.xNamespace = :xproperty_namespace')
-                ->setParameter('xproperty_namespace', $params['xproperty_namespace'])
-            ;
-        }
-
-        if(isset($params['xproperty_key'])) {
-            $qb
-                ->leftJoin('cer.xProperties', 'xp')
-                ->andWhere('xp.xKey = :xproperty_key')
-                ->setParameter('xproperty_key', $params['xproperty_key'])
-            ;
-        }
-
-        if(isset($params['xproperty_value'])) {
-            $qb
-                ->leftJoin('cer.xProperties', 'xp')
-                ->andWhere('xp.xValue = :xproperty_value')
-                ->setParameter('xproperty_value', $params['xproperty_value'])
-            ;
-        }
-
         return $qb;
     }
 
     /**
-     * extractQuery
+     * queryQuery
      *
-     * @param array $params
+     * @param array Parameters
      * @return Query
      */
-    public function extractQuery($params)
+    public function queryQuery($params)
     {
-        $qb = $this->extractQueryBuilder($params);
+        $qb = $this->queryQueryBuilder($params);
 
         return is_null($qb) ? $qb : $qb->getQuery();
     }
 
     /**
-     * extract
+     * query
      *
-     * @param array $params
+     * @param array Parameters
      * @return DoctrineCollection
      */
-    public function extract($params)
+    public function query($params)
     {
-        $q = $this->extractQuery($params);
+        $q = $this->queryQuery($params);
 
         return is_null($q) ? array() : $q->getResult();
     }

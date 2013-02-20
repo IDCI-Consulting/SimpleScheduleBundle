@@ -115,12 +115,12 @@ class CalendarEntityRepository extends EntityRepository
     }
 
     /**
-     * queryQueryBuilder
+     * extractQueryBuilder
      *
-     * @param array Parameters
+     * @param array $params
      * @return QueryBuilder
      */
-    public function queryQueryBuilder($params)
+    public function extractQueryBuilder($params)
     {
         $qb = $this->getAllOrderByStartAtQueryBuilder();
 
@@ -227,6 +227,7 @@ class CalendarEntityRepository extends EntityRepository
                 ->setParameter('xproperty_value', $params['xproperty_value'])
             ;
         }
+        
 
         return $qb;
     }

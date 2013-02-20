@@ -12,6 +12,14 @@
     {{ pagerfanta(pager, 'twitter_bootstrap') }}
 </p>
 
+<ul class="list_actions">
+    <li>
+        <a class="btn btn-primary" href="{{ path('admin_schedule_status_new') }}">
+            {% trans %}Create a new entry{% endtrans %}
+        </a>
+    </li>
+</ul>
+
 <table class="table table-bordered table-striped table-condensed records_list">
     <thead>
         <tr>

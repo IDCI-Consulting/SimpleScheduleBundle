@@ -1,16 +1,42 @@
 idci_exporter:
+    api_route: "/api/{entity_reference}.{_format}"
     entities:
-        "IDCI\\Bundle\\SimpleScheduleBundle\\Entity\Event":
+        schedule_event:
+            class: "IDCI\\Bundle\\SimpleScheduleBundle\\Entity\\Event"
             formats:
                 jsonp:
-                    template_name_format: "export.json.twig"
+                    transformer:
+#                        service: "idci_exporter.transformer_twig"
+                        options:
+#                            template_path:
+                            template_name_format: "export.json.twig"
 
-        "IDCI\\Bundle\\SimpleScheduleBundle\\Entity\\Category":
+        schedule_category:
+            class: "IDCI\\Bundle\\SimpleScheduleBundle\\Entity\\Category"
             formats:
                 jsonp:
-                    template_name_format: "export.json.twig"
+                    transformer:
+#                        service: "idci_exporter.transformer_twig"
+                        options:
+#                            template_path:
+                            template_name_format: "export.json.twig"
 
-        "IDCI\\Bundle\\SimpleScheduleBundle\\Entity\\Location":
+        schedule_location:
+            class: "IDCI\\Bundle\\SimpleScheduleBundle\\Entity\\Location"
             formats:
                 jsonp:
-                    template_name_format: "export.json.twig"
+                    transformer:
+#                        service: "idci_exporter.transformer_twig"
+                        options:
+#                            template_path:
+                            template_name_format: "export.json.twig"
+
+        schedule_xproperty:
+            class: "IDCI\\Bundle\\SimpleScheduleBundle\\Entity\\XProperty"
+            formats:
+                jsonp:
+                    transformer:
+#                        service: "idci_exporter.transformer_twig"
+                        options:
+#                            template_path:
+                            template_name_format: "export.json.twig"

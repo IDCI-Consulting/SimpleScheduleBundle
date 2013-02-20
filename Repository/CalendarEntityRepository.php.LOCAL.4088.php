@@ -196,7 +196,7 @@ class CalendarEntityRepository extends EntityRepository
                 ->andWhere('cer.location = :location_id')
                 ->setParameter('location_id', $params['location_id'])
             ;
-        }
+        }   
 
         if(isset($params['location_ids'])) {
             $qb
@@ -227,32 +227,33 @@ class CalendarEntityRepository extends EntityRepository
                 ->setParameter('xproperty_value', $params['xproperty_value'])
             ;
         }
+        
 
         return $qb;
     }
 
     /**
-     * extractQuery
+     * queryQuery
      *
-     * @param array $params
+     * @param array Parameters
      * @return Query
      */
-    public function extractQuery($params)
+    public function queryQuery($params)
     {
-        $qb = $this->extractQueryBuilder($params);
+        $qb = $this->queryQueryBuilder($params);
 
         return is_null($qb) ? $qb : $qb->getQuery();
     }
 
     /**
-     * extract
+     * query
      *
-     * @param array $params
+     * @param array Parameters
      * @return DoctrineCollection
      */
-    public function extract($params)
+    public function query($params)
     {
-        $q = $this->extractQuery($params);
+        $q = $this->queryQuery($params);
 
         return is_null($q) ? array() : $q->getResult();
     }

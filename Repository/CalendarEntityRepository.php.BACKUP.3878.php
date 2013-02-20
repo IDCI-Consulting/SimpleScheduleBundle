@@ -115,12 +115,12 @@ class CalendarEntityRepository extends EntityRepository
     }
 
     /**
-     * queryQueryBuilder
+     * extractQueryBuilder
      *
-     * @param array Parameters
+     * @param array $params
      * @return QueryBuilder
      */
-    public function queryQueryBuilder($params)
+    public function extractQueryBuilder($params)
     {
         $qb = $this->getAllOrderByStartAtQueryBuilder();
 
@@ -196,7 +196,7 @@ class CalendarEntityRepository extends EntityRepository
                 ->andWhere('cer.location = :location_id')
                 ->setParameter('location_id', $params['location_id'])
             ;
-        }
+        }   
 
         if(isset($params['location_ids'])) {
             $qb
@@ -227,6 +227,10 @@ class CalendarEntityRepository extends EntityRepository
                 ->setParameter('xproperty_value', $params['xproperty_value'])
             ;
         }
+<<<<<<< HEAD
+        
+=======
+>>>>>>> 7cb373a5196bae44795fde5abb78d2eff13d064d
 
         return $qb;
     }

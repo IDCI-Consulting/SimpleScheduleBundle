@@ -244,7 +244,6 @@ class Category
         return $this->name;
     }
 
-
     /**
      * Set slug
      *

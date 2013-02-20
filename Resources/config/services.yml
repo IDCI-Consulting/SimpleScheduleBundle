@@ -38,7 +38,3 @@ services:
         class: IDCI\Bundle\SimpleScheduleBundle\Form\Type\DurationType
         tags:
             - { name: form.type, alias: duration }
-
-    idci_simpleschedule.manager:
-        class: IDCI\Bundle\SimpleScheduleBundle\Service\Manager
-        arguments: [@service_container]

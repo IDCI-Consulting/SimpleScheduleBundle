@@ -39,7 +39,7 @@ public function registerBundles()
         // ...
         new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
         new IDCI\Bundle\ExporterBundle\IDCIExporterBundle(),
-        new IDCI\Bundle\SimpleScheduleBundle\IDCISimpleScheduleBundle()
+        new IDCI\Bundle\SimpleScheduleBundle\IDCISimpleScheduleBundle(),
     );
 }
 ```

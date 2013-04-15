@@ -58,7 +58,7 @@ For the query interfaces:
 
 ```yml
 idci_simple_schedule:
-    resource: "@IDCISimpleScheduleBundle/Controller/"
+    resource: "../../vendor/idci/simple-schedule-bundle/IDCI/Bundle/SimpleScheduleBundle/Controller"
     type:     annotation
 ```
 

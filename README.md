@@ -54,22 +54,16 @@ php app/console doctrine:schema:update --force
 
 Add the following lines in the `routing.yml`:
 
-For the query interfaces:
-
 ```yml
 idci_simple_schedule:
     resource: "../../vendor/idci/simple-schedule-bundle/IDCI/Bundle/SimpleScheduleBundle/Controller"
     type:     annotation
+    prefix:   /admin
 ```
 
 Add the following lines in the `config.yml`:
 
 ```yml
-imports:
-    - { resource: @IDCISimpleScheduleBundle/Resources/config/config.yml }
-
-...
-
 twig:
     form:
         resources:
@@ -132,6 +126,16 @@ Web service (REST)
 ==================
 
 This bundle can be use through a web API.
+
+For this you have to install [IDCIExporterBundle](https://github.com/IDCI-Consulting/ExporterBundle)
+and add the following lines in the `config.yml`:
+
+```yml
+imports:
+    ...
+    - { resource: @IDCISimpleScheduleBundle/Resources/config/config.yml }
+```
+
 To query this api simply use this url `/api/query?[params]`
 
 The main parameters are:

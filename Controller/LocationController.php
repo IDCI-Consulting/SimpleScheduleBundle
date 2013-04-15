@@ -25,7 +25,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * Location controller.
  *
- * @Route("/admin/schedule/location")
+ * @Route("/schedule/location")
  */
 class LocationController extends Controller
 {

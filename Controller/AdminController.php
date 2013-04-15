@@ -18,7 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * Admin controller.
  *
- * @Route("/admin/schedule")
+ * @Route("/schedule")
  */
 class AdminController extends Controller
 {

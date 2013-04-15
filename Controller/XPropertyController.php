@@ -23,7 +23,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * Event controller.
  *
- * @Route("/admin/schedule/xproperty")
+ * @Route("/schedule/xproperty")
  */
 class XPropertyController extends Controller
 {

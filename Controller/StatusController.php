@@ -25,7 +25,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * Status controller.
  *
- * @Route("/admin/schedule/status")
+ * @Route("/schedule/status")
  */
 class StatusController extends Controller
 {

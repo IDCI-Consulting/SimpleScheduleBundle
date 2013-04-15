@@ -30,7 +30,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * Event controller.
  *
- * @Route("/admin/schedule/event")
+ * @Route("/schedule/event")
  */
 class EventController extends Controller
 {

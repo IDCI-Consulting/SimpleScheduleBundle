@@ -22,7 +22,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * Event controller.
  *
- * @Route("/admin/schedule/relation")
+ * @Route("/schedule/relation")
  */
 class CalendarEntityRelationController extends Controller
 {

@@ -14,10 +14,10 @@ First add the dependencies to your `composer.json` file:
 ```json
 "require": {
     ...
-    "pagerfanta/pagerfanta":           "dev-master",
+    "pagerfanta/pagerfanta": "dev-master",
     "white-october/pagerfanta-bundle": "dev-master",
-    "idci/exporter-bundle":            "dev-master",
-    "idci/simple-schedule-bundle":     "dev-master"
+    "idci/exporter-bundle": "dev-master",
+    "idci/simple-schedule-bundle": "2.1.*@dev"
 },
 ```
 

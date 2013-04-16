@@ -2,8 +2,8 @@
 
 {% block stylesheets %}
 {{ parent() }}
-    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/bootstrap.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/bootstrap-responsive.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/idcisimpleschedule/css/style.css') }}" />
     <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 {% endblock %}
@@ -39,5 +39,5 @@
 
 {% block javascripts %}
 {{ parent() }}
-    <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
 {% endblock %}

@@ -17,7 +17,7 @@
         "twig/twig": "*",
         "doctrine/doctrine-bundle": "*",
         "pagerfanta/pagerfanta": "dev-master",
-        "white-october/pagerfanta-bundle": "dev-master"
+        "white-october/pagerfanta-bundle": "2.1.x-dev"
     },
     "suggest": {
         "idci/exporter-bundle": "dev-master"

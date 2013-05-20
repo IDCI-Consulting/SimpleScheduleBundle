@@ -4,7 +4,7 @@ SimpleScheduleBundle
 A simple Schedule Bundle for Symfony2
 
 
-Instalation
+Installation
 ===========
 
 To install this bundle please follow the next steps:

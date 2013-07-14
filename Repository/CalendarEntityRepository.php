@@ -227,6 +227,34 @@ class CalendarEntityRepository extends EntityRepository
                 ->setParameter('xproperty_value', $params['xproperty_value'])
             ;
         }
+        
+
+        if(isset($params['parent_id'])) {
+            $qb
+                ->leftJoin('cer.relateds', 'pid')
+                ->andWhere('pid.relatedTo = :parent_id')
+                ->andWhere("pid.relationType = 'CHILD'")
+                ->setParameter('parent_id', $params['parent_id'])
+            ;
+        }
+
+        if(isset($params['child_id'])) {
+            $qb
+                ->leftJoin('cer.relateds', 'pid')
+                ->andWhere('pid.relatedTo = :child_id')
+                ->andWhere("pid.relationType = 'PARENT'")
+                ->setParameter('child_id', $params['child_id'])
+            ;
+        }
+
+
+        if(isset($params['location_name'])) {
+            $qb
+                ->leftJoin('cer.location', 'lct')
+                ->andWhere('lct.name = :location_name')
+                ->setParameter('location_name', $params['location_name'])
+            ;
+        }
 
         return $qb;
     }
@@ -239,7 +267,7 @@ class CalendarEntityRepository extends EntityRepository
      */
     public function extractQuery($params)
     {
-        $qb = $this->extractQueryBuilder($params);
+        $qb = $this->queryQueryBuilder($params);
 
         return is_null($qb) ? $qb : $qb->getQuery();
     }

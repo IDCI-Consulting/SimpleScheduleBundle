@@ -60,7 +60,7 @@
                 <a class="btn btn-block btn-primary" href="{{ path('admin_schedule_event_edit', { 'id': entity.id }) }}">{% trans %}edit{% endtrans %}</a>
             </td>
             <td>
-                {% render 'IDCISimpleScheduleBundle:Event:deleteForm' with { 'id': entity.id } %}
+                {% render(controller('IDCISimpleScheduleBundle:Event:deleteForm',{ 'id': entity.id })) %} 
             </td>
         </tr>
     {% endfor %}

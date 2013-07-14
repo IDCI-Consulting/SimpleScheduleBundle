@@ -42,8 +42,8 @@
                     <a class="btn btn-block" href="{{ path('admin_schedule_location_show', { 'id': entity.id }) }}">{% trans %}show{% endtrans %}</a>
             </td>    <td>
                     <a class="btn btn-block btn-primary" href="{{ path('admin_schedule_location_edit', { 'id': entity.id }) }}">{% trans %}edit{% endtrans %}</a>
-            </td>    <td>
-                    {% render 'IDCISimpleScheduleBundle:Location:deleteForm' with { 'id': entity.id } %}
+            </td>    <td> 
+      {% render(controller('IDCISimpleScheduleBundle:Location:deleteForm',{ 'id': entity.id })) %}
             </td>
         </tr>
     {% endfor %}

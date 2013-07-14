@@ -18,7 +18,7 @@
     "excluded_dates": "{{ entity.excludedDates }}",
     "included_dates": "{{ entity.includedDates }}",
     "classification": "{{ entity.classification }}",
-    "r_rule": {% autoescape false %}{{ entity.includedRule }}{% endautoescape %},
+    "r_rule": "{% autoescape false %}{{ entity.includedRule }}{% endautoescape %}",
     "location":
     {
         "id": "{{ entity.location.id }}",

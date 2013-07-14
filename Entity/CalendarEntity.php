@@ -32,7 +32,7 @@ use IDCI\Bundle\SimpleScheduleBundle\Entity\CalendarEntityRelation;
  *     "locationAwareCalendarEntities"="LocationAwareCalendarEntity",
  *     "event"="Event",
  *     "todo"="Todo",
- *     "journal"="Journal"
+ *     "journal"="Journal",
  * })
  */
 class CalendarEntity

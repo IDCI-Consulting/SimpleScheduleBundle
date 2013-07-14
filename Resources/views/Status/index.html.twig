@@ -36,10 +36,12 @@
             <td>{{ entity.value }}</td>
             <td>{{ entity.discr }}</td>    <td>
                     <a class="btn btn-block" href="{{ path('admin_schedule_status_show', { 'id': entity.id }) }}">{% trans %}show{% endtrans %}</a>
-            </td>    <td>
+            </td>    
+            <td>
                     <a class="btn btn-block btn-primary" href="{{ path('admin_schedule_status_edit', { 'id': entity.id }) }}">{% trans %}edit{% endtrans %}</a>
-            </td>    <td>
-                    {% render 'IDCISimpleScheduleBundle:Status:deleteForm' with { 'id': entity.id } %}
+            </td>    
+            <td> 
+                {% render(controller('IDCISimpleScheduleBundle:Status:deleteForm',{ 'id': entity.id })) %}
             </td>
         </tr>
     {% endfor %}
